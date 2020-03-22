@@ -40,3 +40,10 @@ Resources:
       DBClusterIdentifier: !Ref Cluster
       PubliclyAccessible: true
       DBSubnetGroupName: !ImportValue cfn-utilities:DBSubnetGroupName
+
+Outputs:
+  ClusterAddress:
+    Value: !GetAtt Cluster.Endpoint.Address
+    Description: Hostname for the multi-tenant database cluster
+    Export:
+      Name: !Sub ${AWS::StackName}:ClusterAddress
