@@ -8,5 +8,5 @@ for file in $(ls ${cwd}/params/*.json); do
     
     config={}
     config=$(echo $config | jq --argjson params "$params" '.Parameters=$params')
-    echo $config > ${envName}.config.json
+    echo $config > mutedac.${envName}.config.json
 done
