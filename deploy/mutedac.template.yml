@@ -1,0 +1,29 @@
+Description: Mutedac (Multi-Tenant Database Cluster)
+Parameters:
+  MasterUsername:
+    Type: String
+    Description: Master username for the database cluster
+
+  MasterPassword:
+    Type: String
+    Description: Master password for the database cluster
+    
+Resources:
+  DecryptedMasterPassword:
+    Type: Custom::Secret
+    Properties:
+      ServiceToken: !Sub 
+        - arn:aws:lambda:${AWS::Region}:${MasterAccountId}:function:Secret
+        - MasterAccountId: !ImportValue cfn-utilities:MasterAccountId
+      Ciphertext: !Ref MasterPassword
+
+  Cluster:
+    Type: AWS::RDS::DBCluster
+    Properties:
+      Engine: aurora-mysql
+      EngineVersion: 5.7.mysql_aurora.2.04.6
+      DBClusterParameterGroupName: default.aurora-mysql5.7
+      MasterUsername: !Ref MasterUsername
+      MasterUserPassword: !GetAtt DecryptedMasterPassword.Plaintext
+      BackupRetentionPeriod: 10
+    DeletionPolicy: Snapshot

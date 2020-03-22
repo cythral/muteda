@@ -1,0 +1,21 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      docker: 18
+  
+  pre_build:
+    commands:
+      - $(aws ecr get-login --no-include-email)
+
+  build:
+    commands:
+      - cfn-lint deploy/mutedac.template.yml
+      - ./deploy/create-config-files.sh
+      - exit 1
+
+artifacts:
+  discard-paths: yes
+  files:
+    - "deploy/mutedac.template.yml"
+    - "mutedac.*.config.json"
