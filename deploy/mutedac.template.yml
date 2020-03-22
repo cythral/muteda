@@ -27,7 +27,6 @@ Resources:
       MasterUserPassword: !GetAtt DecryptedMasterPassword.Plaintext
       BackupRetentionPeriod: 10
       DBSubnetGroupName: !ImportValue cfn-utilities:DBSubnetGroupName
-      EnableIAMDatabaseAuthentication: true
       VpcSecurityGroupIds:
         - !ImportValue cfn-utilities:DatabaseSecurityGroupId
     DeletionPolicy: Snapshot
