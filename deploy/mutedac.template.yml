@@ -38,5 +38,5 @@ Resources:
       Engine: aurora-mysql
       DBInstanceClass: db.t2.small
       DBClusterIdentifier: !Ref Cluster
-      PubliclyAccessible: 'true'
+      PubliclyAccessible: true
       DBSubnetGroupName: !ImportValue cfn-utilities:DBSubnetGroupName
