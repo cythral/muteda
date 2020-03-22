@@ -26,4 +26,17 @@ Resources:
       MasterUsername: !Ref MasterUsername
       MasterUserPassword: !GetAtt DecryptedMasterPassword.Plaintext
       BackupRetentionPeriod: 10
+      DBSubnetGroupName: !ImportValue cfn-utilities:DBSubnetGroupName
+      VpcSecurityGroupIds:
+        - !ImportValue cfn-utilities:DatabaseSecurityGroupId
     DeletionPolicy: Snapshot
+    UpdateReplacePolicy: Snapshot
+
+  PrimaryInstance:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      Engine: aurora-mysql
+      DBInstanceClass: db.t2.small
+      DBClusterIdentifier: !Ref Cluster
+      PubliclyAccessible: 'true'
+      DBSubnetGroupName: !ImportValue cfn-utilities:DBSubnetGroupName

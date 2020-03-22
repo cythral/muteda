@@ -12,7 +12,6 @@ phases:
     commands:
       - cfn-lint deploy/mutedac.template.yml
       - ./deploy/create-config-files.sh
-      - exit 1
 
 artifacts:
   discard-paths: yes
