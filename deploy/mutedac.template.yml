@@ -41,6 +41,15 @@ Resources:
       PubliclyAccessible: true
       DBSubnetGroupName: !ImportValue cfn-utilities:DBSubnetGroupName
 
+  TargetGroup:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      TargetType: ip
+      Protocol: TCP
+      HealthCheckProtocol: TCP
+      Port: 3306
+      VpcId: !ImportValue cfn-utilities:VpcId
+
 Outputs:
   ClusterAddress:
     Value: !GetAtt Cluster.Endpoint.Address
