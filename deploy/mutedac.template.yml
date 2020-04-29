@@ -7,20 +7,12 @@ Parameters:
   MasterPassword:
     Type: String
     Description: Master password for the database cluster
-
-  Image:
-    Type: String
-    Description: Docker Image uri to pull
-
-  DomainName:
-    Type: String
-    Description: Domain name to use for mutedac
-
+    
 Resources:
   DecryptedMasterPassword:
     Type: Custom::Secret
     Properties:
-      ServiceToken: !Sub
+      ServiceToken: !Sub 
         - arn:aws:lambda:${AWS::Region}:${MasterAccountId}:function:Secret
         - MasterAccountId: !ImportValue cfn-utilities:MasterAccountId
       Ciphertext: !Ref MasterPassword
@@ -49,20 +41,6 @@ Resources:
       PubliclyAccessible: true
       DBSubnetGroupName: !ImportValue cfn-utilities:DBSubnetGroupName
 
-  ListenerRule:
-    Type: AWS::ElasticLoadBalancingV2::ListenerRule
-    Properties:
-      ListenerArn: !ImportValue cfn-utilities:HttpListenerArn
-      Priority: 3
-      Actions:
-        - Type: forward
-          TargetGroupArn: !Ref TargetGroup
-      Conditions:
-        - Field: host-header
-          HostHeaderConfig:
-            Values:
-              - !Ref DomainName
-
   TargetGroup:
     Type: AWS::ElasticLoadBalancingV2::TargetGroup
     Properties:
@@ -71,83 +49,6 @@ Resources:
       HealthCheckProtocol: TCP
       Port: 3306
       VpcId: !ImportValue cfn-utilities:VpcId
-
-  ECSCluster:
-    Type: AWS::ECS::Cluster
-    Properties:
-      ClusterName: mutedac
-
-  StarterService:
-    Type: AWS::ECS::Service
-    Properties:
-      Cluster: !Ref ECSCluster
-      LaunchType: FARGATE
-      EnableECSManagedTags: true
-      PropagateTags: TASK_DEFINITION
-      NetworkConfiguration:
-        AwsvpcConfiguration:
-          Subnets: !Split
-            - ","
-            - !ImportValue cfn-utilities:SubnetIds
-          SecurityGroups:
-            - !ImportValue cfn-utilities:WebSecurityGroupId
-          AssignPublicIp: ENABLED
-      LoadBalancers:
-        - ContainerName: primary
-          ContainerPort: 3306
-          TargetGroupArn: !Ref TargetGroup
-      TaskDefinition: !Ref TaskDefinition
-      DesiredCount: 1
-      DeploymentConfiguration:
-        MinimumHealthyPercent: 1
-        MaximumPercent: 200
-
-  TaskDefinition:
-    Type: AWS::ECS::TaskDefinition
-    Properties:
-      Family: mutedac
-      Cpu: 256
-      Memory: 512
-      NetworkMode: awsvpc
-      ExecutionRoleArn: !GetAtt TaskRole.Arn
-      TaskRoleArn: !GetAtt TaskRole.Arn
-      RequiresCompatibilities:
-        - FARGATE
-      ContainerDefinitions:
-        - Name: primary
-          Essential: true
-          Image: !Ref Image
-          PortMappings:
-            - ContainerPort: 3306
-          LogConfiguration:
-            LogDriver: awslogs
-            Options:
-              awslogs-group: !Ref LogGroup
-              awslogs-region: !Ref AWS::Region
-              awslogs-stream-prefix: !Ref AWS::StackName
-          Environment:
-            - Name: RDS_CLUSTER_IDENTIFIER
-              Value: !Ref Cluster
-
-  TaskRole:
-    Type: AWS::IAM::Role
-    Properties:
-      ManagedPolicyArns:
-        - arn:aws:iam::aws:policy/CloudWatchLogsFullAccess
-        - arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceforEC2Role
-        - !ImportValue cfn-utilities:SecretsKeyDecryptPolicyArn
-      AssumeRolePolicyDocument:
-        Version: 2012-10-17
-        Statement:
-          - Effect: Allow
-            Action: sts:AssumeRole
-            Principal:
-              Service: ecs-tasks.amazonaws.com
-
-  LogGroup:
-    Type: AWS::Logs::LogGroup
-    Properties:
-      RetentionInDays: 14
 
 Outputs:
   ClusterAddress:

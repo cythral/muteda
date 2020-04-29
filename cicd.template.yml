@@ -18,38 +18,6 @@ Parameters:
     Description: Name of the github branch to track
 
 Resources:
-  DevDnsRecords:
-    Type: AWS::Route53::RecordSetGroup
-    Properties:
-      HostedZoneId: !ImportValue cfn-dns:HostedZoneId
-      RecordSets:
-        - Name: mutedac.dev.brigh.id
-          Type: A
-          AliasTarget:
-            HostedZoneId: !ImportValue cfn-core:LoadBalancerCanonicalHostedZoneId
-            DNSName: !ImportValue cfn-core:LoadBalancerDnsName
-        - Name: mutedac.dev.brigh.id
-          Type: AAAA
-          AliasTarget:
-            HostedZoneId: !ImportValue cfn-core:LoadBalancerCanonicalHostedZoneId
-            DNSName: !ImportValue cfn-core:LoadBalancerDnsName
-
-  ProdDnsRecords:
-    Type: AWS::Route53::RecordSetGroup
-    Properties:
-      HostedZoneId: !ImportValue cfn-dns:HostedZoneId
-      RecordSets:
-        - Name: mutedac.brigh.id
-          Type: A
-          AliasTarget:
-            HostedZoneId: !ImportValue cfn-core:LoadBalancerCanonicalHostedZoneId
-            DNSName: !ImportValue cfn-core:LoadBalancerDnsName
-        - Name: mutedac.brigh.id
-          Type: AAAA
-          AliasTarget:
-            HostedZoneId: !ImportValue cfn-core:LoadBalancerCanonicalHostedZoneId
-            DNSName: !ImportValue cfn-core:LoadBalancerDnsName
-
   ArtifactStore:
     Type: AWS::S3::Bucket
 
@@ -70,7 +38,7 @@ Resources:
                 - !Ref AWS::AccountId
                 - !ImportValue cfn-metadata:DevAgentRoleArn
                 - !ImportValue cfn-metadata:ProdAgentRoleArn
-
+  
   DockerRepo:
     Type: AWS::ECR::Repository
     Properties:
@@ -128,11 +96,11 @@ Resources:
   Pipeline:
     Type: AWS::CodePipeline::Pipeline
     Properties:
-      Name: !Sub ${AWS::StackName}-pipeline
+      Name: !Sub ${AWS::StackName}-pipeline 
       ArtifactStore:
         Type: S3
         Location: !Ref ArtifactStore
-        EncryptionKey:
+        EncryptionKey: 
           Id: !ImportValue cfn-utilities:ArtifactKeyArn
           Type: KMS
       RoleArn: !ImportValue cfn-utilities:MasterRoleArn
@@ -189,7 +157,7 @@ Resources:
         - Name: Prod
           Actions:
             - Name: Approve
-              ActionTypeId:
+              ActionTypeId: 
                 Category: Approval
                 Owner: AWS
                 Provider: Manual
