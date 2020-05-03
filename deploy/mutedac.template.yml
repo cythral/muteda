@@ -7,7 +7,14 @@ Parameters:
   MasterPassword:
     Type: String
     Description: Master password for the database cluster
-    
+
+  EnableDatabaseStopping:
+    Type: String
+    Description: Whether or not to allow the database to be stopped when it is inactive
+    AllowedValues:
+      - "true"
+      - "false"
+
 Resources:
   DecryptedMasterPassword:
     Type: Custom::Secret
@@ -29,6 +36,9 @@ Resources:
       DBSubnetGroupName: !ImportValue cfn-utilities:DBSubnetGroupName
       VpcSecurityGroupIds:
         - !ImportValue cfn-utilities:DatabaseSecurityGroupId
+      Tags:
+        - Key: ENABLE_DATABASE_STOPPING
+          Value: !Ref EnableDatabaseStopping
     DeletionPolicy: Snapshot
     UpdateReplacePolicy: Snapshot
 
