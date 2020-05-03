@@ -1,4 +1,5 @@
 {
     "MasterUsername": "cythral",
-    "MasterPassword": "AQICAHh4uPV0nEVcHa3p2SypoTWL5pD0GFaoWYwOD6EQxbjUgAG1h4jNlgc9WZTnxzxY8VaZAAAAcjBwBgkqhkiG9w0BBwagYzBhAgEAMFwGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMiXvRK8sH4o8nouaPAgEQgC9GHTp4N48iOTZ3kXE73V/vZJ0KrjJMG3biWRlpXjtw5mxnSYek04sq2DzQAJfJGw=="
+    "MasterPassword": "AQICAHh4uPV0nEVcHa3p2SypoTWL5pD0GFaoWYwOD6EQxbjUgAG1h4jNlgc9WZTnxzxY8VaZAAAAcjBwBgkqhkiG9w0BBwagYzBhAgEAMFwGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMiXvRK8sH4o8nouaPAgEQgC9GHTp4N48iOTZ3kXE73V/vZJ0KrjJMG3biWRlpXjtw5mxnSYek04sq2DzQAJfJGw==",
+    "EnableDatabaseStopping": "true"
 }
