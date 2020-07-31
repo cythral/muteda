@@ -23,7 +23,7 @@ namespace Mutedac.StartDatabase
             this.rdsClient = rdsClient;
         }
 
-        public async Task<StartDatabaseResponse> Handle(StartDatabaseRequest request, ILambdaContext? context = default)
+        public async Task<StartDatabaseResponse> Handle(StartDatabaseRequest request, ILambdaContext context = default!)
         {
             var startResponse = await rdsClient.StartDBClusterAsync(new StartDBClusterRequest
             {
