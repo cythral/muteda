@@ -58,7 +58,7 @@ Resources:
       Handler: Mutedac.StartDatabase::Mutedac.StartDatabase.StartDatabaseHandler::Run
       Runtime: dotnetcore3.1
       Timeout: 30
-      CodeUri: ../../bin/Mutedac.StartDatabase/Release/netcoreapp3.1/publish/
+      CodeUri: ../bin/Mutedac.StartDatabase/Release/netcoreapp3.1/publish/
       MemorySize: 512
       Policies:
         - AWSLambdaExecute
