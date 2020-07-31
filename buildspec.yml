@@ -3,7 +3,8 @@ phases:
   install:
     runtime-versions:
       docker: 18
-  
+      dotnet: 3.1
+
   pre_build:
     commands:
       - $(aws ecr get-login --no-include-email)
@@ -11,8 +12,18 @@ phases:
 
   build:
     commands:
-      - cfn-lint deploy/mutedac.template.yml
+      - dotnet publish -c Release
+
       - ./deploy/create-config-files.sh
+      - mv deploy/mutedac.template.yml deploy/mutedac.template.yml.bak
+      - |
+        aws cloudformation package \
+          --template-file deploy/mutedac.template.yml.bak \
+          --output-template-file deploy/mutedace.template.yml \
+          --s3-bucket $ARTIFACT_STORE \
+          --s3-prefix lambdas
+
+      - cfn-lint deploy/mutedac.template.yml
 
 artifacts:
   discard-paths: yes

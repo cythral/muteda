@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Amazon.Lambda.Serialization.SystemTextJson" Version="2.0.1" />
+    <PackageReference Include="AWSSDK.RDS" Version="3.3.127.2" />
+    <PackageReference Include="Lambdajection" Version="0.1.5-alpha" />
+  </ItemGroup>
+
+</Project>

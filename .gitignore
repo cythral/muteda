@@ -1,1 +1,5 @@
+bin/
+obj/
+.nuget/
 .ionide
+.fake

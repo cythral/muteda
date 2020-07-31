@@ -1,4 +1,5 @@
 Description: Mutedac (Multi-Tenant Database Cluster)
+Transform: AWS::Serverless-2016-10-31
 Parameters:
   MasterUsername:
     Type: String
@@ -19,7 +20,7 @@ Resources:
   DecryptedMasterPassword:
     Type: Custom::Secret
     Properties:
-      ServiceToken: !Sub 
+      ServiceToken: !Sub
         - arn:aws:lambda:${AWS::Region}:${MasterAccountId}:function:Secret
         - MasterAccountId: !ImportValue cfn-utilities:MasterAccountId
       Ciphertext: !Ref MasterPassword
@@ -50,6 +51,17 @@ Resources:
       DBClusterIdentifier: !Ref Cluster
       PubliclyAccessible: true
       DBSubnetGroupName: !ImportValue cfn-utilities:DBSubnetGroupName
+
+  StartDatabaseFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: Mutedac.StartDatabase::Mutedac.StartDatabase.StartDatabaseHandler::Run
+      Runtime: dotnetcore3.1
+      Timeout: 30
+      CodeUri: ../../bin/Mutedac.StartDatabase/Release/netcoreapp3.1/publish/
+      MemorySize: 512
+      Policies:
+        - AWSLambdaExecute
 
 Outputs:
   ClusterAddress:
