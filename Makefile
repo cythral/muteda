@@ -1,4 +1,4 @@
-.PHONY = clean install test unit-test integration-test
+.PHONY = clean clean-lockfiles install relock test unit-test integration-test
 configuration = Debug
 target_framework = netcoreapp3.1
 
@@ -11,6 +11,8 @@ clean-lockfiles:
 
 install:
 	@dotnet restore
+
+relock: clean-lockfiles install
 
 test:
 	@dotnet test
