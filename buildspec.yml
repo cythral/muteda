@@ -19,7 +19,7 @@ phases:
       - |
         aws cloudformation package \
           --template-file deploy/mutedac.template.yml.bak \
-          --output-template-file deploy/mutedace.template.yml \
+          --output-template-file deploy/mutedac.template.yml \
           --s3-bucket $ARTIFACT_STORE \
           --s3-prefix lambdas
 
