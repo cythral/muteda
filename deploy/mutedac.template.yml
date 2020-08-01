@@ -68,6 +68,20 @@ Resources:
         - !ImportValue cfn-utilities:DefaultSecurityGroupId
       SubnetId: !Select [0, !Split [",", !ImportValue cfn-utilities:SubnetIds]]
 
+  StartDatabaseFunctionPolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action:
+              - rds:DescribeDBClusters
+              - rds:StartDBCluster
+              - events:EnableRule
+              - sns:Publish
+            Resource: "*"
+
   StartDatabaseFunction:
     Type: AWS::Serverless::Function
     DependsOn: StartDatabaseFileSystemMountTarget
@@ -84,6 +98,7 @@ Resources:
           - !Select [0, !Split [",", !ImportValue cfn-utilities:SubnetIds]]
       Policies:
         - AWSLambdaExecute
+        - !Ref StartDatabaseFunctionPolicy
       Environment:
         Variables:
           Lambda__WaitlistFilePath: /mnt/start-database/waitlist.txt
