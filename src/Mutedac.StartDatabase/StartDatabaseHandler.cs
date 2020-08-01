@@ -55,6 +55,7 @@ namespace Mutedac.StartDatabase
 
         public async Task<StartDatabaseResponse> Handle(StartDatabaseRequest request, ILambdaContext context = default!)
         {
+            logger.LogInformation("Recieved request: ", request);
             var status = await GetDBClusterStatus(request.DatabaseName);
 
             if (status == StartedStatus)
@@ -120,14 +121,6 @@ namespace Mutedac.StartDatabase
                     }
                 });
             }
-        }
-
-        public static async Task Main(string[] args)
-        {
-            await StartDatabaseHandler.Run(new StartDatabaseRequest
-            {
-                DatabaseName = "test"
-            });
         }
     }
 }
