@@ -88,7 +88,7 @@ Resources:
     Properties:
       Handler: Mutedac.StartDatabase::Mutedac.StartDatabase.StartDatabaseHandler::Run
       Runtime: dotnetcore3.1
-      Timeout: 30
+      Timeout: 300
       CodeUri: ../bin/Mutedac.StartDatabase/Release/netcoreapp3.1/publish/
       MemorySize: 512
       VpcConfig:
