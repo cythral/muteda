@@ -33,7 +33,7 @@ namespace Mutedac.StartDatabase
         private IAmazonSimpleNotificationService snsClient;
         private IAmazonEventBridge eventsClient;
         private IFileSystem fileSystem;
-        private ILogger logger;
+        private ILogger<StartDatabaseHandler> logger;
         private LambdaConfiguration configuration;
 
         public StartDatabaseHandler(
@@ -41,7 +41,7 @@ namespace Mutedac.StartDatabase
             IAmazonSimpleNotificationService snsClient,
             IAmazonEventBridge eventsClient,
             IFileSystem fileSystem,
-            ILogger logger,
+            ILogger<StartDatabaseHandler> logger,
             IConfiguration configuration
         )
         {

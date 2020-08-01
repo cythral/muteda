@@ -40,7 +40,7 @@ namespace Mutedac.StartDatabase
 
             public override Task Setup()
             {
-                var logger = Substitute.For<ILogger>();
+                var logger = Substitute.For<ILogger<StartDatabaseHandler>>();
                 var configuration = new ConfigurationBuilder()
                 .AddInMemoryCollection(new Dictionary<string, string>
                 {
