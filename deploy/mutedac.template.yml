@@ -60,14 +60,28 @@ Resources:
     Properties:
       FileSystemId: !GetAtt StartDatabaseFileSystem.FileSystemId
 
+  StartDatabaseFileSystemMountTarget:
+    Type: AWS::EFS::MountTarget
+    Properties:
+      FileSystemId: !GetAtt StartDatabaseFileSystem.FileSystemId
+      SecurityGroups:
+        - !ImportValue cfn-utilities:DefaultSecurityGroupId
+      SubnetId: !Select [0, !Split [",", !ImportValue cfn-utilities:SubnetIds]]
+
   StartDatabaseFunction:
     Type: AWS::Serverless::Function
+    DependsOn: StartDatabaseFileSystemMountTarget
     Properties:
       Handler: Mutedac.StartDatabase::Mutedac.StartDatabase.StartDatabaseHandler::Run
       Runtime: dotnetcore3.1
       Timeout: 30
       CodeUri: ../bin/Mutedac.StartDatabase/Release/netcoreapp3.1/publish/
       MemorySize: 512
+      VpcConfig:
+        SecurityGroupIds:
+          - !ImportValue cfn-utilities:DefaultSecurityGroupId
+        SubnetIds:
+          - !Select [0, !Split [",", !ImportValue cfn-utilities:SubnetIds]]
       Policies:
         - AWSLambdaExecute
       Environment:
