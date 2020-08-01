@@ -52,6 +52,14 @@ Resources:
       PubliclyAccessible: true
       DBSubnetGroupName: !ImportValue cfn-utilities:DBSubnetGroupName
 
+  StartDatabaseFileSystem:
+    Type: AWS::EFS::FileSystem
+
+  StartDatabaseFileSystemAccessPoint:
+    Type: AWS::EFS::AccessPoint
+    Properties:
+      FileSystemId: !GetAtt StartDatabaseFileSystem.FileSystemId
+
   StartDatabaseFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -62,6 +70,12 @@ Resources:
       MemorySize: 512
       Policies:
         - AWSLambdaExecute
+      Environment:
+        Variables:
+          Lambda__WaitlistFilePath: /mnt/start-database/waitlist.txt
+      FileSystemConfigs:
+        - Arn: !Ref StartDatabaseFileSystemAccessPoint
+          LocalMountPath: /mnt/start-database
 
 Outputs:
   ClusterAddress:

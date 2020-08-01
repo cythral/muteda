@@ -7,6 +7,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{ADC404AA-796
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mutedac.StartDatabase", "src\Mutedac.StartDatabase\Mutedac.StartDatabase.csproj", "{DB5D3E5A-24A5-4A77-896D-CC08DD431B9F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "tests\Tests.csproj", "{72D687CE-D9FE-47AF-846F-E7971C7B82C6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,18 @@ Global
 		{DB5D3E5A-24A5-4A77-896D-CC08DD431B9F}.Release|x64.Build.0 = Release|Any CPU
 		{DB5D3E5A-24A5-4A77-896D-CC08DD431B9F}.Release|x86.ActiveCfg = Release|Any CPU
 		{DB5D3E5A-24A5-4A77-896D-CC08DD431B9F}.Release|x86.Build.0 = Release|Any CPU
+		{72D687CE-D9FE-47AF-846F-E7971C7B82C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72D687CE-D9FE-47AF-846F-E7971C7B82C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72D687CE-D9FE-47AF-846F-E7971C7B82C6}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{72D687CE-D9FE-47AF-846F-E7971C7B82C6}.Debug|x64.Build.0 = Debug|Any CPU
+		{72D687CE-D9FE-47AF-846F-E7971C7B82C6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{72D687CE-D9FE-47AF-846F-E7971C7B82C6}.Debug|x86.Build.0 = Debug|Any CPU
+		{72D687CE-D9FE-47AF-846F-E7971C7B82C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72D687CE-D9FE-47AF-846F-E7971C7B82C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72D687CE-D9FE-47AF-846F-E7971C7B82C6}.Release|x64.ActiveCfg = Release|Any CPU
+		{72D687CE-D9FE-47AF-846F-E7971C7B82C6}.Release|x64.Build.0 = Release|Any CPU
+		{72D687CE-D9FE-47AF-846F-E7971C7B82C6}.Release|x86.ActiveCfg = Release|Any CPU
+		{72D687CE-D9FE-47AF-846F-E7971C7B82C6}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{DB5D3E5A-24A5-4A77-896D-CC08DD431B9F} = {ADC404AA-7966-41E9-9C16-2F41B706DF16}

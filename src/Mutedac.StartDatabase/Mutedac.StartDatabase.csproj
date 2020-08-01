@@ -1,13 +1,20 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Amazon.Lambda.Serialization.SystemTextJson" Version="2.0.1" />
+    <PackageReference Include="AWSSDK.EventBridge" Version="3.3.102.9" />
     <PackageReference Include="AWSSDK.RDS" Version="3.3.127.2" />
-    <PackageReference Include="Lambdajection" Version="0.1.5-alpha" />
+    <PackageReference Include="AWSSDK.SimpleNotificationService" Version="3.3.102.9" />
+    <PackageReference Include="Lambdajection" Version="0.1.9" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.6" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="3.1.6" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="3.1.6" />
+    <PackageReference Include="System.IO.Abstractions" Version="12.0.10" />
   </ItemGroup>
 
 </Project>
