@@ -74,7 +74,7 @@ Resources:
         Variables:
           Lambda__WaitlistFilePath: /mnt/start-database/waitlist.txt
       FileSystemConfigs:
-        - Arn: !Ref StartDatabaseFileSystemAccessPoint
+        - Arn: !GetAtt StartDatabaseFileSystemAccessPoint.Arn
           LocalMountPath: /mnt/start-database
 
 Outputs:
