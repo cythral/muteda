@@ -150,7 +150,9 @@
           "Token.$": "$$.Task.Token",
           "ParameterOverrides": {
             "DevClusterName.$": "$.DevOutputs.ClusterName",
-            "ProdClusterName.$": "$.ProdOutputs.ClusterName"
+            "ProdClusterName.$": "$.ProdOutputs.ClusterName",
+            "DevStartDatabaseFunctionArn.$": "$.DevOutputs.StartDatabaseFunctionArn",
+            "ProdStartDatabaseFunctionArn.$": "$.ProdOutputs.StartDatabaseFunctionArn"
           },
           "Capabilities": ["CAPABILITY_IAM"],
           "EnvironmentName": "shared",

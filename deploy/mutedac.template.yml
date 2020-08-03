@@ -148,3 +148,9 @@ Outputs:
     Description: Hostname for the multi-tenant database cluster
     Export:
       Name: !Sub ${AWS::StackName}:ClusterAddress
+
+  StartDatabaseFunctionArn:
+    Value: !GetAtt StartDatabaseFunction.Arn
+    Description: ARN of the start database function
+    Export:
+      Name: !Sub ${AWS::StackName}:StartDatabaseFunctionArn

@@ -7,6 +7,14 @@ Parameters:
     Type: String
     Description: Name of the database cluster in prod
 
+  DevStartDatabaseFunctionArn:
+    Type: String
+    Description: ARN of the start database function in dev
+
+  ProdStartDatabaseFunctionArn:
+    Type: String
+    Description: ARN of the start database function in prod
+
 Resources:
   DatabaseAvailabilityTopic:
     Type: AWS::SNS::Topic
@@ -23,3 +31,15 @@ Outputs:
     Description: Name of the database cluster in prod
     Export:
       Name: !Sub ${AWS::StackName}:ProdClusterName
+
+  DevStartDatabaseFunctionArn:
+    Value: !Ref DevStartDatabaseFunctionArn
+    Description: ARN of the start database function in dev
+    Export:
+      Name: !Sub ${AWS::StackName}:DevStartDatabaseFunctionArn
+
+  ProdStartDatabaseFunctionArn:
+    Value: !Ref ProdStartDatabaseFunctionArn
+    Description: ARN of the start database function in prod
+    Export:
+      Name: !Sub ${AWS::StackName}:ProdStartDatabaseFunctionArn
