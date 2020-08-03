@@ -59,7 +59,7 @@
     "Deploy to Dev": {
       "Type": "Task",
       "Resource": "arn:aws:states:::sqs:sendMessage.waitForTaskToken",
-      "ResultPath": null,
+      "ResultPath": "$.DevOutputs",
       "Parameters": {
         "QueueUrl": "${DeploymentQueue}",
         "MessageGroupId": "${GithubRepo}",
@@ -114,7 +114,7 @@
     "Deploy to Prod": {
       "Type": "Task",
       "Resource": "arn:aws:states:::sqs:sendMessage.waitForTaskToken",
-      "ResultPath": null,
+      "ResultPath": "$.ProdOutputs",
       "Parameters": {
         "QueueUrl": "${DeploymentQueue}",
         "MessageGroupId": "${GithubRepo}",
@@ -127,6 +127,33 @@
           "Token.$": "$$.Task.Token",
           "Capabilities": ["CAPABILITY_IAM", "CAPABILITY_AUTO_EXPAND"],
           "EnvironmentName": "prod",
+          "CommitInfo": {
+            "GithubOwner": "${GithubOwner}",
+            "GithubRepository": "${GithubRepo}",
+            "GithubRef.$": "$.head_commit.id"
+          }
+        }
+      },
+      "Next": "Deploy to Shared"
+    },
+    "Deploy to Shared": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::sqs:sendMessage.waitForTaskToken",
+      "Parameters": {
+        "QueueUrl": "${DeploymentQueue}",
+        "MessageGroupId": "${GithubRepo}",
+        "MessageBody": {
+          "StackName": "${GithubRepo}",
+          "ZipLocation.$": "$.BuildOutput.Build.Artifacts.Location",
+          "TemplateFileName": "${GithubRepo}.template.yml",
+          "RoleArn": "${SharedRoleArn}",
+          "Token.$": "$$.Task.Token",
+          "ParameterOverrides": {
+            "DevClusterName.$": "$.DevOutputs.ClusterName",
+            "ProdClusterName.$": "$.ProdOutputs.ClusterName"
+          },
+          "Capabilities": ["CAPABILITY_IAM"],
+          "EnvironmentName": "shared",
           "CommitInfo": {
             "GithubOwner": "${GithubOwner}",
             "GithubRepository": "${GithubRepo}",

@@ -24,9 +24,11 @@ phases:
           --s3-prefix lambdas
 
       - cfn-lint deploy/mutedac.template.yml
+      - cfn-lint deploy/shared-utilities.template.yml
 
 artifacts:
   discard-paths: yes
   files:
     - "deploy/mutedac.template.yml"
+    - "deploy/shared-utilities.template.yml"
     - "mutedac.*.config.json"

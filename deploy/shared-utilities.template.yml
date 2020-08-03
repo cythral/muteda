@@ -1,0 +1,25 @@
+Parameters:
+  DevClusterName:
+    Type: String
+    Description: Name of the database cluster in dev
+
+  ProdClusterName:
+    Type: String
+    Description: Name of the database cluster in prod
+
+Resources:
+  DatabaseAvailabilityTopic:
+    Type: AWS::SNS::Topic
+
+Outputs:
+  DevClusterName:
+    Value: !Ref DevClusterName
+    Description: Name of the database cluster in dev
+    Export:
+      Name: !Sub ${AWS::StackName}:DevClusterName
+
+  ProdClusterName:
+    Value: !Ref ProdClusterName
+    Description: Name of the database cluster in prod
+    Export:
+      Name: !Sub ${AWS::StackName}:ProdClusterName
