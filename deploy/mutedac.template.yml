@@ -90,7 +90,7 @@ Resources:
     Type: AWS::Events::Rule
     Properties:
       Name: Mutedac.WaitForDatabaseAvailability
-      ScheduleExpression: rate(1 min)
+      ScheduleExpression: rate(1 minute)
       State: DISABLED
       Targets:
         - Id: availability-function
@@ -99,6 +99,19 @@ Resources:
             {
               "DatabaseName": "${Cluster}"
             }
+
+  WaitForDatabaseAvailabilityFunctionPolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action:
+              - rds:DescribeDBClusters
+              - events:DisableRule
+              - lambda:UpdateEventSourceMapping
+            Resource: "*"
 
   WaitForDatabaseAvailabilityFunction:
     Type: AWS::Serverless::Function
@@ -110,7 +123,7 @@ Resources:
       MemorySize: 512
       Policies:
         - AWSLambdaExecute
-        - !Ref StartDatabaseFunctionPolicy
+        - !Ref WaitForDatabaseAvailabilityFunctionPolicy
       Environment:
         Variables:
           Lambda__NotificationQueueUrl: !Ref StartDatabaseNotificationQueue
