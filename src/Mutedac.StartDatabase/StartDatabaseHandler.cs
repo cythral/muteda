@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO.Abstractions;
 using System.Linq;
 using System.Reflection.Metadata;
 using System.Threading.Tasks;
@@ -13,11 +12,17 @@ using Amazon.RDS;
 using Amazon.RDS.Model;
 using Amazon.SimpleNotificationService;
 using Amazon.SimpleNotificationService.Model;
+using Amazon.SQS;
+using Amazon.SQS.Model;
 
 using Lambdajection.Attributes;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+
+using static System.Text.Json.JsonSerializer;
+
+using SNSMessageAttributeValue = Amazon.SimpleNotificationService.Model.MessageAttributeValue;
 
 [assembly: LambdaSerializer(typeof(DefaultLambdaJsonSerializer))]
 
@@ -32,7 +37,7 @@ namespace Mutedac.StartDatabase
         private IAmazonRDS rdsClient;
         private IAmazonSimpleNotificationService snsClient;
         private IAmazonEventBridge eventsClient;
-        private IFileSystem fileSystem;
+        private IAmazonSQS sqsClient;
         private ILogger<StartDatabaseHandler> logger;
         private LambdaConfiguration configuration;
 
@@ -40,7 +45,7 @@ namespace Mutedac.StartDatabase
             IAmazonRDS rdsClient,
             IAmazonSimpleNotificationService snsClient,
             IAmazonEventBridge eventsClient,
-            IFileSystem fileSystem,
+            IAmazonSQS sqsClient,
             ILogger<StartDatabaseHandler> logger,
             IConfiguration configuration
         )
@@ -48,7 +53,7 @@ namespace Mutedac.StartDatabase
             this.rdsClient = rdsClient;
             this.snsClient = snsClient;
             this.eventsClient = eventsClient;
-            this.fileSystem = fileSystem;
+            this.sqsClient = sqsClient;
             this.logger = logger;
             this.configuration = configuration.GetSection("Lambda").Get<LambdaConfiguration>();
         }
@@ -77,8 +82,16 @@ namespace Mutedac.StartDatabase
 
                 if (request.NotificationTopic != null)
                 {
-                    await fileSystem.File.AppendAllTextAsync(configuration.WaitlistFilePath, $"{request.NotificationTopic} {request.TaskToken}\n");
-                    await eventsClient.EnableRuleAsync(new EnableRuleRequest { Name = configuration.WaitForDatabaseAvailabilityRuleName });
+                    await sqsClient.SendMessageAsync(new SendMessageRequest
+                    {
+                        QueueUrl = configuration.NotificationQueueUrl,
+                        MessageBody = Serialize(new { TaskToken = request.TaskToken, NotificationTopic = request.NotificationTopic })
+                    });
+
+                    await eventsClient.EnableRuleAsync(new EnableRuleRequest
+                    {
+                        Name = configuration.WaitForDatabaseAvailabilityRuleName
+                    });
                 }
 
                 return new StartDatabaseResponse { Message = $"Starting database cluster {request.DatabaseName}" };
@@ -115,9 +128,9 @@ namespace Mutedac.StartDatabase
                 {
                     TopicArn = notificationTopic,
                     Message = status,
-                    MessageAttributes = new Dictionary<string, MessageAttributeValue>
+                    MessageAttributes = new Dictionary<string, SNSMessageAttributeValue>
                     {
-                        ["TaskToken"] = new MessageAttributeValue { StringValue = taskToken }
+                        ["TaskToken"] = new SNSMessageAttributeValue { StringValue = taskToken }
                     }
                 });
             }

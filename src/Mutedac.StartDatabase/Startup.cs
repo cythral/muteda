@@ -1,6 +1,3 @@
-using System.IO;
-using System.IO.Abstractions;
-
 using Amazon.EventBridge;
 using Amazon.RDS;
 using Amazon.SimpleNotificationService;
@@ -22,7 +19,6 @@ namespace Mutedac.StartDatabase
             services.AddScoped<IAmazonRDS, AmazonRDSClient>();
             services.AddScoped<IAmazonSimpleNotificationService, AmazonSimpleNotificationServiceClient>();
             services.AddScoped<IAmazonEventBridge, AmazonEventBridgeClient>();
-            services.AddScoped<IFileSystem, FileSystem>();
             services.AddLogging(options => options.AddConsole());
         }
     }

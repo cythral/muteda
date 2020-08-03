@@ -52,22 +52,6 @@ Resources:
       PubliclyAccessible: true
       DBSubnetGroupName: !ImportValue cfn-utilities:DBSubnetGroupName
 
-  StartDatabaseFileSystem:
-    Type: AWS::EFS::FileSystem
-
-  StartDatabaseFileSystemAccessPoint:
-    Type: AWS::EFS::AccessPoint
-    Properties:
-      FileSystemId: !GetAtt StartDatabaseFileSystem.FileSystemId
-
-  StartDatabaseFileSystemMountTarget:
-    Type: AWS::EFS::MountTarget
-    Properties:
-      FileSystemId: !GetAtt StartDatabaseFileSystem.FileSystemId
-      SecurityGroups:
-        - !ImportValue cfn-utilities:DefaultSecurityGroupId
-      SubnetId: !Select [0, !Split [",", !ImportValue cfn-utilities:SubnetIds]]
-
   StartDatabaseFunctionPolicy:
     Type: AWS::IAM::ManagedPolicy
     Properties:
@@ -84,28 +68,21 @@ Resources:
 
   StartDatabaseFunction:
     Type: AWS::Serverless::Function
-    DependsOn: StartDatabaseFileSystemMountTarget
     Properties:
       Handler: Mutedac.StartDatabase::Mutedac.StartDatabase.StartDatabaseHandler::Run
       Runtime: dotnetcore3.1
       Timeout: 300
       CodeUri: ../bin/Mutedac.StartDatabase/Release/netcoreapp3.1/publish/
       MemorySize: 512
-      VpcConfig:
-        SecurityGroupIds:
-          - !ImportValue cfn-utilities:DefaultSecurityGroupId
-        SubnetIds:
-          - !Select [0, !Split [",", !ImportValue cfn-utilities:SubnetIds]]
       Policies:
         - AWSLambdaExecute
-        - AWSLambdaVPCAccessExecutionRole
         - !Ref StartDatabaseFunctionPolicy
       Environment:
         Variables:
-          Lambda__WaitlistFilePath: /mnt/start-database/waitlist.txt
-      FileSystemConfigs:
-        - Arn: !GetAtt StartDatabaseFileSystemAccessPoint.Arn
-          LocalMountPath: /mnt/start-database
+          Lambda__NotificationQueueUrl: !Ref StartDatabaseNotificationQueue
+
+  StartDatabaseNotificationQueue:
+    Type: AWS::SQS::Queue
 
 Outputs:
   ClusterAddress:

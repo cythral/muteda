@@ -99,6 +99,14 @@
           "AWSSDK.Core": "[3.3.107.32, 3.4.0)"
         }
       },
+      "AWSSDK.SQS": {
+        "type": "Transitive",
+        "resolved": "3.3.103.19",
+        "contentHash": "VhnYtFD+InAYltDtCbC2JKxmuZpPlOvlnYnWKh1ADJ+Q58y+RbQtmj+whlK67vbcdoH9FyPD3RkDqfaCHgJt4g==",
+        "dependencies": {
+          "AWSSDK.Core": "[3.3.107.32, 3.4.0)"
+        }
+      },
       "Castle.Core": {
         "type": "Transitive",
         "resolved": "4.4.0",
@@ -355,8 +363,8 @@
       },
       "Microsoft.NETCore.Platforms": {
         "type": "Transitive",
-        "resolved": "3.1.0",
-        "contentHash": "z7aeg8oHln2CuNulfhiLYxCVMPEwBl3rzicjvIX+4sUuCwvXw5oXQEtbiU2c0z4qYL5L3Kmx0mMA/+t/SbY67w=="
+        "resolved": "1.1.0",
+        "contentHash": "kz0PEW2lhqygehI/d6XsPCQzD7ff7gUJaVGPVETX611eadGsA3A877GdSlU0LRVMCTH/+P3o2iDTak+S08V2+A=="
       },
       "Microsoft.NETCore.Targets": {
         "type": "Transitive",
@@ -680,14 +688,6 @@
           "System.Threading.Tasks": "4.3.0"
         }
       },
-      "System.IO.Abstractions": {
-        "type": "Transitive",
-        "resolved": "12.0.10",
-        "contentHash": "BeWXtsFokFcqoxGbI7omYhrJyKtpKynh+xCzQqXAnlOukLwQWnepfmmuyet0g3snjRf8Wio3dsi0gMRRfjuVug==",
-        "dependencies": {
-          "System.IO.FileSystem.AccessControl": "4.7.0"
-        }
-      },
       "System.IO.FileSystem": {
         "type": "Transitive",
         "resolved": "4.3.0",
@@ -701,15 +701,6 @@
           "System.Runtime.Handles": "4.3.0",
           "System.Text.Encoding": "4.3.0",
           "System.Threading.Tasks": "4.3.0"
-        }
-      },
-      "System.IO.FileSystem.AccessControl": {
-        "type": "Transitive",
-        "resolved": "4.7.0",
-        "contentHash": "vMToiarpU81LR1/KZtnT7VDPvqAZfw9oOS5nY6pPP78nGYz3COLsQH3OfzbR+SjTgltd31R6KmKklz/zDpTmzw==",
-        "dependencies": {
-          "System.Security.AccessControl": "4.7.0",
-          "System.Security.Principal.Windows": "4.7.0"
         }
       },
       "System.IO.FileSystem.Primitives": {
@@ -920,24 +911,10 @@
           "System.Runtime": "4.1.0"
         }
       },
-      "System.Security.AccessControl": {
-        "type": "Transitive",
-        "resolved": "4.7.0",
-        "contentHash": "JECvTt5aFF3WT3gHpfofL2MNNP6v84sxtXxpqhLBCcDRzqsPBmHhQ6shv4DwwN2tRlzsUxtb3G9M3763rbXKDg==",
-        "dependencies": {
-          "Microsoft.NETCore.Platforms": "3.1.0",
-          "System.Security.Principal.Windows": "4.7.0"
-        }
-      },
       "System.Security.Cryptography.ProtectedData": {
         "type": "Transitive",
         "resolved": "4.4.0",
         "contentHash": "cJV7ScGW7EhatRsjehfvvYVBvtiSMKgN8bOVI0bQhnF5bU7vnHVIsH49Kva7i7GWaWYvmEzkYVk1TC+gZYBEog=="
-      },
-      "System.Security.Principal.Windows": {
-        "type": "Transitive",
-        "resolved": "4.7.0",
-        "contentHash": "ojD0PX0XhneCsUbAZVKdb7h/70vyYMDYs85lwEI+LngEONe/17A0cFaRFqZU+sOEidcVswYWikYOQ9PPfjlbtQ=="
       },
       "System.Text.Encoding": {
         "type": "Transitive",
@@ -1110,13 +1087,13 @@
         "dependencies": {
           "AWSSDK.EventBridge": "3.3.102.9",
           "AWSSDK.RDS": "3.3.127.2",
+          "AWSSDK.SQS": "3.3.103.19",
           "AWSSDK.SimpleNotificationService": "3.3.102.9",
           "Amazon.Lambda.Serialization.SystemTextJson": "2.0.1",
           "Lambdajection": "0.1.9",
           "Microsoft.Extensions.Logging": "3.1.6",
           "Microsoft.Extensions.Logging.Console": "3.1.6",
-          "Microsoft.Extensions.Options": "3.1.6",
-          "System.IO.Abstractions": "12.0.10"
+          "Microsoft.Extensions.Options": "3.1.6"
         }
       }
     }

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.IO.Abstractions;
 using System.Threading.Tasks;
 
 using Amazon.EventBridge;
@@ -10,6 +9,8 @@ using Amazon.RDS;
 using Amazon.RDS.Model;
 using Amazon.SimpleNotificationService;
 using Amazon.SimpleNotificationService.Model;
+using Amazon.SQS;
+using Amazon.SQS.Model;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -18,11 +19,14 @@ using NSubstitute;
 
 using NUnit.Framework;
 
+using static System.Text.Json.JsonSerializer;
+
 namespace Mutedac.StartDatabase
 {
     public class StartDatabaseTests : TestSuite<StartDatabaseTests.Context>
     {
         private const string waitForDatabaseAvailabilityRuleName = "waitForDatabaseAvailabilityRuleName";
+        private const string queueUrl = "queueUrl";
 
         new public class Context : TestSuite<Context>.Context
         {
@@ -32,7 +36,7 @@ namespace Mutedac.StartDatabase
             [Substitute] public IAmazonRDS RdsClient;
             [Substitute] public IAmazonSimpleNotificationService SnsClient;
             [Substitute] public IAmazonEventBridge EventBridgeClient;
-            [Substitute] public IFileSystem FileSystem;
+            [Substitute] public IAmazonSQS SqsClient;
             [Substitute] public IConfiguration Configuration;
             public StartDatabaseHandler StartDatabaseHandler;
 
@@ -44,10 +48,11 @@ namespace Mutedac.StartDatabase
                 var configuration = new ConfigurationBuilder()
                 .AddInMemoryCollection(new Dictionary<string, string>
                 {
-                    ["Lambda:WaitForDatabaseAvailabilityRuleName"] = waitForDatabaseAvailabilityRuleName
+                    ["Lambda:WaitForDatabaseAvailabilityRuleName"] = waitForDatabaseAvailabilityRuleName,
+                    ["Lambda:NotificationQueueUrl"] = queueUrl,
                 }).Build();
 
-                StartDatabaseHandler = new StartDatabaseHandler(RdsClient, SnsClient, EventBridgeClient, FileSystem, logger, configuration);
+                StartDatabaseHandler = new StartDatabaseHandler(RdsClient, SnsClient, EventBridgeClient, SqsClient, logger, configuration);
                 return Task.CompletedTask;
             }
 
@@ -55,14 +60,14 @@ namespace Mutedac.StartDatabase
                 out IAmazonRDS rdsClient,
                 out IAmazonSimpleNotificationService snsClient,
                 out IAmazonEventBridge eventsClient,
-                out IFileSystem fileSystem,
+                out IAmazonSQS sqsClient,
                 out StartDatabaseHandler handler
             )
             {
                 rdsClient = RdsClient;
                 snsClient = SnsClient;
                 eventsClient = EventBridgeClient;
-                fileSystem = FileSystem;
+                sqsClient = SqsClient;
                 handler = StartDatabaseHandler;
             }
         }
@@ -70,7 +75,7 @@ namespace Mutedac.StartDatabase
         [Test]
         public async Task StartDBCluster_ShouldBeCalled_IfStatusIsStopped()
         {
-            var (rdsClient, snsClient, eventsClient, fileSystem, handler) = await GetContext();
+            var (rdsClient, snsClient, eventsClient, sqsClient, handler) = await GetContext();
             var databaseName = "databaseName";
 
             rdsClient.DescribeDBClustersAsync(Arg.Any<DescribeDBClustersRequest>()).Returns(new DescribeDBClustersResponse
@@ -102,7 +107,7 @@ namespace Mutedac.StartDatabase
         [Test]
         public async Task StartDBCluster_IsNotCalled_IfStatusIsNotStopped()
         {
-            var (rdsClient, snsClient, eventsClient, fileSystem, handler) = await GetContext();
+            var (rdsClient, snsClient, eventsClient, sqsClient, handler) = await GetContext();
             var databaseName = "databaseName";
 
             rdsClient.DescribeDBClustersAsync(Arg.Any<DescribeDBClustersRequest>()).Returns(new DescribeDBClustersResponse
@@ -132,7 +137,7 @@ namespace Mutedac.StartDatabase
         [Test]
         public async Task PublishTopic_IsCalledWithSuccess_IfDatabaseAlreadyStarted_AndTopicProvided()
         {
-            var (rdsClient, snsClient, eventsClient, fileSystem, handler) = await GetContext();
+            var (rdsClient, snsClient, eventsClient, sqsClient, handler) = await GetContext();
             var databaseName = "databaseName";
             var topic = "topic";
             var token = "token";
@@ -168,7 +173,7 @@ namespace Mutedac.StartDatabase
         [Test]
         public async Task PublishTopic_IsNotCalled_IfDatabaseAlreadyStarted_AndTopicNotProvided()
         {
-            var (rdsClient, snsClient, eventsClient, fileSystem, handler) = await GetContext();
+            var (rdsClient, snsClient, eventsClient, sqsClient, handler) = await GetContext();
             var databaseName = "databaseName";
 
             rdsClient.DescribeDBClustersAsync(Arg.Any<DescribeDBClustersRequest>()).Returns(new DescribeDBClustersResponse
@@ -193,9 +198,9 @@ namespace Mutedac.StartDatabase
         }
 
         [Test]
-        public async Task TokenAndTopic_AreWrittenToDisk_IfDatabaseIsStoppedOrStarting_AndTopicProvided([Values("stopped", "starting")] string status)
+        public async Task TokenAndTopic_AreQueued_IfDatabaseIsStoppedOrStarting_AndTopicProvided([Values("stopped", "starting")] string status)
         {
-            var (rdsClient, snsClient, eventsClient, fileSystem, handler) = await GetContext();
+            var (rdsClient, snsClient, eventsClient, sqsClient, handler) = await GetContext();
             var databaseName = "databaseName";
             var topic = "topic";
             var token = "token";
@@ -219,13 +224,22 @@ namespace Mutedac.StartDatabase
                 TaskToken = token,
             });
 
-            await fileSystem.File.Received().AppendAllTextAsync(Arg.Is("/waitlist.txt"), Arg.Is($"{topic} {token}\n"));
+            var expectedMessage = Serialize(new
+            {
+                TaskToken = token,
+                NotificationTopic = topic,
+            });
+
+            await sqsClient.Received().SendMessageAsync(Arg.Is<SendMessageRequest>(req =>
+                req.MessageBody == expectedMessage &&
+                req.QueueUrl == queueUrl
+            ));
         }
 
         [Test]
         public async Task WaitForDatabaseAvailabilityRule_GetsEnabled_IfDatabaseIsStoppedOrStarting_AndTopicProvided([Values("stopped", "starting")] string status)
         {
-            var (rdsClient, snsClient, eventsClient, fileSystem, handler) = await GetContext();
+            var (rdsClient, snsClient, eventsClient, sqsClient, handler) = await GetContext();
             var databaseName = "databaseName";
             var topic = "topic";
             var token = "token";
@@ -255,7 +269,7 @@ namespace Mutedac.StartDatabase
         [Test]
         public async Task WaitForDatabaseAvailabilityRule_DoesntGetEnabled_IfDatabaseIsStoppedOrStarting_AndTopicNotProvided([Values("stopped", "starting")] string status)
         {
-            var (rdsClient, snsClient, eventsClient, fileSystem, handler) = await GetContext();
+            var (rdsClient, snsClient, eventsClient, sqsClient, handler) = await GetContext();
             var databaseName = "databaseName";
 
             rdsClient.DescribeDBClustersAsync(Arg.Any<DescribeDBClustersRequest>()).Returns(new DescribeDBClustersResponse
@@ -280,9 +294,9 @@ namespace Mutedac.StartDatabase
         }
 
         [Test]
-        public async Task TokenAndTopic_AreNotWrittenToDisk_IfDatabaseIsStoppedOrStarting_ButTopicNotProvided([Values("stopped", "starting")] string status)
+        public async Task TokenAndTopic_AreNotQueued_IfDatabaseIsStoppedOrStarting_ButTopicNotProvided([Values("stopped", "starting")] string status)
         {
-            var (rdsClient, snsClient, eventsClient, fileSystem, handler) = await GetContext();
+            var (rdsClient, snsClient, eventsClient, sqsClient, handler) = await GetContext();
             var databaseName = "databaseName";
 
             rdsClient.DescribeDBClustersAsync(Arg.Any<DescribeDBClustersRequest>()).Returns(new DescribeDBClustersResponse
@@ -302,13 +316,13 @@ namespace Mutedac.StartDatabase
                 DatabaseName = databaseName,
             });
 
-            await fileSystem.File.DidNotReceiveWithAnyArgs().AppendAllTextAsync(null, null);
+            await sqsClient.DidNotReceiveWithAnyArgs().SendMessageAsync(null);
         }
 
         [Test]
-        public async Task TokenAndTopic_AreNotWrittenToDisk_IfStartingDatabaseFails()
+        public async Task TokenAndTopic_AreNotQueued_IfStartingDatabaseFails()
         {
-            var (rdsClient, snsClient, eventsClient, fileSystem, handler) = await GetContext();
+            var (rdsClient, snsClient, eventsClient, sqsClient, handler) = await GetContext();
             var databaseName = "databaseName";
             var topic = "topic";
             var token = "token";
@@ -334,13 +348,13 @@ namespace Mutedac.StartDatabase
                 TaskToken = token,
             });
 
-            await fileSystem.File.DidNotReceiveWithAnyArgs().AppendAllTextAsync(null, null);
+            await sqsClient.DidNotReceiveWithAnyArgs().SendMessageAsync(null);
         }
 
         [Test]
         public async Task PublishTopic_IsCalledWithFailure_IfStartingDatabaseFails_AndTopicProvided()
         {
-            var (rdsClient, snsClient, eventsClient, fileSystem, handler) = await GetContext();
+            var (rdsClient, snsClient, eventsClient, sqsClient, handler) = await GetContext();
             var databaseName = "databaseName";
             var topic = "topic";
             var token = "token";
@@ -378,7 +392,7 @@ namespace Mutedac.StartDatabase
         [Test]
         public async Task PublishTopic_IsNotCalled_IfStartingDatabaseFails_AndTopicNotProvided()
         {
-            var (rdsClient, snsClient, eventsClient, fileSystem, handler) = await GetContext();
+            var (rdsClient, snsClient, eventsClient, sqsClient, handler) = await GetContext();
             var databaseName = "databaseName";
 
             rdsClient.DescribeDBClustersAsync(Arg.Any<DescribeDBClustersRequest>()).Returns(new DescribeDBClustersResponse
