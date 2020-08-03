@@ -145,7 +145,7 @@
         "MessageBody": {
           "StackName": "${GithubRepo}",
           "ZipLocation.$": "$.BuildOutput.Build.Artifacts.Location",
-          "TemplateFileName": "${GithubRepo}.template.yml",
+          "TemplateFileName": "shared-utilities.template.yml",
           "RoleArn": "${SharedRoleArn}",
           "Token.$": "$$.Task.Token",
           "ParameterOverrides": {
