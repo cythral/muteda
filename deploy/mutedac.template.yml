@@ -83,6 +83,13 @@ Resources:
           Lambda__NotificationQueueUrl: !Ref StartDatabaseNotificationQueue
           Lambda__WaitForDatabaseAvailabilityRuleName: Mutedac.WaitForDatabaseAvailability
 
+  StartDatabaseFunctionPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !Ref StartDatabaseFunction
+      Action: lambda:InvokeFunction
+      Principal: !ImportValue cfn-utilities:MasterAccountId
+
   StartDatabaseNotificationQueue:
     Type: AWS::SQS::Queue
 
