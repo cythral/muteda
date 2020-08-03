@@ -81,9 +81,40 @@ Resources:
       Environment:
         Variables:
           Lambda__NotificationQueueUrl: !Ref StartDatabaseNotificationQueue
+          Lambda__WaitForDatabaseAvailabilityRuleName: Mutedac.WaitForDatabaseAvailability
 
   StartDatabaseNotificationQueue:
     Type: AWS::SQS::Queue
+
+  WaitForDatabaseAvailabilityEventRule:
+    Type: AWS::Events::Rule
+    Properties:
+      Name: Mutedac.WaitForDatabaseAvailability
+      ScheduleExpression: rate(1 min)
+      State: DISABLED
+      Targets:
+        - Id: availability-function
+          Arn: !GetAtt WaitForDatabaseAvailabilityFunction.Arn
+          Input: !Sub |
+            {
+              "DatabaseName": "${Cluster}"
+            }
+
+  WaitForDatabaseAvailabilityFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: Mutedac.WaitForDatabaseAvailability::Mutedac.WaitForDatabaseAvailability.WaitForDatabaseAvailability::Run
+      Runtime: dotnetcore3.1
+      Timeout: 300
+      CodeUri: ../bin/Mutedac.WaitForDatabaseAvailability/Release/netcoreapp3.1/publish/
+      MemorySize: 512
+      Policies:
+        - AWSLambdaExecute
+        - !Ref StartDatabaseFunctionPolicy
+      Environment:
+        Variables:
+          Lambda__NotificationQueueUrl: !Ref StartDatabaseNotificationQueue
+          Lambda__WaitForDatabaseAvailabilityRuleName: Mutedac.WaitForDatabaseAvailability
 
 Outputs:
   ClusterAddress:

@@ -1,7 +1,6 @@
 using Amazon.EventBridge;
+using Amazon.Lambda;
 using Amazon.RDS;
-using Amazon.SimpleNotificationService;
-using Amazon.SQS;
 
 using Lambdajection.Core;
 
@@ -9,7 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace Mutedac.StartDatabase
+namespace Mutedac.WaitForDatabaseAvailability
 {
     public class Startup : ILambdaStartup
     {
@@ -18,9 +17,8 @@ namespace Mutedac.StartDatabase
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IAmazonRDS, AmazonRDSClient>();
-            services.AddScoped<IAmazonSimpleNotificationService, AmazonSimpleNotificationServiceClient>();
             services.AddScoped<IAmazonEventBridge, AmazonEventBridgeClient>();
-            services.AddScoped<IAmazonSQS, AmazonSQSClient>();
+            services.AddScoped<IAmazonLambda, AmazonLambdaClient>();
             services.AddLogging(options => options.AddConsole());
         }
     }

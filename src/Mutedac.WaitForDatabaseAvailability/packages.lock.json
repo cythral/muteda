@@ -20,29 +20,20 @@
           "AWSSDK.Core": "[3.3.107.32, 3.4.0)"
         }
       },
-      "AWSSDK.RDS": {
+      "AWSSDK.Lambda": {
         "type": "Direct",
-        "requested": "[3.3.127.2, )",
-        "resolved": "3.3.127.2",
-        "contentHash": "jrhTOcptsa93RazGi9Iy2kSuDrn8xyU97jjJ3/E0mJW8D+I1Nx5aYYtZnBavJBT8VyzJAk5KbdME29K+SKgQpQ==",
-        "dependencies": {
-          "AWSSDK.Core": "[3.3.107.31, 3.4.0)"
-        }
-      },
-      "AWSSDK.SimpleNotificationService": {
-        "type": "Direct",
-        "requested": "[3.3.102.9, )",
-        "resolved": "3.3.102.9",
-        "contentHash": "TTcsVxBZUYtT2jscV4RXQltLnnDywPtNDfSnSOkoygNpjvmV80mmacew5qp3HTu3/NolzmU0mkKxv68jN74J1Q==",
+        "requested": "[3.3.110.22, )",
+        "resolved": "3.3.110.22",
+        "contentHash": "TkAc5ziw2+8BAadfI9DS4TnQ8BObcKNwx1T5QHRLlmK9lz7XTquDIGMxEZQoomEoMlguwJHEO83Mk5nIGy8BIg==",
         "dependencies": {
           "AWSSDK.Core": "[3.3.107.32, 3.4.0)"
         }
       },
-      "AWSSDK.SQS": {
+      "AWSSDK.RDS": {
         "type": "Direct",
-        "requested": "[3.3.103.19, )",
-        "resolved": "3.3.103.19",
-        "contentHash": "VhnYtFD+InAYltDtCbC2JKxmuZpPlOvlnYnWKh1ADJ+Q58y+RbQtmj+whlK67vbcdoH9FyPD3RkDqfaCHgJt4g==",
+        "requested": "[3.3.127.3, )",
+        "resolved": "3.3.127.3",
+        "contentHash": "ATvKCJ0/T6hwUlI4B38BKU5gfiZ20dEb4VUdbHaawJB40x/JrOC/tEPkm+Jy+B9EY9hjKU7CSu0T4tv0eB24NA==",
         "dependencies": {
           "AWSSDK.Core": "[3.3.107.32, 3.4.0)"
         }
@@ -80,16 +71,6 @@
           "Microsoft.Extensions.Configuration.Abstractions": "3.1.6",
           "Microsoft.Extensions.Logging": "3.1.6",
           "Microsoft.Extensions.Logging.Configuration": "3.1.6"
-        }
-      },
-      "Microsoft.Extensions.Options": {
-        "type": "Direct",
-        "requested": "[3.1.6, )",
-        "resolved": "3.1.6",
-        "contentHash": "6nBkdL9UxCfA8eDuFBZVYAYpJhux0a6R7y58KcYnqKEYF84X9cK1uJQ9a+VWEWGXujMa4fnCGoVdKNYhANqbZg==",
-        "dependencies": {
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.6",
-          "Microsoft.Extensions.Primitives": "3.1.6"
         }
       },
       "Amazon.Lambda.Core": {
@@ -237,6 +218,15 @@
         "dependencies": {
           "Microsoft.Extensions.Logging": "3.1.6",
           "Microsoft.Extensions.Options.ConfigurationExtensions": "3.1.6"
+        }
+      },
+      "Microsoft.Extensions.Options": {
+        "type": "Transitive",
+        "resolved": "3.1.6",
+        "contentHash": "6nBkdL9UxCfA8eDuFBZVYAYpJhux0a6R7y58KcYnqKEYF84X9cK1uJQ9a+VWEWGXujMa4fnCGoVdKNYhANqbZg==",
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.6",
+          "Microsoft.Extensions.Primitives": "3.1.6"
         }
       },
       "Microsoft.Extensions.Options.ConfigurationExtensions": {
