@@ -136,6 +136,14 @@ Resources:
           Lambda__NotificationQueueUrl: !Ref StartDatabaseNotificationQueue
           Lambda__WaitForDatabaseAvailabilityRuleName: Mutedac.WaitForDatabaseAvailability
 
+  WaitForDatabaseAvailabilityFunctionPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !Ref WaitForDatabaseAvailabilityFunction
+      Action: lambda:InvokeFunction
+      Principal: events.amazonaws.com
+      SourceAccount: !Ref AWS::AccountId
+
 Outputs:
   ClusterName:
     Value: !Ref Cluster
