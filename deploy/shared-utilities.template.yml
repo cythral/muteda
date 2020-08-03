@@ -43,3 +43,9 @@ Outputs:
     Description: ARN of the start database function in prod
     Export:
       Name: !Sub ${AWS::StackName}:ProdStartDatabaseFunctionArn
+
+  AvailabilityTopic:
+    Value: !Ref DatabaseAvailabilityTopic
+    Description: ARN of the database availability topic
+    Export:
+      Name: !Sub ${AWS::StackName}:AvailabilityTopic
