@@ -66,7 +66,7 @@ Resources:
       FileSystemId: !GetAtt StartDatabaseFileSystem.FileSystemId
       SecurityGroups:
         - !ImportValue cfn-utilities:DefaultSecurityGroupId
-      SubnetId: !ImportValue cfn-utilities:PrivateSubnet1
+      SubnetId: !Select [0, !Split [",", !ImportValue cfn-utilities:SubnetIds]]
 
   StartDatabaseFunctionPolicy:
     Type: AWS::IAM::ManagedPolicy
@@ -95,7 +95,7 @@ Resources:
         SecurityGroupIds:
           - !ImportValue cfn-utilities:DefaultSecurityGroupId
         SubnetIds:
-          - !ImportValue cfn-utilities:PrivateSubnet1
+          - !Select [0, !Split [",", !ImportValue cfn-utilities:SubnetIds]]
       Policies:
         - AWSLambdaExecute
         - AWSLambdaVPCAccessExecutionRole
