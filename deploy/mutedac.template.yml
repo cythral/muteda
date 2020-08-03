@@ -137,6 +137,12 @@ Resources:
           Lambda__WaitForDatabaseAvailabilityRuleName: Mutedac.WaitForDatabaseAvailability
 
 Outputs:
+  ClusterName:
+    Value: !Ref Cluster
+    Description: Name of the database cluster
+    Export:
+      Name: !Sub ${AWS::StackName}:ClusterName
+
   ClusterAddress:
     Value: !GetAtt Cluster.Endpoint.Address
     Description: Hostname for the multi-tenant database cluster
