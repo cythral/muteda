@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mutedac.WaitForDatabaseAvai
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mutedac.NotifyDatabaseAvailability", "src\Mutedac.NotifyDatabaseAvailability\Mutedac.NotifyDatabaseAvailability.csproj", "{F6872554-EE7C-4EE6-8865-BCB30ADCD42E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mutedac.StartDatabaseTaskCompleter", "src\Mutedac.StartDatabaseTaskCompleter\Mutedac.StartDatabaseTaskCompleter.csproj", "{B805BA1C-A4FA-4973-88B1-915C865F02AB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -88,11 +90,24 @@ Global
 		{F6872554-EE7C-4EE6-8865-BCB30ADCD42E}.Release|x64.Build.0 = Release|Any CPU
 		{F6872554-EE7C-4EE6-8865-BCB30ADCD42E}.Release|x86.ActiveCfg = Release|Any CPU
 		{F6872554-EE7C-4EE6-8865-BCB30ADCD42E}.Release|x86.Build.0 = Release|Any CPU
+		{B805BA1C-A4FA-4973-88B1-915C865F02AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B805BA1C-A4FA-4973-88B1-915C865F02AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B805BA1C-A4FA-4973-88B1-915C865F02AB}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B805BA1C-A4FA-4973-88B1-915C865F02AB}.Debug|x64.Build.0 = Debug|Any CPU
+		{B805BA1C-A4FA-4973-88B1-915C865F02AB}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B805BA1C-A4FA-4973-88B1-915C865F02AB}.Debug|x86.Build.0 = Debug|Any CPU
+		{B805BA1C-A4FA-4973-88B1-915C865F02AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B805BA1C-A4FA-4973-88B1-915C865F02AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B805BA1C-A4FA-4973-88B1-915C865F02AB}.Release|x64.ActiveCfg = Release|Any CPU
+		{B805BA1C-A4FA-4973-88B1-915C865F02AB}.Release|x64.Build.0 = Release|Any CPU
+		{B805BA1C-A4FA-4973-88B1-915C865F02AB}.Release|x86.ActiveCfg = Release|Any CPU
+		{B805BA1C-A4FA-4973-88B1-915C865F02AB}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{DB5D3E5A-24A5-4A77-896D-CC08DD431B9F} = {ADC404AA-7966-41E9-9C16-2F41B706DF16}
 		{A11FA293-6A74-40E4-8A46-675917211D52} = {ADC404AA-7966-41E9-9C16-2F41B706DF16}
 		{6D36C755-3BE7-41B9-9A26-E9674E5CB61F} = {ADC404AA-7966-41E9-9C16-2F41B706DF16}
 		{F6872554-EE7C-4EE6-8865-BCB30ADCD42E} = {ADC404AA-7966-41E9-9C16-2F41B706DF16}
+		{B805BA1C-A4FA-4973-88B1-915C865F02AB} = {ADC404AA-7966-41E9-9C16-2F41B706DF16}
 	EndGlobalSection
 EndGlobal

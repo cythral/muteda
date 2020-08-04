@@ -1,3 +1,4 @@
+Transform: AWS::Serverless-2016-10-31
 Parameters:
   DevClusterName:
     Type: String
@@ -34,6 +35,45 @@ Resources:
               AWS:
                 - !ImportValue cfn-metadata:DevAccountId
                 - !ImportValue cfn-metadata:ProdAccountId
+
+  DatabaseAvailabilityTopicSubscription:
+    Type: AWS::SNS::Subscription
+    Properties:
+      TopicArn: !Ref DatabaseAvailabilityTopic
+      Protocol: lambda
+      Endpoint: !GetAtt StartDatabaseTaskCompleterFunction.Arn
+
+  StartDatabaseTaskCompleterFunctionPolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action:
+              - states:SendTaskSuccess
+              - states:SendTaskFailure
+            Resource: "*"
+
+  StartDatabaseTaskCompleterFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: Mutedac.StartDatabaseTaskCompleter::Mutedac.StartDatabaseTaskCompleter.StartDatabaseTaskCompleterHandler::Run
+      Runtime: dotnetcore3.1
+      Timeout: 300
+      CodeUri: ../bin/Mutedac.StartDatabaseTaskCompleter/Release/netcoreapp3.1/publish/
+      MemorySize: 512
+      Policies:
+        - AWSLambdaExecute
+        - !Ref StartDatabaseTaskCompleterFunctionPolicy
+
+  StartDatabaseTaskCompleterFunctionPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !Ref StartDatabaseTaskCompleterFunction
+      Action: lambda:InvokeFunction
+      Principal: sns.amazonaws.com
+      SourceArn: !Ref DatabaseAvailabilityTopic
 
 Outputs:
   DevClusterName:

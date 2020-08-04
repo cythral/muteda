@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Amazon.Lambda.Serialization.SystemTextJson" Version="2.0.1" />
+    <PackageReference Include="Amazon.Lambda.SNSEvents" Version="1.1.0" />
+    <PackageReference Include="AWSSDK.StepFunctions" Version="3.3.104.81" />
+    <PackageReference Include="Lambdajection" Version="0.1.9" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.6" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="3.1.6" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="3.1.6" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\Mutedac.Core\Mutedac.Core.csproj" />
+  </ItemGroup>
+</Project>

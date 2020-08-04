@@ -23,6 +23,14 @@ phases:
           --s3-bucket $ARTIFACT_STORE \
           --s3-prefix lambdas
 
+      - mv deploy/shared-utilities.template.yml deploy/shared-utilities.template.yml.bak
+      - |
+        aws cloudformation package \
+          --template-file deploy/shared-utilities.template.yml.bak \
+          --output-template-file deploy/shared-utilities.template.yml \
+          --s3-bucket $ARTIFACT_STORE \
+          --s3-prefix lambdas
+
       - cfn-lint deploy/mutedac.template.yml
       - cfn-lint deploy/shared-utilities.template.yml
 
