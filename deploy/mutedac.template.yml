@@ -142,7 +142,7 @@ Resources:
       FunctionName: !Ref WaitForDatabaseAvailabilityFunction
       Action: lambda:InvokeFunction
       Principal: events.amazonaws.com
-      SourceArn: !Ref WaitForDatabaseAvailabilityEventRule
+      SourceArn: !GetAtt WaitForDatabaseAvailabilityEventRule.Arn
 
 Outputs:
   ClusterName:
