@@ -100,7 +100,7 @@ namespace Mutedac.StartDatabase
                         var getEventSourceRequest = new GetEventSourceMappingRequest { UUID = configuration.DequeueEventSourceUUID };
                         var response = await lambdaClient.GetEventSourceMappingAsync(getEventSourceRequest);
 
-                        disabled = response.State == "Disabled";
+                        disabled = response.State.ToLower() == "disabled";
                     }
                 }
 
