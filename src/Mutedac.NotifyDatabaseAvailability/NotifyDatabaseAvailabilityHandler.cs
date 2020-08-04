@@ -56,7 +56,11 @@ namespace Mutedac.NotifyDatabaseAvailability
                 Message = "available",
                 MessageAttributes = new Dictionary<string, MessageAttributeValue>
                 {
-                    ["TaskToken"] = new MessageAttributeValue { StringValue = message.TaskToken }
+                    ["TaskToken"] = new MessageAttributeValue
+                    {
+                        StringValue = message.TaskToken,
+                        DataType = "String"
+                    }
                 }
             });
         }

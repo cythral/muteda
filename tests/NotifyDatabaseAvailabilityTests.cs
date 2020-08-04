@@ -90,6 +90,7 @@ namespace Mutedac.NotifyDatabaseAvailability
                 Arg.Is<PublishRequest>(req =>
                     req.Message == "available" &&
                     req.MessageAttributes["TaskToken"].StringValue == "token1" &&
+                    req.MessageAttributes["TaskToken"].DataType == "String" &&
                     req.TopicArn == "topic1"
                 )
             );
