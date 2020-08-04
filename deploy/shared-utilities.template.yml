@@ -19,6 +19,21 @@ Resources:
   DatabaseAvailabilityTopic:
     Type: AWS::SNS::Topic
 
+  DatabaseAvailabilityTopicPolicy:
+    Type: AWS::SNS::TopicPolicy
+    Properties:
+      Topics:
+        - !Ref DatabaseAvailabilityTopic
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action: sns:Publish
+            Resource: "*"
+            Principal:
+              - !ImportValue cfn-metadata:DevAccountId
+              - !ImportValue cfn-metadata:ProdAccountId
+
 Outputs:
   DevClusterName:
     Value: !Ref DevClusterName
