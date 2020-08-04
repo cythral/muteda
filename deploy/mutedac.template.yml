@@ -123,7 +123,7 @@ Resources:
   WaitForDatabaseAvailabilityFunction:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: Mutedac.WaitForDatabaseAvailability::Mutedac.WaitForDatabaseAvailability.WaitForDatabaseAvailability::Run
+      Handler: Mutedac.WaitForDatabaseAvailability::Mutedac.WaitForDatabaseAvailability.WaitForDatabaseAvailabilityHandler::Run
       Runtime: dotnetcore3.1
       Timeout: 300
       CodeUri: ../bin/Mutedac.WaitForDatabaseAvailability/Release/netcoreapp3.1/publish/
