@@ -94,6 +94,8 @@ Resources:
 
   StartDatabaseNotificationQueue:
     Type: AWS::SQS::Queue
+    Properties:
+      VisibilityTimeout: 3600
 
   WaitForDatabaseAvailabilityEventRule:
     Type: AWS::Events::Rule
