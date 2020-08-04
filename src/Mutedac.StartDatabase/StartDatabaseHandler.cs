@@ -89,6 +89,8 @@ namespace Mutedac.StartDatabase
                         UUID = configuration.DequeueEventSourceUUID,
                         Enabled = false,
                     });
+
+                    await Task.Delay(500);
                 }
 
                 if (request.NotificationTopic != null)
