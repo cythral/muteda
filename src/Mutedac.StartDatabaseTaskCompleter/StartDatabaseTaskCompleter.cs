@@ -23,14 +23,14 @@ using static System.Text.Json.JsonSerializer;
 namespace Mutedac.StartDatabaseTaskCompleter
 {
     [Lambda(Startup = typeof(Startup))]
-    public partial class StartDatabaseTaskCompleter
+    public partial class StartDatabaseTaskCompleterHandler
     {
         private IAmazonStepFunctions stepFunctionsClient;
-        private ILogger<StartDatabaseTaskCompleter> logger;
+        private ILogger<StartDatabaseTaskCompleterHandler> logger;
 
-        public StartDatabaseTaskCompleter(
+        public StartDatabaseTaskCompleterHandler(
             IAmazonStepFunctions stepFunctionsClient,
-            ILogger<StartDatabaseTaskCompleter> logger
+            ILogger<StartDatabaseTaskCompleterHandler> logger
         )
         {
             this.stepFunctionsClient = stepFunctionsClient;

@@ -39,21 +39,21 @@ namespace Mutedac.StartDatabaseTaskCompleter
             [Substitute] public IAmazonStepFunctions StepFunctionsClient;
             [Substitute] public IAmazonEventBridge EventBridgeClient;
             [Substitute] public IConfiguration Configuration;
-            public StartDatabaseTaskCompleter StartDatabaseTaskCompleterHandler;
+            public StartDatabaseTaskCompleterHandler StartDatabaseTaskCompleterHandler;
 
 #pragma warning restore CS8618, CS0649
 
             public override Task Setup()
             {
-                var logger = Substitute.For<ILogger<StartDatabaseTaskCompleter>>();
+                var logger = Substitute.For<ILogger<StartDatabaseTaskCompleterHandler>>();
 
-                StartDatabaseTaskCompleterHandler = new StartDatabaseTaskCompleter(StepFunctionsClient, logger);
+                StartDatabaseTaskCompleterHandler = new StartDatabaseTaskCompleterHandler(StepFunctionsClient, logger);
                 return Task.CompletedTask;
             }
 
             public void Deconstruct(
                 out IAmazonStepFunctions stepFunctionsClient,
-                out StartDatabaseTaskCompleter handler
+                out StartDatabaseTaskCompleterHandler handler
             )
             {
                 stepFunctionsClient = StepFunctionsClient;
