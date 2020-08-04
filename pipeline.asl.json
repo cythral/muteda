@@ -154,7 +154,7 @@
             "DevStartDatabaseFunctionArn.$": "$.DevOutputs.StartDatabaseFunctionArn",
             "ProdStartDatabaseFunctionArn.$": "$.ProdOutputs.StartDatabaseFunctionArn"
           },
-          "Capabilities": ["CAPABILITY_IAM"],
+          "Capabilities": ["CAPABILITY_IAM", "CAPABILITY_AUTO_EXPAND"],
           "EnvironmentName": "shared",
           "CommitInfo": {
             "GithubOwner": "${GithubOwner}",
