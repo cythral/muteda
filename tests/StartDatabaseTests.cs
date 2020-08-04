@@ -57,6 +57,11 @@ namespace Mutedac.StartDatabase
                     ["Lambda:DequeueEventSourceUUID"] = dequeueEventSourceUuid,
                 }).Build();
 
+                LambdaClient.GetEventSourceMappingAsync(null).ReturnsForAnyArgs(new GetEventSourceMappingResponse
+                {
+                    State = "Disabled"
+                });
+
                 StartDatabaseHandler = new StartDatabaseHandler(RdsClient, SnsClient, EventBridgeClient, SqsClient, LambdaClient, logger, configuration);
                 return Task.CompletedTask;
             }

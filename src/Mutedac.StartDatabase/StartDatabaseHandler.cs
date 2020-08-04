@@ -90,7 +90,18 @@ namespace Mutedac.StartDatabase
                         Enabled = false,
                     });
 
-                    await Task.Delay(500);
+
+                    var disabled = false;
+
+                    while (!disabled)
+                    {
+                        await Task.Delay(500);
+
+                        var getEventSourceRequest = new GetEventSourceMappingRequest { UUID = configuration.DequeueEventSourceUUID };
+                        var response = await lambdaClient.GetEventSourceMappingAsync(getEventSourceRequest);
+
+                        disabled = response.State == "Disabled";
+                    }
                 }
 
                 if (request.NotificationTopic != null)

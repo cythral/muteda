@@ -64,6 +64,7 @@ Resources:
               - rds:StartDBCluster
               - events:EnableRule
               - lambda:UpdateEventSourceMapping
+              - lambda:GetEventSourceMapping
               - sns:Publish
               - sqs:SendMessage
             Resource: "*"
