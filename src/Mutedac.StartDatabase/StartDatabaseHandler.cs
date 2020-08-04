@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 using Amazon.EventBridge;
 using Amazon.EventBridge.Model;
+using Amazon.Lambda;
 using Amazon.Lambda.Core;
+using Amazon.Lambda.Model;
 using Amazon.Lambda.Serialization.SystemTextJson;
 using Amazon.RDS;
 using Amazon.RDS.Model;
@@ -38,6 +40,7 @@ namespace Mutedac.StartDatabase
         private IAmazonSimpleNotificationService snsClient;
         private IAmazonEventBridge eventsClient;
         private IAmazonSQS sqsClient;
+        private IAmazonLambda lambdaClient;
         private ILogger<StartDatabaseHandler> logger;
         private LambdaConfiguration configuration;
 
@@ -46,6 +49,7 @@ namespace Mutedac.StartDatabase
             IAmazonSimpleNotificationService snsClient,
             IAmazonEventBridge eventsClient,
             IAmazonSQS sqsClient,
+            IAmazonLambda lambdaClient,
             ILogger<StartDatabaseHandler> logger,
             IConfiguration configuration
         )
@@ -54,6 +58,7 @@ namespace Mutedac.StartDatabase
             this.snsClient = snsClient;
             this.eventsClient = eventsClient;
             this.sqsClient = sqsClient;
+            this.lambdaClient = lambdaClient;
             this.logger = logger;
             this.configuration = configuration.GetSection("Lambda").Get<LambdaConfiguration>();
         }
@@ -77,6 +82,12 @@ namespace Mutedac.StartDatabase
                     await rdsClient.StartDBClusterAsync(new StartDBClusterRequest
                     {
                         DBClusterIdentifier = request.DatabaseName
+                    });
+
+                    await lambdaClient.UpdateEventSourceMappingAsync(new UpdateEventSourceMappingRequest
+                    {
+                        UUID = configuration.DequeueEventSourceUUID,
+                        Enabled = false,
                     });
                 }
 

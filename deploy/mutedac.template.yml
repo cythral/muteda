@@ -63,6 +63,7 @@ Resources:
               - rds:DescribeDBClusters
               - rds:StartDBCluster
               - events:EnableRule
+              - lambda:UpdateEventSourceMapping
               - sns:Publish
               - sqs:SendMessage
             Resource: "*"
@@ -82,6 +83,7 @@ Resources:
         Variables:
           Lambda__NotificationQueueUrl: !Ref StartDatabaseNotificationQueue
           Lambda__WaitForDatabaseAvailabilityRuleName: Mutedac.WaitForDatabaseAvailability
+          Lambda__DequeueEventSourceUUID: !Ref NotifyDatabaseAvailabilityFunctionEventSourceMapping
 
   StartDatabaseFunctionPermission:
     Type: AWS::Lambda::Permission
@@ -135,6 +137,7 @@ Resources:
         Variables:
           Lambda__NotificationQueueUrl: !Ref StartDatabaseNotificationQueue
           Lambda__WaitForDatabaseAvailabilityRuleName: Mutedac.WaitForDatabaseAvailability
+          Lambda__DequeueEventSourceUUID: !Ref NotifyDatabaseAvailabilityFunctionEventSourceMapping
 
   WaitForDatabaseAvailabilityFunctionPermission:
     Type: AWS::Lambda::Permission
@@ -143,6 +146,44 @@ Resources:
       Action: lambda:InvokeFunction
       Principal: events.amazonaws.com
       SourceArn: !GetAtt WaitForDatabaseAvailabilityEventRule.Arn
+
+  NotifyDatabaseAvailabilityFunctionPolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action:
+              - sns:Publish
+              - sqs:GetQueueAttributes
+              - sqs:ReceiveMessage
+              - sqs:DeleteMessage
+              - lambda:UpdateEventSourceMapping
+            Resource: "*"
+
+  NotifyDatabaseAvailabilityFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: Mutedac.NotifyDatabaseAvailability::Mutedac.NotifyDatabaseAvailability.NotifyDatabaseAvailabilityHandler::Run
+      Runtime: dotnetcore3.1
+      Timeout: 300
+      CodeUri: ../bin/Mutedac.NotifyDatabaseAvailability/Release/netcoreapp3.1/publish/
+      MemorySize: 512
+      Policies:
+        - AWSLambdaExecute
+        - !Ref NotifyDatabaseAvailabilityFunctionPolicy
+      Environment:
+        Variables:
+          Lambda__NotificationQueueUrl: !Ref StartDatabaseNotificationQueue
+          Lambda__WaitForDatabaseAvailabilityRuleName: Mutedac.WaitForDatabaseAvailability
+
+  NotifyDatabaseAvailabilityFunctionEventSourceMapping:
+    Type: AWS::Lambda::EventSourceMapping
+    Properties:
+      FunctionName: !Ref NotifyDatabaseAvailabilityFunction
+      EventSourceArn: !GetAtt StartDatabaseNotificationQueue.Arn
+      BatchSize: 10
 
 Outputs:
   ClusterName:

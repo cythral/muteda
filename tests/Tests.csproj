@@ -17,6 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\src\Mutedac.StartDatabase\Mutedac.StartDatabase.csproj" />
     <ProjectReference Include="..\src\Mutedac.WaitForDatabaseAvailability\Mutedac.WaitForDatabaseAvailability.csproj" />
+    <ProjectReference Include="..\src\Mutedac.NotifyDatabaseAvailability\Mutedac.NotifyDatabaseAvailability.csproj" />
   </ItemGroup>
   
 </Project>

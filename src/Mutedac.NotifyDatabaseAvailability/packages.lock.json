@@ -2,6 +2,12 @@
   "version": 1,
   "dependencies": {
     ".NETCoreApp,Version=v3.1": {
+      "Amazon.Lambda.Core": {
+        "type": "Direct",
+        "requested": "[1.1.0, )",
+        "resolved": "1.1.0",
+        "contentHash": "ueGId8b4DEHoVWkHDs3iAJH8IUSAUGu5AqkoI/Syl4RuByzik7lz9IjoImiGAlGhtsQV02MHNeTo04IFjS37gQ=="
+      },
       "Amazon.Lambda.Serialization.SystemTextJson": {
         "type": "Direct",
         "requested": "[2.0.1, )",
@@ -11,14 +17,11 @@
           "Amazon.Lambda.Core": "1.1.0"
         }
       },
-      "AWSSDK.EventBridge": {
+      "Amazon.Lambda.SQSEvents": {
         "type": "Direct",
-        "requested": "[3.3.102.9, )",
-        "resolved": "3.3.102.9",
-        "contentHash": "lFeBBEUeSsfd19h92SEWnBN6J2pDoRt9UY2KZmtFnKu/TMDz8WgGodqctd1KYwBQi5Ywl5QtQSjIQWo0YKmbmw==",
-        "dependencies": {
-          "AWSSDK.Core": "[3.3.107.32, 3.4.0)"
-        }
+        "requested": "[1.1.0, )",
+        "resolved": "1.1.0",
+        "contentHash": "AD6rELASxItdSSR1Vj7X7pEE8OeGIADJkYer9dvHtXP+2NhpgFheBKj9mNt7fOEBuZLHo058TY416E9fnHRd6Q=="
       },
       "AWSSDK.Lambda": {
         "type": "Direct",
@@ -29,31 +32,13 @@
           "AWSSDK.Core": "[3.3.107.33, 3.4.0)"
         }
       },
-      "AWSSDK.RDS": {
-        "type": "Direct",
-        "requested": "[3.3.127.2, )",
-        "resolved": "3.3.127.2",
-        "contentHash": "jrhTOcptsa93RazGi9Iy2kSuDrn8xyU97jjJ3/E0mJW8D+I1Nx5aYYtZnBavJBT8VyzJAk5KbdME29K+SKgQpQ==",
-        "dependencies": {
-          "AWSSDK.Core": "[3.3.107.31, 3.4.0)"
-        }
-      },
       "AWSSDK.SimpleNotificationService": {
         "type": "Direct",
-        "requested": "[3.3.102.9, )",
-        "resolved": "3.3.102.9",
-        "contentHash": "TTcsVxBZUYtT2jscV4RXQltLnnDywPtNDfSnSOkoygNpjvmV80mmacew5qp3HTu3/NolzmU0mkKxv68jN74J1Q==",
+        "requested": "[3.3.102.10, )",
+        "resolved": "3.3.102.10",
+        "contentHash": "9P+61FaJSn//ubLSPMlowKtBBeLKp9+j7iavn/JGsKLJzFJUK+9zF5PK7pfvy0jUC5nis//rDR071VWNrPY6dQ==",
         "dependencies": {
-          "AWSSDK.Core": "[3.3.107.32, 3.4.0)"
-        }
-      },
-      "AWSSDK.SQS": {
-        "type": "Direct",
-        "requested": "[3.3.103.19, )",
-        "resolved": "3.3.103.19",
-        "contentHash": "VhnYtFD+InAYltDtCbC2JKxmuZpPlOvlnYnWKh1ADJ+Q58y+RbQtmj+whlK67vbcdoH9FyPD3RkDqfaCHgJt4g==",
-        "dependencies": {
-          "AWSSDK.Core": "[3.3.107.32, 3.4.0)"
+          "AWSSDK.Core": "[3.3.107.33, 3.4.0)"
         }
       },
       "Lambdajection": {
@@ -90,21 +75,6 @@
           "Microsoft.Extensions.Logging": "3.1.6",
           "Microsoft.Extensions.Logging.Configuration": "3.1.6"
         }
-      },
-      "Microsoft.Extensions.Options": {
-        "type": "Direct",
-        "requested": "[3.1.6, )",
-        "resolved": "3.1.6",
-        "contentHash": "6nBkdL9UxCfA8eDuFBZVYAYpJhux0a6R7y58KcYnqKEYF84X9cK1uJQ9a+VWEWGXujMa4fnCGoVdKNYhANqbZg==",
-        "dependencies": {
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.6",
-          "Microsoft.Extensions.Primitives": "3.1.6"
-        }
-      },
-      "Amazon.Lambda.Core": {
-        "type": "Transitive",
-        "resolved": "1.1.0",
-        "contentHash": "ueGId8b4DEHoVWkHDs3iAJH8IUSAUGu5AqkoI/Syl4RuByzik7lz9IjoImiGAlGhtsQV02MHNeTo04IFjS37gQ=="
       },
       "AWSSDK.Core": {
         "type": "Transitive",
@@ -246,6 +216,15 @@
         "dependencies": {
           "Microsoft.Extensions.Logging": "3.1.6",
           "Microsoft.Extensions.Options.ConfigurationExtensions": "3.1.6"
+        }
+      },
+      "Microsoft.Extensions.Options": {
+        "type": "Transitive",
+        "resolved": "3.1.6",
+        "contentHash": "6nBkdL9UxCfA8eDuFBZVYAYpJhux0a6R7y58KcYnqKEYF84X9cK1uJQ9a+VWEWGXujMa4fnCGoVdKNYhANqbZg==",
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.6",
+          "Microsoft.Extensions.Primitives": "3.1.6"
         }
       },
       "Microsoft.Extensions.Options.ConfigurationExtensions": {
