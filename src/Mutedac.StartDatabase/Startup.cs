@@ -1,4 +1,5 @@
 using Amazon.EventBridge;
+using Amazon.Lambda;
 using Amazon.RDS;
 using Amazon.SimpleNotificationService;
 using Amazon.SQS;
@@ -21,6 +22,7 @@ namespace Mutedac.StartDatabase
             services.AddScoped<IAmazonSimpleNotificationService, AmazonSimpleNotificationServiceClient>();
             services.AddScoped<IAmazonEventBridge, AmazonEventBridgeClient>();
             services.AddScoped<IAmazonSQS, AmazonSQSClient>();
+            services.AddScoped<IAmazonLambda, AmazonLambdaClient>();
             services.AddLogging(options => options.AddConsole());
         }
     }
