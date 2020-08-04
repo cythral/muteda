@@ -31,8 +31,9 @@ Resources:
             Action: sns:Publish
             Resource: "*"
             Principal:
-              - !ImportValue cfn-metadata:DevAccountId
-              - !ImportValue cfn-metadata:ProdAccountId
+              AWS:
+                - !ImportValue cfn-metadata:DevAccountId
+                - !ImportValue cfn-metadata:ProdAccountId
 
 Outputs:
   DevClusterName:
