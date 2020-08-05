@@ -95,12 +95,11 @@ namespace Mutedac.StartDatabase
 
                     while (!disabled)
                     {
-                        await Task.Delay(500);
-
                         var getEventSourceRequest = new GetEventSourceMappingRequest { UUID = configuration.DequeueEventSourceUUID };
                         var response = await lambdaClient.GetEventSourceMappingAsync(getEventSourceRequest);
 
                         disabled = response.State.ToLower() == "disabled";
+                        await Task.Delay(500);
                     }
                 }
 
