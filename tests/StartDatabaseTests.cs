@@ -16,6 +16,7 @@ using Amazon.SQS.Model;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 using NSubstitute;
 
@@ -49,13 +50,12 @@ namespace Mutedac.StartDatabase
             public override Task Setup()
             {
                 var logger = Substitute.For<ILogger<StartDatabaseHandler>>();
-                var configuration = new ConfigurationBuilder()
-                .AddInMemoryCollection(new Dictionary<string, string>
+                var configuration = new OptionsWrapper<LambdaConfiguration>(new LambdaConfiguration
                 {
-                    ["Lambda:WaitForDatabaseAvailabilityRuleName"] = waitForDatabaseAvailabilityRuleName,
-                    ["Lambda:NotificationQueueUrl"] = queueUrl,
-                    ["Lambda:DequeueEventSourceUUID"] = dequeueEventSourceUuid,
-                }).Build();
+                    WaitForDatabaseAvailabilityRuleName = waitForDatabaseAvailabilityRuleName,
+                    NotificationQueueUrl = queueUrl,
+                    DequeueEventSourceUUID = dequeueEventSourceUuid
+                });
 
                 LambdaClient.GetEventSourceMappingAsync(null).ReturnsForAnyArgs(new GetEventSourceMappingResponse
                 {
@@ -117,7 +117,41 @@ namespace Mutedac.StartDatabase
         }
 
         [Test]
-        public async Task EventSourceMapping_ShouldBeDisabled_IfStatusIsStopped()
+        public async Task EventSourceMapping_ShouldBeDisabled_IfStatusIsStopped_AndNotificationTopicProvided()
+        {
+            var (rdsClient, snsClient, eventsClient, sqsClient, lambdaClient, handler) = await GetContext();
+            var databaseName = "databaseName";
+            var notificationTopic = "notificationTopic";
+
+            rdsClient.DescribeDBClustersAsync(Arg.Any<DescribeDBClustersRequest>()).Returns(new DescribeDBClustersResponse
+            {
+                DBClusters = new List<DBCluster>
+                {
+                    new DBCluster
+                    {
+                        DBClusterIdentifier = databaseName,
+                        Status = "stopped"
+                    }
+                }
+            });
+
+            await handler.Handle(new StartDatabaseRequest
+            {
+                DatabaseName = databaseName,
+                NotificationTopic = notificationTopic
+            });
+
+            await rdsClient.Received().DescribeDBClustersAsync(
+                Arg.Is<DescribeDBClustersRequest>(req => req.DBClusterIdentifier == databaseName)
+            );
+
+            await lambdaClient.Received().UpdateEventSourceMappingAsync(
+                Arg.Is<UpdateEventSourceMappingRequest>(req => req.UUID == dequeueEventSourceUuid && req.Enabled == false)
+            );
+        }
+
+        [Test]
+        public async Task EventSourceMapping_ShouldNotBeDisabled_IfStatusIsStopped_AndNotificationTopicNotProvided()
         {
             var (rdsClient, snsClient, eventsClient, sqsClient, lambdaClient, handler) = await GetContext();
             var databaseName = "databaseName";
@@ -136,15 +170,15 @@ namespace Mutedac.StartDatabase
 
             await handler.Handle(new StartDatabaseRequest
             {
-                DatabaseName = databaseName
+                DatabaseName = databaseName,
             });
 
             await rdsClient.Received().DescribeDBClustersAsync(
                 Arg.Is<DescribeDBClustersRequest>(req => req.DBClusterIdentifier == databaseName)
             );
 
-            await lambdaClient.Received().UpdateEventSourceMappingAsync(
-                Arg.Is<UpdateEventSourceMappingRequest>(req => req.UUID == dequeueEventSourceUuid && req.Enabled == false)
+            await lambdaClient.DidNotReceive().UpdateEventSourceMappingAsync(
+                Arg.Any<UpdateEventSourceMappingRequest>()
             );
         }
 

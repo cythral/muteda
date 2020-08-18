@@ -15,6 +15,7 @@ using Lambdajection.Attributes;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 [assembly: LambdaSerializer(typeof(DefaultLambdaJsonSerializer))]
 
@@ -34,14 +35,14 @@ namespace Mutedac.WaitForDatabaseAvailability
             IAmazonLambda lambdaClient,
             IAmazonEventBridge eventsClient,
             ILogger<WaitForDatabaseAvailabilityHandler> logger,
-            IConfiguration configuration
+            IOptions<LambdaConfiguration> configuration
         )
         {
             this.rdsClient = rdsClient;
             this.lambdaClient = lambdaClient;
             this.eventsClient = eventsClient;
             this.logger = logger;
-            this.configuration = configuration.GetSection("Lambda").Get<LambdaConfiguration>();
+            this.configuration = configuration.Value;
         }
 
         public async Task<WaitForDatabaseAvailabilityResponse> Handle(WaitForDatabaseAvailabilityRequest request, ILambdaContext context = default!)

@@ -41,7 +41,11 @@ namespace Mutedac.StartDatabaseTaskCompleter
         {
             var tasks = request.Records.Select(record => CompleteTask(record.Sns));
             await Task.WhenAll(tasks);
-            return await Task.FromResult(new StartDatabaseTaskCompleterResponse { });
+
+            return new StartDatabaseTaskCompleterResponse
+            {
+                Message = "Notified all pending tasks"
+            };
         }
 
         public async Task CompleteTask(SNSEvent.SNSMessage message)
