@@ -14,6 +14,7 @@ using Amazon.SQS.Model;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 using NSubstitute;
 
@@ -45,13 +46,12 @@ namespace Mutedac.WaitForDatabaseAvailability
             public override Task Setup()
             {
                 var logger = Substitute.For<ILogger<WaitForDatabaseAvailabilityHandler>>();
-                var configuration = new ConfigurationBuilder()
-                .AddInMemoryCollection(new Dictionary<string, string>
+                var configuration = new OptionsWrapper<LambdaConfiguration>(new LambdaConfiguration
                 {
-                    ["Lambda:WaitForDatabaseAvailabilityRuleName"] = waitForDatabaseAvailabilityRuleName,
-                    ["Lambda:NotificationQueueUrl"] = queueUrl,
-                    ["Lambda:DequeueEventSourceUUID"] = dequeueEventSourceUuid,
-                }).Build();
+                    WaitForDatabaseAvailabilityRuleName = waitForDatabaseAvailabilityRuleName,
+                    NotificationQueueUrl = queueUrl,
+                    DequeueEventSourceUUID = dequeueEventSourceUuid,
+                });
 
                 StartDatabaseHandler = new WaitForDatabaseAvailabilityHandler(RdsClient, LambdaClient, EventBridgeClient, logger, configuration);
                 return Task.CompletedTask;

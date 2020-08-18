@@ -17,6 +17,7 @@ namespace Mutedac.NotifyDatabaseAvailability
         {
             services.AddScoped<IAmazonSimpleNotificationService, AmazonSimpleNotificationServiceClient>();
             services.AddLogging(options => options.AddConsole());
+            services.Configure<LambdaConfiguration>(Configuration.GetSection(LambdaConfiguration.SectionName));
         }
     }
 }

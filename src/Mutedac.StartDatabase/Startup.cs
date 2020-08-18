@@ -24,6 +24,7 @@ namespace Mutedac.StartDatabase
             services.AddScoped<IAmazonSQS, AmazonSQSClient>();
             services.AddScoped<IAmazonLambda, AmazonLambdaClient>();
             services.AddLogging(options => options.AddConsole());
+            services.Configure<LambdaConfiguration>(Configuration.GetSection(LambdaConfiguration.SectionName));
         }
     }
 }

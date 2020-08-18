@@ -17,6 +17,7 @@ using Amazon.SQS.Model;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 using NSubstitute;
 
@@ -46,12 +47,11 @@ namespace Mutedac.NotifyDatabaseAvailability
             public override Task Setup()
             {
                 var logger = Substitute.For<ILogger<NotifyDatabaseAvailabilityHandler>>();
-                var configuration = new ConfigurationBuilder()
-                .AddInMemoryCollection(new Dictionary<string, string>
+                var configuration = new OptionsWrapper<LambdaConfiguration>(new LambdaConfiguration
                 {
-                    ["Lambda:NotificationQueueUrl"] = queueUrl,
-                    ["Lambda:DequeueEventSourceUUID"] = dequeueEventSourceUuid,
-                }).Build();
+                    NotificationQueueUrl = queueUrl,
+                    DequeueEventSourceUUID = dequeueEventSourceUuid
+                });
 
                 StartDatabaseHandler = new NotifyDatabaseAvailabilityHandler(SnsClient, logger, configuration);
                 return Task.CompletedTask;

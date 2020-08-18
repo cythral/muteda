@@ -20,6 +20,7 @@ namespace Mutedac.WaitForDatabaseAvailability
             services.AddScoped<IAmazonEventBridge, AmazonEventBridgeClient>();
             services.AddScoped<IAmazonLambda, AmazonLambdaClient>();
             services.AddLogging(options => options.AddConsole());
+            services.Configure<LambdaConfiguration>(Configuration.GetSection(LambdaConfiguration.SectionName));
         }
     }
 }

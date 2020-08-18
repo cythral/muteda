@@ -21,6 +21,7 @@ using Lambdajection.Attributes;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 using static System.Text.Json.JsonSerializer;
 
@@ -51,7 +52,7 @@ namespace Mutedac.StartDatabase
             IAmazonSQS sqsClient,
             IAmazonLambda lambdaClient,
             ILogger<StartDatabaseHandler> logger,
-            IConfiguration configuration
+            IOptions<LambdaConfiguration> configuration
         )
         {
             this.rdsClient = rdsClient;
@@ -60,7 +61,7 @@ namespace Mutedac.StartDatabase
             this.sqsClient = sqsClient;
             this.lambdaClient = lambdaClient;
             this.logger = logger;
-            this.configuration = configuration.GetSection("Lambda").Get<LambdaConfiguration>();
+            this.configuration = configuration.Value;
         }
 
         public async Task<StartDatabaseResponse> Handle(StartDatabaseRequest request, ILambdaContext context = default!)
@@ -83,28 +84,12 @@ namespace Mutedac.StartDatabase
                     {
                         DBClusterIdentifier = request.DatabaseName
                     });
-
-                    await lambdaClient.UpdateEventSourceMappingAsync(new UpdateEventSourceMappingRequest
-                    {
-                        UUID = configuration.DequeueEventSourceUUID,
-                        Enabled = false,
-                    });
-
-
-                    var disabled = false;
-
-                    while (!disabled)
-                    {
-                        var getEventSourceRequest = new GetEventSourceMappingRequest { UUID = configuration.DequeueEventSourceUUID };
-                        var response = await lambdaClient.GetEventSourceMappingAsync(getEventSourceRequest);
-
-                        disabled = response.State.ToLower() == "disabled";
-                        await Task.Delay(500);
-                    }
                 }
 
                 if (request.NotificationTopic != null)
                 {
+                    await DisableNotifyDatabaseAvailabilityEventSourceMapping();
+
                     await sqsClient.SendMessageAsync(new SendMessageRequest
                     {
                         QueueUrl = configuration.NotificationQueueUrl,
@@ -156,6 +141,26 @@ namespace Mutedac.StartDatabase
                         ["TaskToken"] = new SNSMessageAttributeValue { StringValue = taskToken }
                     }
                 });
+            }
+        }
+
+        private async Task DisableNotifyDatabaseAvailabilityEventSourceMapping()
+        {
+            await lambdaClient.UpdateEventSourceMappingAsync(new UpdateEventSourceMappingRequest
+            {
+                UUID = configuration.DequeueEventSourceUUID,
+                Enabled = false,
+            });
+
+
+            var disabled = false;
+            while (!disabled)
+            {
+                var getEventSourceRequest = new GetEventSourceMappingRequest { UUID = configuration.DequeueEventSourceUUID };
+                var response = await lambdaClient.GetEventSourceMappingAsync(getEventSourceRequest);
+
+                disabled = response.State.ToLower() == "disabled";
+                await Task.Delay(500);
             }
         }
     }
