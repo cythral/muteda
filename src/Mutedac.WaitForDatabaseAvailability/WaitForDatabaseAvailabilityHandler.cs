@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 
 using Amazon.EventBridge;
@@ -13,7 +12,6 @@ using Amazon.RDS.Model;
 
 using Lambdajection.Attributes;
 
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
@@ -24,11 +22,11 @@ namespace Mutedac.WaitForDatabaseAvailability
     [Lambda(Startup = typeof(Startup))]
     public partial class WaitForDatabaseAvailabilityHandler
     {
-        private IAmazonRDS rdsClient;
-        private IAmazonLambda lambdaClient;
-        private IAmazonEventBridge eventsClient;
-        private ILogger<WaitForDatabaseAvailabilityHandler> logger;
-        private LambdaConfiguration configuration;
+        private readonly IAmazonRDS rdsClient;
+        private readonly IAmazonLambda lambdaClient;
+        private readonly IAmazonEventBridge eventsClient;
+        private readonly ILogger<WaitForDatabaseAvailabilityHandler> logger;
+        private readonly LambdaConfiguration configuration;
 
         public WaitForDatabaseAvailabilityHandler(
             IAmazonRDS rdsClient,

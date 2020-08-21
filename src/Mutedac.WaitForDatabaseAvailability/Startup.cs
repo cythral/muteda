@@ -6,7 +6,6 @@ using Lambdajection.Core;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 
 namespace Mutedac.WaitForDatabaseAvailability
 {
@@ -19,7 +18,6 @@ namespace Mutedac.WaitForDatabaseAvailability
             services.AddScoped<IAmazonRDS, AmazonRDSClient>();
             services.AddScoped<IAmazonEventBridge, AmazonEventBridgeClient>();
             services.AddScoped<IAmazonLambda, AmazonLambdaClient>();
-            services.AddLogging(options => options.AddConsole());
             services.Configure<LambdaConfiguration>(Configuration.GetSection(LambdaConfiguration.SectionName));
         }
     }

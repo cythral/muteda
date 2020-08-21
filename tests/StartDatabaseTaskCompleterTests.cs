@@ -1,17 +1,8 @@
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using Amazon.EventBridge;
-using Amazon.EventBridge.Model;
-using Amazon.Lambda;
-using Amazon.Lambda.Core;
-using Amazon.Lambda.Model;
 using Amazon.Lambda.SNSEvents;
-using Amazon.RDS;
-using Amazon.RDS.Model;
-using Amazon.SQS;
-using Amazon.SQS.Model;
 using Amazon.StepFunctions;
 using Amazon.StepFunctions.Model;
 
@@ -26,24 +17,19 @@ using static System.Text.Json.JsonSerializer;
 
 namespace Mutedac.StartDatabaseTaskCompleter
 {
-    public class StartDatabaseTaskCompleterTests : TestSuite<StartDatabaseTaskCompleterTests.Context>
+    class StartDatabaseTaskCompleterTests : TestSuite<StartDatabaseTaskCompleterTests.Context>
     {
-        private const string queueUrl = "queueUrl";
-        private const string dequeueEventSourceUuid = "dequeueUuid";
-
-        new public class Context : TestSuite<Context>.Context
+        internal class Context : IContext
         {
 
 #pragma warning disable CS8618, CS0649
 
-            [Substitute] public IAmazonStepFunctions StepFunctionsClient;
-            [Substitute] public IAmazonEventBridge EventBridgeClient;
-            [Substitute] public IConfiguration Configuration;
-            public StartDatabaseTaskCompleterHandler StartDatabaseTaskCompleterHandler;
+            [Substitute] IAmazonStepFunctions StepFunctionsClient;
+            StartDatabaseTaskCompleterHandler StartDatabaseTaskCompleterHandler;
 
 #pragma warning restore CS8618, CS0649
 
-            public override Task Setup()
+            public Task Setup()
             {
                 var logger = Substitute.For<ILogger<StartDatabaseTaskCompleterHandler>>();
 

@@ -8,7 +8,6 @@ using Lambdajection.Core;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 
 namespace Mutedac.StartDatabase
 {
@@ -23,7 +22,6 @@ namespace Mutedac.StartDatabase
             services.AddScoped<IAmazonEventBridge, AmazonEventBridgeClient>();
             services.AddScoped<IAmazonSQS, AmazonSQSClient>();
             services.AddScoped<IAmazonLambda, AmazonLambdaClient>();
-            services.AddLogging(options => options.AddConsole());
             services.Configure<LambdaConfiguration>(Configuration.GetSection(LambdaConfiguration.SectionName));
         }
     }

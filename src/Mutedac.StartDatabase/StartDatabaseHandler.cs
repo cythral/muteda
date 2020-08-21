@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection.Metadata;
 using System.Threading.Tasks;
 
 using Amazon.EventBridge;
@@ -19,7 +18,6 @@ using Amazon.SQS.Model;
 
 using Lambdajection.Attributes;
 
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
@@ -37,13 +35,13 @@ namespace Mutedac.StartDatabase
         private const string StartedStatus = "available";
         private const string StoppedStatus = "stopped";
 
-        private IAmazonRDS rdsClient;
-        private IAmazonSimpleNotificationService snsClient;
-        private IAmazonEventBridge eventsClient;
-        private IAmazonSQS sqsClient;
-        private IAmazonLambda lambdaClient;
-        private ILogger<StartDatabaseHandler> logger;
-        private LambdaConfiguration configuration;
+        private readonly IAmazonRDS rdsClient;
+        private readonly IAmazonSimpleNotificationService snsClient;
+        private readonly IAmazonEventBridge eventsClient;
+        private readonly IAmazonSQS sqsClient;
+        private readonly IAmazonLambda lambdaClient;
+        private readonly ILogger<StartDatabaseHandler> logger;
+        private readonly LambdaConfiguration configuration;
 
         public StartDatabaseHandler(
             IAmazonRDS rdsClient,
@@ -93,7 +91,7 @@ namespace Mutedac.StartDatabase
                     await sqsClient.SendMessageAsync(new SendMessageRequest
                     {
                         QueueUrl = configuration.NotificationQueueUrl,
-                        MessageBody = Serialize(new { TaskToken = request.TaskToken, NotificationTopic = request.NotificationTopic })
+                        MessageBody = Serialize(new { request.TaskToken, request.NotificationTopic })
                     });
 
                     await eventsClient.EnableRuleAsync(new EnableRuleRequest
@@ -110,7 +108,7 @@ namespace Mutedac.StartDatabase
 
                 await NotifyIfNotificationTopicProvided("failed", request.NotificationTopic, request.TaskToken);
 
-                return new StartDatabaseResponse { Message = $"An error occurred while attempting to start the database." };
+                return new StartDatabaseResponse { Message = "An error occurred while attempting to start the database." };
             }
         }
 

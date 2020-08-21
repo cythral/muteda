@@ -1,16 +1,12 @@
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using Amazon.EventBridge;
 using Amazon.EventBridge.Model;
 using Amazon.Lambda;
-using Amazon.Lambda.Core;
 using Amazon.Lambda.Model;
 using Amazon.RDS;
 using Amazon.RDS.Model;
-using Amazon.SQS;
-using Amazon.SQS.Model;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -20,30 +16,27 @@ using NSubstitute;
 
 using NUnit.Framework;
 
-using static System.Text.Json.JsonSerializer;
-
 namespace Mutedac.WaitForDatabaseAvailability
 {
-    public class WaitForDatabaseAvailabilityTests : TestSuite<WaitForDatabaseAvailabilityTests.Context>
+    class WaitForDatabaseAvailabilityTests : TestSuite<WaitForDatabaseAvailabilityTests.Context>
     {
         private const string waitForDatabaseAvailabilityRuleName = "waitForDatabaseAvailabilityRuleName";
         private const string queueUrl = "queueUrl";
         private const string dequeueEventSourceUuid = "dequeueUuid";
 
-        new public class Context : TestSuite<Context>.Context
+        internal class Context : IContext
         {
 
 #pragma warning disable CS8618, CS0649
 
-            [Substitute] public IAmazonRDS RdsClient;
-            [Substitute] public IAmazonLambda LambdaClient;
-            [Substitute] public IAmazonEventBridge EventBridgeClient;
-            [Substitute] public IConfiguration Configuration;
+            [Substitute] IAmazonRDS RdsClient;
+            [Substitute] IAmazonLambda LambdaClient;
+            [Substitute] IAmazonEventBridge EventBridgeClient;
             public WaitForDatabaseAvailabilityHandler StartDatabaseHandler;
 
 #pragma warning restore CS8618, CS0649
 
-            public override Task Setup()
+            public Task Setup()
             {
                 var logger = Substitute.For<ILogger<WaitForDatabaseAvailabilityHandler>>();
                 var configuration = new OptionsWrapper<LambdaConfiguration>(new LambdaConfiguration
