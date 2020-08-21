@@ -1,11 +1,9 @@
-using Amazon.Lambda;
 using Amazon.SimpleNotificationService;
 
 using Lambdajection.Core;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 
 namespace Mutedac.NotifyDatabaseAvailability
 {
@@ -16,7 +14,6 @@ namespace Mutedac.NotifyDatabaseAvailability
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IAmazonSimpleNotificationService, AmazonSimpleNotificationServiceClient>();
-            services.AddLogging(options => options.AddConsole());
             services.Configure<LambdaConfiguration>(Configuration.GetSection(LambdaConfiguration.SectionName));
         }
     }

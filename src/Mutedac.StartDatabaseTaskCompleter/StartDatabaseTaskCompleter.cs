@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
+﻿using System.Linq;
 using System.Threading.Tasks;
 
-using Amazon.Lambda;
 using Amazon.Lambda.Core;
 using Amazon.Lambda.Serialization.SystemTextJson;
 using Amazon.Lambda.SNSEvents;
@@ -13,7 +9,6 @@ using Amazon.StepFunctions.Model;
 
 using Lambdajection.Attributes;
 
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
 using static System.Text.Json.JsonSerializer;
@@ -25,8 +20,8 @@ namespace Mutedac.StartDatabaseTaskCompleter
     [Lambda(Startup = typeof(Startup))]
     public partial class StartDatabaseTaskCompleterHandler
     {
-        private IAmazonStepFunctions stepFunctionsClient;
-        private ILogger<StartDatabaseTaskCompleterHandler> logger;
+        private readonly IAmazonStepFunctions stepFunctionsClient;
+        private readonly ILogger<StartDatabaseTaskCompleterHandler> logger;
 
         public StartDatabaseTaskCompleterHandler(
             IAmazonStepFunctions stepFunctionsClient,

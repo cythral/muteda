@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Amazon.EventBridge;
 using Amazon.EventBridge.Model;
 using Amazon.Lambda;
-using Amazon.Lambda.Core;
 using Amazon.Lambda.Model;
 using Amazon.RDS;
 using Amazon.RDS.Model;
@@ -26,28 +25,27 @@ using static System.Text.Json.JsonSerializer;
 
 namespace Mutedac.StartDatabase
 {
-    public class StartDatabaseTests : TestSuite<StartDatabaseTests.Context>
+    class StartDatabaseTests : TestSuite<StartDatabaseTests.Context>
     {
         private const string waitForDatabaseAvailabilityRuleName = "waitForDatabaseAvailabilityRuleName";
         private const string queueUrl = "queueUrl";
         private const string dequeueEventSourceUuid = "dequeueUuid";
 
-        new public class Context : TestSuite<Context>.Context
+        internal class Context : IContext
         {
 
 #pragma warning disable CS8618, CS0649
 
-            [Substitute] public IAmazonRDS RdsClient;
-            [Substitute] public IAmazonSimpleNotificationService SnsClient;
-            [Substitute] public IAmazonEventBridge EventBridgeClient;
-            [Substitute] public IAmazonSQS SqsClient;
-            [Substitute] public IAmazonLambda LambdaClient;
-            [Substitute] public IConfiguration Configuration;
+            [Substitute] IAmazonRDS RdsClient;
+            [Substitute] IAmazonSimpleNotificationService SnsClient;
+            [Substitute] IAmazonEventBridge EventBridgeClient;
+            [Substitute] IAmazonSQS SqsClient;
+            [Substitute] IAmazonLambda LambdaClient;
             public StartDatabaseHandler StartDatabaseHandler;
 
 #pragma warning restore CS8618, CS0649
 
-            public override Task Setup()
+            public Task Setup()
             {
                 var logger = Substitute.For<ILogger<StartDatabaseHandler>>();
                 var configuration = new OptionsWrapper<LambdaConfiguration>(new LambdaConfiguration

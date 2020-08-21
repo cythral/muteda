@@ -4,7 +4,6 @@ using Lambdajection.Core;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 
 namespace Mutedac.StartDatabaseTaskCompleter
 {
@@ -15,7 +14,6 @@ namespace Mutedac.StartDatabaseTaskCompleter
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IAmazonStepFunctions, AmazonStepFunctionsClient>();
-            services.AddLogging(options => options.AddConsole());
         }
     }
 }
