@@ -1,13 +1,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-using Amazon.EventBridge;
 using Amazon.Lambda.SNSEvents;
 using Amazon.StepFunctions;
 using Amazon.StepFunctions.Model;
-
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 
 using NSubstitute;
 
@@ -31,9 +27,7 @@ namespace Mutedac.StartDatabaseTaskCompleter
 
             public Task Setup()
             {
-                var logger = Substitute.For<ILogger<StartDatabaseTaskCompleterHandler>>();
-
-                StartDatabaseTaskCompleterHandler = new StartDatabaseTaskCompleterHandler(StepFunctionsClient, logger);
+                StartDatabaseTaskCompleterHandler = new StartDatabaseTaskCompleterHandler(StepFunctionsClient);
                 return Task.CompletedTask;
             }
 

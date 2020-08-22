@@ -10,11 +10,7 @@
     <PackageReference Include="Amazon.Lambda.SQSEvents" Version="1.1.0" />
     <PackageReference Include="AWSSDK.Lambda" Version="3.3.110.23" />
     <PackageReference Include="AWSSDK.SimpleNotificationService" Version="3.3.102.10" />
-    <PackageReference Include="Lambdajection" Version="0.2.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Mutedac.Core\Mutedac.Core.csproj" />
+    <PackageReference Include="Lambdajection" Version="0.3.0-beta1" />
   </ItemGroup>
 
 </Project>

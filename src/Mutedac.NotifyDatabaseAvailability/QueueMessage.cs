@@ -1,4 +1,4 @@
-namespace Mutedac
+namespace Mutedac.NotifyDatabaseAvailability
 {
     public class QueueMessage
     {

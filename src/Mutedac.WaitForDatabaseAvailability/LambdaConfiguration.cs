@@ -1,11 +1,11 @@
-namespace Mutedac
+using Lambdajection.Attributes;
+
+namespace Mutedac.WaitForDatabaseAvailability
 {
+    [LambdaOptions(typeof(WaitForDatabaseAvailabilityHandler), "Lambda")]
     public class LambdaConfiguration
     {
-        public const string SectionName = "Lambda";
-
         public string WaitForDatabaseAvailabilityRuleName { get; set; } = "";
-        public string NotificationQueueUrl { get; set; } = "";
         public string DequeueEventSourceUUID { get; set; } = "";
     }
 }

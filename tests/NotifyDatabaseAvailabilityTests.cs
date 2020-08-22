@@ -1,14 +1,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-using Amazon.EventBridge;
 using Amazon.Lambda.SQSEvents;
 using Amazon.SimpleNotificationService;
 using Amazon.SimpleNotificationService.Model;
-
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 using NSubstitute;
 
@@ -20,9 +15,6 @@ namespace Mutedac.NotifyDatabaseAvailability
 {
     class NotifyDatabaseAvailabilityTests : TestSuite<NotifyDatabaseAvailabilityTests.Context>
     {
-        private const string queueUrl = "queueUrl";
-        private const string dequeueEventSourceUuid = "dequeueUuid";
-
         internal class Context : IContext
         {
 
@@ -35,14 +27,7 @@ namespace Mutedac.NotifyDatabaseAvailability
 
             public Task Setup()
             {
-                var logger = Substitute.For<ILogger<NotifyDatabaseAvailabilityHandler>>();
-                var configuration = new OptionsWrapper<LambdaConfiguration>(new LambdaConfiguration
-                {
-                    NotificationQueueUrl = queueUrl,
-                    DequeueEventSourceUUID = dequeueEventSourceUuid
-                });
-
-                StartDatabaseHandler = new NotifyDatabaseAvailabilityHandler(SnsClient, logger, configuration);
+                StartDatabaseHandler = new NotifyDatabaseAvailabilityHandler(SnsClient);
                 return Task.CompletedTask;
             }
 

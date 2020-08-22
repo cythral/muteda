@@ -10,9 +10,6 @@ using Amazon.SimpleNotificationService.Model;
 
 using Lambdajection.Attributes;
 
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-
 using static System.Text.Json.JsonSerializer;
 
 [assembly: LambdaSerializer(typeof(DefaultLambdaJsonSerializer))]
@@ -23,18 +20,12 @@ namespace Mutedac.NotifyDatabaseAvailability
     public partial class NotifyDatabaseAvailabilityHandler
     {
         private readonly IAmazonSimpleNotificationService snsClient;
-        private readonly ILogger<NotifyDatabaseAvailabilityHandler> logger;
-        private readonly LambdaConfiguration configuration;
 
         public NotifyDatabaseAvailabilityHandler(
-            IAmazonSimpleNotificationService snsClient,
-            ILogger<NotifyDatabaseAvailabilityHandler> logger,
-            IOptions<LambdaConfiguration> configuration
+            IAmazonSimpleNotificationService snsClient
         )
         {
             this.snsClient = snsClient;
-            this.logger = logger;
-            this.configuration = configuration.Value;
         }
 
         public async Task<NotifyDatabaseAvailabilityResponse> Handle(SQSEvent request, ILambdaContext context = default!)

@@ -40,14 +40,14 @@
       },
       "Lambdajection": {
         "type": "Direct",
-        "requested": "[0.2.1, )",
-        "resolved": "0.2.1",
-        "contentHash": "6Ks7E4/snqh1MCgJU5DJDK9x4A3jV3gGWgUjNrt+OhDeuoWajOJ7VHVo7eQOf6cLA09i6Jq9G2qLTCeevi8cSg==",
+        "requested": "[0.3.0-beta1, )",
+        "resolved": "0.3.0-beta1",
+        "contentHash": "y0qvm2sLKgJy8uGou1HxYUcYcCOWwzDLWUPO8kFs86OkeG5qatzNGVfccsyzK5ItCnL2b9PnQWQYmyRHNaTZCA==",
         "dependencies": {
-          "Cythral.CodeGeneration.Roslyn.Tool": "0.9.0",
-          "Lambdajection.Attributes": "0.2.1",
-          "Lambdajection.Core": "0.2.1",
-          "Lambdajection.Generator": "0.2.1"
+          "Cythral.CodeGeneration.Roslyn.Tool": "0.9.1",
+          "Lambdajection.Attributes": "0.3.0-beta1",
+          "Lambdajection.Core": "0.3.0-beta1",
+          "Lambdajection.Generator": "0.3.0-beta1"
         }
       },
       "Microsoft.CodeAnalysis.CSharp.CodeStyle": {
@@ -80,31 +80,32 @@
       },
       "Cythral.CodeGeneration.Roslyn.Attributes": {
         "type": "Transitive",
-        "resolved": "0.9.0",
-        "contentHash": "DHe67WQeXPmrQrAQbtrnhlRVbzYwru0P8u5s9By3eRXkJqi4uxTIX2tyR36FnDFrBIfQeSLzFT8rn8O9l/gHgQ==",
+        "resolved": "0.9.1",
+        "contentHash": "XaFge0znlvUJwPUO79QKjYhHtrClGRESe8uzj/j8Izzy6kB75KXOht85L5zMl7E4u7Y8/4VDHvGTPxMyihSGXA==",
         "dependencies": {
           "NETStandard.Library": "1.6.1"
         }
       },
       "Cythral.CodeGeneration.Roslyn.Tool": {
         "type": "Transitive",
-        "resolved": "0.9.0",
-        "contentHash": "mxX4rQklQpNEPsheTYMpXtpb038smVOaj1BeROidJXdJC5Dhn0ne8K1MNZLkj37rch6+vx0Xs0aZJXskO+pXFw=="
+        "resolved": "0.9.1",
+        "contentHash": "oDpJq1WkzEt7DQ/t04ul4Em/cAjx43mNUHvDp9Wc/EgM++/Axrjs8vqJm9e+IMmar1F48V7zHyaaGfs7mCcKvQ=="
       },
       "Lambdajection.Attributes": {
         "type": "Transitive",
-        "resolved": "0.2.1",
-        "contentHash": "eq2EnSiMEg/FQrZQjXP53XhJarlZtcEWZuY5t/GUj1roPMAuKrV+RYLo1Y4ItjFCdzktamawEN72UeAQ2MunlQ==",
+        "resolved": "0.3.0-beta1",
+        "contentHash": "nWYsJDhQwsTCNT2/lOoVSIE44/1Vu2wJ2R7L+LASID/sCOoD2hVLNFfY4nJ3AsntgKDLhsCI7J/IKBv1pWucpg==",
         "dependencies": {
-          "Cythral.CodeGeneration.Roslyn.Attributes": "0.9.0"
+          "Cythral.CodeGeneration.Roslyn.Attributes": "0.9.1"
         }
       },
       "Lambdajection.Core": {
         "type": "Transitive",
-        "resolved": "0.2.1",
-        "contentHash": "To8zsrPzk2StSXOSRDhcyAjiUNecLopB6kmWSW/s+iDQdHPjHUnbBVhAM/Atqy8qDQqd7qmsFDxkseIOYPFEEw==",
+        "resolved": "0.3.0-beta1",
+        "contentHash": "/uuPjaaQnJUNMUfdoT5NXCACCzCJi0yMihIDjOR0g0wc+yAlt6uYb3zWbPUWqKiVGSd9GxD8azHgBheQro5a/Q==",
         "dependencies": {
           "Amazon.Lambda.Core": "1.1.0",
+          "Lambdajection.Attributes": "0.3.0-beta1",
           "Microsoft.Extensions.Configuration": "3.1.6",
           "Microsoft.Extensions.Configuration.EnvironmentVariables": "3.1.6",
           "Microsoft.Extensions.Configuration.Json": "3.1.6",
@@ -115,8 +116,8 @@
       },
       "Lambdajection.Generator": {
         "type": "Transitive",
-        "resolved": "0.2.1",
-        "contentHash": "GXYmw4/QPR8WSEPtgPKTOiR0aqonntWmdUMqnB3sGPxwIdRZLEjIimEkfWomA2cz0Pp0FrufRX5nCqluEx0Ugg=="
+        "resolved": "0.3.0-beta1",
+        "contentHash": "4CS6f4VSV6UzrqAuPfa5EmP11xxIqwYwfone4HAhOZNATm54eCThssZWD3gKlI2Wj6tGj/0fqyPu7cbSlWzWCg=="
       },
       "Microsoft.CodeAnalysis.VersionCheckAnalyzer": {
         "type": "Transitive",
@@ -1180,9 +1181,6 @@
           "System.Threading": "4.3.0",
           "System.Xml.ReaderWriter": "4.3.0"
         }
-      },
-      "mutedac.core": {
-        "type": "Project"
       }
     }
   }

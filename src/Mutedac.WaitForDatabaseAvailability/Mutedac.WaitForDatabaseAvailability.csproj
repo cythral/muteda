@@ -9,11 +9,7 @@
     <PackageReference Include="AWSSDK.EventBridge" Version="3.3.102.9" />
     <PackageReference Include="AWSSDK.Lambda" Version="3.3.110.22" />
     <PackageReference Include="AWSSDK.RDS" Version="3.3.127.3" />
-    <PackageReference Include="Lambdajection" Version="0.2.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Mutedac.Core\Mutedac.Core.csproj" />
+    <PackageReference Include="Lambdajection" Version="0.3.0-beta1" />
   </ItemGroup>
 
 </Project>

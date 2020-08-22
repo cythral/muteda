@@ -13,7 +13,7 @@ namespace Mutedac.StartDatabaseTaskCompleter
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<IAmazonStepFunctions, AmazonStepFunctionsClient>();
+            services.UseAwsService<IAmazonStepFunctions>();
         }
     }
 }

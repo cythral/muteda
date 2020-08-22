@@ -9,8 +9,6 @@ using Amazon.StepFunctions.Model;
 
 using Lambdajection.Attributes;
 
-using Microsoft.Extensions.Logging;
-
 using static System.Text.Json.JsonSerializer;
 
 [assembly: LambdaSerializer(typeof(DefaultLambdaJsonSerializer))]
@@ -21,15 +19,12 @@ namespace Mutedac.StartDatabaseTaskCompleter
     public partial class StartDatabaseTaskCompleterHandler
     {
         private readonly IAmazonStepFunctions stepFunctionsClient;
-        private readonly ILogger<StartDatabaseTaskCompleterHandler> logger;
 
         public StartDatabaseTaskCompleterHandler(
-            IAmazonStepFunctions stepFunctionsClient,
-            ILogger<StartDatabaseTaskCompleterHandler> logger
+            IAmazonStepFunctions stepFunctionsClient
         )
         {
             this.stepFunctionsClient = stepFunctionsClient;
-            this.logger = logger;
         }
 
         public async Task<StartDatabaseTaskCompleterResponse> Handle(SNSEvent request, ILambdaContext context = default!)

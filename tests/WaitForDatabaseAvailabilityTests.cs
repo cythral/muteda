@@ -8,7 +8,6 @@ using Amazon.Lambda.Model;
 using Amazon.RDS;
 using Amazon.RDS.Model;
 
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
@@ -21,7 +20,6 @@ namespace Mutedac.WaitForDatabaseAvailability
     class WaitForDatabaseAvailabilityTests : TestSuite<WaitForDatabaseAvailabilityTests.Context>
     {
         private const string waitForDatabaseAvailabilityRuleName = "waitForDatabaseAvailabilityRuleName";
-        private const string queueUrl = "queueUrl";
         private const string dequeueEventSourceUuid = "dequeueUuid";
 
         internal class Context : IContext
@@ -42,7 +40,6 @@ namespace Mutedac.WaitForDatabaseAvailability
                 var configuration = new OptionsWrapper<LambdaConfiguration>(new LambdaConfiguration
                 {
                     WaitForDatabaseAvailabilityRuleName = waitForDatabaseAvailabilityRuleName,
-                    NotificationQueueUrl = queueUrl,
                     DequeueEventSourceUUID = dequeueEventSourceUuid,
                 });
 
