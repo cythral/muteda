@@ -13,7 +13,6 @@ using Amazon.SimpleNotificationService.Model;
 using Amazon.SQS;
 using Amazon.SQS.Model;
 
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
@@ -330,7 +329,7 @@ namespace Mutedac.StartDatabase
                 TaskToken = token,
             });
 
-            var expectedMessage = Serialize(new
+            var expectedMessage = Serialize(new QueueMessage
             {
                 TaskToken = token,
                 NotificationTopic = topic,

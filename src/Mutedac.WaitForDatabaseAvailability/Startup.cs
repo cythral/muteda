@@ -15,10 +15,9 @@ namespace Mutedac.WaitForDatabaseAvailability
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<IAmazonRDS, AmazonRDSClient>();
-            services.AddScoped<IAmazonEventBridge, AmazonEventBridgeClient>();
-            services.AddScoped<IAmazonLambda, AmazonLambdaClient>();
-            services.Configure<LambdaConfiguration>(Configuration.GetSection(LambdaConfiguration.SectionName));
+            services.UseAwsService<IAmazonRDS>();
+            services.UseAwsService<IAmazonEventBridge>();
+            services.UseAwsService<IAmazonLambda>();
         }
     }
 }

@@ -17,12 +17,11 @@ namespace Mutedac.StartDatabase
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<IAmazonRDS, AmazonRDSClient>();
-            services.AddScoped<IAmazonSimpleNotificationService, AmazonSimpleNotificationServiceClient>();
-            services.AddScoped<IAmazonEventBridge, AmazonEventBridgeClient>();
-            services.AddScoped<IAmazonSQS, AmazonSQSClient>();
-            services.AddScoped<IAmazonLambda, AmazonLambdaClient>();
-            services.Configure<LambdaConfiguration>(Configuration.GetSection(LambdaConfiguration.SectionName));
+            services.UseAwsService<IAmazonRDS>();
+            services.UseAwsService<IAmazonSimpleNotificationService>();
+            services.UseAwsService<IAmazonEventBridge>();
+            services.UseAwsService<IAmazonSQS>();
+            services.UseAwsService<IAmazonLambda>();
         }
     }
 }

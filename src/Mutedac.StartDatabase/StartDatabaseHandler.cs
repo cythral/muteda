@@ -91,7 +91,7 @@ namespace Mutedac.StartDatabase
                     await sqsClient.SendMessageAsync(new SendMessageRequest
                     {
                         QueueUrl = configuration.NotificationQueueUrl,
-                        MessageBody = Serialize(new { request.TaskToken, request.NotificationTopic })
+                        MessageBody = Serialize(new QueueMessage { NotificationTopic = request.NotificationTopic, TaskToken = request.TaskToken! })
                     });
 
                     await eventsClient.EnableRuleAsync(new EnableRuleRequest
