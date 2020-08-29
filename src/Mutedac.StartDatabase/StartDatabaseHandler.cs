@@ -136,7 +136,11 @@ namespace Mutedac.StartDatabase
                     Message = status,
                     MessageAttributes = new Dictionary<string, SNSMessageAttributeValue>
                     {
-                        ["TaskToken"] = new SNSMessageAttributeValue { StringValue = taskToken }
+                        ["TaskToken"] = new SNSMessageAttributeValue
+                        {
+                            StringValue = taskToken,
+                            DataType = "String"
+                        }
                     }
                 });
             }

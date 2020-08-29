@@ -270,6 +270,7 @@ namespace Mutedac.StartDatabase
                 Arg.Is<PublishRequest>(req =>
                   req.TopicArn == topic &&
                   req.MessageAttributes["TaskToken"].StringValue == token &&
+                  req.MessageAttributes["TaskToken"].DataType == "String" &&
                   req.Message == "available"
                 )
             );
@@ -489,7 +490,8 @@ namespace Mutedac.StartDatabase
                 Arg.Is<PublishRequest>(req =>
                     req.Message == "failed" &&
                     req.TopicArn == topic &&
-                    req.MessageAttributes["TaskToken"].StringValue == token
+                    req.MessageAttributes["TaskToken"].StringValue == token &&
+                    req.MessageAttributes["TaskToken"].DataType == "String"
                 )
             );
         }
