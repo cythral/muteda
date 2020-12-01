@@ -52,6 +52,15 @@ Resources:
       PubliclyAccessible: true
       DBSubnetGroupName: !ImportValue cfn-utilities:DBSubnetGroupName
 
+  Instance:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      Engine: aurora-mysql
+      DBInstanceClass: db.t3.small
+      DBClusterIdentifier: !Ref Cluster
+      PubliclyAccessible: false
+      DBSubnetGroupName: !ImportValue cfn-utilities:DBSubnetGroupName
+
   StartDatabaseFunctionPolicy:
     Type: AWS::IAM::ManagedPolicy
     Properties:
