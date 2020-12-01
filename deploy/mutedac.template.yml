@@ -43,15 +43,6 @@ Resources:
     DeletionPolicy: Snapshot
     UpdateReplacePolicy: Snapshot
 
-  PrimaryInstance:
-    Type: AWS::RDS::DBInstance
-    Properties:
-      Engine: aurora-mysql
-      DBInstanceClass: db.t3.small
-      DBClusterIdentifier: !Ref Cluster
-      PubliclyAccessible: true
-      DBSubnetGroupName: !ImportValue cfn-utilities:DBSubnetGroupName
-
   Instance:
     Type: AWS::RDS::DBInstance
     Properties:
