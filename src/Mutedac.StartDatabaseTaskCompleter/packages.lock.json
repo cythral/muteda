@@ -13,9 +13,9 @@
       },
       "Amazon.Lambda.SNSEvents": {
         "type": "Direct",
-        "requested": "[1.1.0, )",
-        "resolved": "1.1.0",
-        "contentHash": "2bDTVmU8fzjjols+9keJtzQJHq5XAAfI28chvrLtBaOwEMzMfNV606ciEERndg5+cmhrO2DQVJmSK5yJ4PAT4w=="
+        "requested": "[1.2.0, )",
+        "resolved": "1.2.0",
+        "contentHash": "RL/0zJ+/t1vXzmaorU9GclCTEY0qbn+4sN2wG79tscSvV1Uc4GYtZKz8J4Ofow/EXFHrqufJeGbKRf5qpRhZEg=="
       },
       "AWSSDK.StepFunctions": {
         "type": "Direct",
