@@ -19,6 +19,6 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.0.0" PrivateAssets="all" />
-        <PackageReference Include="Microsoft.CodeAnalysis.CSharp.CodeStyle" Version="3.8.0-1.20330.5" PrivateAssets="all" />
+        <PackageReference Include="Microsoft.CodeAnalysis.CSharp.CodeStyle" Version="3.10.0" PrivateAssets="all" />
     </ItemGroup>
 </Project> 
