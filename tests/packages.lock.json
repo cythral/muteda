@@ -82,10 +82,10 @@
       },
       "Amazon.Lambda.Serialization.SystemTextJson": {
         "type": "Transitive",
-        "resolved": "2.0.1",
-        "contentHash": "WPtMxw5jwEcVbe0Ro/bF0VDnict/zoCW0r6dfRIIOthjO+fVMgDyGYa4Pkz6ptgCCFcnhQuOq6iebYw1LRZeIQ==",
+        "resolved": "2.1.0",
+        "contentHash": "q2R4I77NrrAHDpcaWby9VA/XhE1tjG/2kpredwucRq7k4dTPCqqB7OFmbiFdlfuErrp2/9+X1l62c4unwVicpw==",
         "dependencies": {
-          "Amazon.Lambda.Core": "1.1.0"
+          "Amazon.Lambda.Core": "1.2.0"
         }
       },
       "Amazon.Lambda.SNSEvents": {
@@ -1156,7 +1156,7 @@
           "AWSSDK.SimpleNotificationService": "3.7.2.15",
           "Amazon.Lambda.Core": "2.0.0",
           "Amazon.Lambda.SQSEvents": "2.0.0",
-          "Amazon.Lambda.Serialization.SystemTextJson": "2.0.1",
+          "Amazon.Lambda.Serialization.SystemTextJson": "2.1.0",
           "Lambdajection": "0.3.0-beta1"
         }
       },
@@ -1168,7 +1168,7 @@
           "AWSSDK.RDS": "3.7.3.1",
           "AWSSDK.SQS": "3.7.0.45",
           "AWSSDK.SimpleNotificationService": "3.7.2.15",
-          "Amazon.Lambda.Serialization.SystemTextJson": "2.0.1",
+          "Amazon.Lambda.Serialization.SystemTextJson": "2.1.0",
           "Lambdajection": "0.3.0-beta1",
           "Microsoft.Extensions.Options": "5.0.0"
         }
@@ -1178,7 +1178,7 @@
         "dependencies": {
           "AWSSDK.StepFunctions": "3.7.0.44",
           "Amazon.Lambda.SNSEvents": "2.0.0",
-          "Amazon.Lambda.Serialization.SystemTextJson": "2.0.1",
+          "Amazon.Lambda.Serialization.SystemTextJson": "2.1.0",
           "Lambdajection": "0.3.0-beta1",
           "Microsoft.Extensions.Options": "5.0.0"
         }
@@ -1189,7 +1189,7 @@
           "AWSSDK.EventBridge": "3.7.3.11",
           "AWSSDK.Lambda": "3.7.2.1",
           "AWSSDK.RDS": "3.7.3.1",
-          "Amazon.Lambda.Serialization.SystemTextJson": "2.0.1",
+          "Amazon.Lambda.Serialization.SystemTextJson": "2.1.0",
           "Lambdajection": "0.3.0-beta1"
         }
       }
