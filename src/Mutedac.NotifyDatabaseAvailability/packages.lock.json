@@ -19,9 +19,9 @@
       },
       "Amazon.Lambda.SQSEvents": {
         "type": "Direct",
-        "requested": "[1.1.0, )",
-        "resolved": "1.1.0",
-        "contentHash": "AD6rELASxItdSSR1Vj7X7pEE8OeGIADJkYer9dvHtXP+2NhpgFheBKj9mNt7fOEBuZLHo058TY416E9fnHRd6Q=="
+        "requested": "[1.2.0, )",
+        "resolved": "1.2.0",
+        "contentHash": "24C5UjjGyuyOHfocw5d31YjsS+uS6I2Mrw2fuLCJx4stu2DgUFdEPTbL9FimAwPAcRdBpndKee6dYEinQMIiCw=="
       },
       "AWSSDK.Lambda": {
         "type": "Direct",
