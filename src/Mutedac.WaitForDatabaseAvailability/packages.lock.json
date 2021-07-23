@@ -13,29 +13,29 @@
       },
       "AWSSDK.EventBridge": {
         "type": "Direct",
-        "requested": "[3.3.102.9, )",
-        "resolved": "3.3.102.9",
-        "contentHash": "lFeBBEUeSsfd19h92SEWnBN6J2pDoRt9UY2KZmtFnKu/TMDz8WgGodqctd1KYwBQi5Ywl5QtQSjIQWo0YKmbmw==",
+        "requested": "[3.7.3.11, )",
+        "resolved": "3.7.3.11",
+        "contentHash": "VowheQCZ7WJiDTvDIxDK5nnCrQDbldExAhL10yPV27ut1h+trKCY1Szin9WzVe2vpk9HmUtb2tPEPjiOnip55g==",
         "dependencies": {
-          "AWSSDK.Core": "[3.3.107.32, 3.4.0)"
+          "AWSSDK.Core": "[3.7.1, 4.0.0)"
         }
       },
       "AWSSDK.Lambda": {
         "type": "Direct",
-        "requested": "[3.3.110.22, )",
-        "resolved": "3.3.110.22",
-        "contentHash": "TkAc5ziw2+8BAadfI9DS4TnQ8BObcKNwx1T5QHRLlmK9lz7XTquDIGMxEZQoomEoMlguwJHEO83Mk5nIGy8BIg==",
+        "requested": "[3.7.2.1, )",
+        "resolved": "3.7.2.1",
+        "contentHash": "5Yk5OZtMa99TeCEd4s8Cf80gN8VMOtWYpCJVjm6Mz5EHB10Wy6BVEfOSaInPTmkvEtCuSn/6kTXutwNrtrmvDg==",
         "dependencies": {
-          "AWSSDK.Core": "[3.3.107.32, 3.4.0)"
+          "AWSSDK.Core": "[3.7.1, 4.0.0)"
         }
       },
       "AWSSDK.RDS": {
         "type": "Direct",
-        "requested": "[3.3.127.3, )",
-        "resolved": "3.3.127.3",
-        "contentHash": "ATvKCJ0/T6hwUlI4B38BKU5gfiZ20dEb4VUdbHaawJB40x/JrOC/tEPkm+Jy+B9EY9hjKU7CSu0T4tv0eB24NA==",
+        "requested": "[3.7.3.1, )",
+        "resolved": "3.7.3.1",
+        "contentHash": "LiIybiIsmAMBGhvdv59XQzlFrvxPE6tLOMAS/ZTelS5WrSlb7teOL9fSnDalE5RaIN2VFuqfH3oPRBCxeiteiA==",
         "dependencies": {
-          "AWSSDK.Core": "[3.3.107.32, 3.4.0)"
+          "AWSSDK.Core": "[3.7.1, 4.0.0)"
         }
       },
       "Lambdajection": {
@@ -75,8 +75,8 @@
       },
       "AWSSDK.Core": {
         "type": "Transitive",
-        "resolved": "3.3.107.32",
-        "contentHash": "KjECm9ohfB7aH/3IRgfiesQwWcPs0PFuo9s729K5fnbxtIXfJpGkXXZ5fu4vNcXbjH1Ci5C80svu5B3slodUvQ=="
+        "resolved": "3.7.1",
+        "contentHash": "VWnzRxzrMedMJr6Xkl1/HFzgYfRuT3rkUGhp4rqOkXgutaMoNk8HV+6TfjmAhz99CmTV23RxSMUwGwPfIrxy5w=="
       },
       "Cythral.CodeGeneration.Roslyn.Attributes": {
         "type": "Transitive",
