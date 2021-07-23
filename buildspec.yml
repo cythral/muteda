@@ -8,7 +8,7 @@ phases:
   pre_build:
     commands:
       - $(aws ecr get-login --no-include-email)
-      - pip install cfn-lint
+      - pip3 install cfn-lint
 
   build:
     commands:
