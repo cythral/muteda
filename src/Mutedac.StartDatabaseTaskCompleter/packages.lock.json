@@ -19,11 +19,11 @@
       },
       "AWSSDK.StepFunctions": {
         "type": "Direct",
-        "requested": "[3.3.104.81, )",
-        "resolved": "3.3.104.81",
-        "contentHash": "NH+tF+kJUA7JxevGm8uBGJMwRDrVoB45YOF+aiMOXxr7bkGROePqS3AlJ/mr+/VmeugtE7MgZ3m3WvCfHMGYFw==",
+        "requested": "[3.7.0.44, )",
+        "resolved": "3.7.0.44",
+        "contentHash": "n279bN1KxjgKlaa1VqoZZZCnqJYFjcjihHUkellzazjS5gs7Kl5G0SKVMjfF4CQGaiOXcIMhWMuMhUYdHCQrUQ==",
         "dependencies": {
-          "AWSSDK.Core": "[3.3.107.33, 3.4.0)"
+          "AWSSDK.Core": "[3.7.1, 4.0.0)"
         }
       },
       "Lambdajection": {
@@ -73,8 +73,8 @@
       },
       "AWSSDK.Core": {
         "type": "Transitive",
-        "resolved": "3.3.107.33",
-        "contentHash": "xIZXs4fGKXtI/ZtFNAZOOmYBzUPh3is4sf54R7jC82CT0hyV1ZDtW5gzcKGoPZodWFfqJ7wR1PzQSYQlx9xH5g=="
+        "resolved": "3.7.1",
+        "contentHash": "VWnzRxzrMedMJr6Xkl1/HFzgYfRuT3rkUGhp4rqOkXgutaMoNk8HV+6TfjmAhz99CmTV23RxSMUwGwPfIrxy5w=="
       },
       "Cythral.CodeGeneration.Roslyn.Attributes": {
         "type": "Transitive",
