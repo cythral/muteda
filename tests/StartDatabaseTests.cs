@@ -24,7 +24,7 @@ using static System.Text.Json.JsonSerializer;
 
 namespace Mutedac.StartDatabase
 {
-    class StartDatabaseTests : TestSuite<StartDatabaseTests.Context>
+    internal class StartDatabaseTests : TestSuite<StartDatabaseTests.Context>
     {
         private const string waitForDatabaseAvailabilityRuleName = "waitForDatabaseAvailabilityRuleName";
         private const string queueUrl = "queueUrl";
@@ -33,7 +33,7 @@ namespace Mutedac.StartDatabase
         internal class Context : IContext
         {
 
-#pragma warning disable CS8618, CS0649
+#pragma warning disable CS8618, CS0649, IDE0040, IDE0044
 
             [Substitute] IAmazonRDS RdsClient;
             [Substitute] IAmazonSimpleNotificationService SnsClient;
@@ -42,7 +42,7 @@ namespace Mutedac.StartDatabase
             [Substitute] IAmazonLambda LambdaClient;
             public StartDatabaseHandler StartDatabaseHandler;
 
-#pragma warning restore CS8618, CS0649
+#pragma warning restore CS8618, CS0649, IDE0040, IDE0044
 
             public Task Setup()
             {
@@ -54,7 +54,7 @@ namespace Mutedac.StartDatabase
                     DequeueEventSourceUUID = dequeueEventSourceUuid
                 });
 
-                LambdaClient.GetEventSourceMappingAsync(null).ReturnsForAnyArgs(new GetEventSourceMappingResponse
+                _ = LambdaClient.GetEventSourceMappingAsync(null).ReturnsForAnyArgs(new GetEventSourceMappingResponse
                 {
                     State = "Disabled"
                 });
@@ -87,7 +87,7 @@ namespace Mutedac.StartDatabase
             var (rdsClient, snsClient, eventsClient, sqsClient, lambdaClient, handler) = await GetContext();
             var databaseName = "databaseName";
 
-            rdsClient.DescribeDBClustersAsync(Arg.Any<DescribeDBClustersRequest>()).Returns(new DescribeDBClustersResponse
+            _ = rdsClient.DescribeDBClustersAsync(Arg.Any<DescribeDBClustersRequest>()).Returns(new DescribeDBClustersResponse
             {
                 DBClusters = new List<DBCluster>
                 {
@@ -279,7 +279,7 @@ namespace Mutedac.StartDatabase
         [Test]
         public async Task PublishTopic_IsNotCalled_IfDatabaseAlreadyStarted_AndTopicNotProvided()
         {
-            var (rdsClient, snsClient, eventsClient, sqsClient, lambdaClient, handler) = await GetContext();
+            var (rdsClient, snsClient, _, _, _, handler) = await GetContext();
             var databaseName = "databaseName";
 
             rdsClient.DescribeDBClustersAsync(Arg.Any<DescribeDBClustersRequest>()).Returns(new DescribeDBClustersResponse
@@ -375,7 +375,7 @@ namespace Mutedac.StartDatabase
         [Test]
         public async Task WaitForDatabaseAvailabilityRule_DoesntGetEnabled_IfDatabaseIsStoppedOrStarting_AndTopicNotProvided([Values("stopped", "starting")] string status)
         {
-            var (rdsClient, snsClient, eventsClient, sqsClient, lambdaClient, handler) = await GetContext();
+            var (rdsClient, _, eventsClient, _, _, handler) = await GetContext();
             var databaseName = "databaseName";
 
             rdsClient.DescribeDBClustersAsync(Arg.Any<DescribeDBClustersRequest>()).Returns(new DescribeDBClustersResponse
@@ -402,7 +402,7 @@ namespace Mutedac.StartDatabase
         [Test]
         public async Task TokenAndTopic_AreNotQueued_IfDatabaseIsStoppedOrStarting_ButTopicNotProvided([Values("stopped", "starting")] string status)
         {
-            var (rdsClient, snsClient, eventsClient, sqsClient, lambdaClient, handler) = await GetContext();
+            var (rdsClient, _, _, sqsClient, _, handler) = await GetContext();
             var databaseName = "databaseName";
 
             rdsClient.DescribeDBClustersAsync(Arg.Any<DescribeDBClustersRequest>()).Returns(new DescribeDBClustersResponse

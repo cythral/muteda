@@ -13,17 +13,17 @@ using static System.Text.Json.JsonSerializer;
 
 namespace Mutedac.NotifyDatabaseAvailability
 {
-    class NotifyDatabaseAvailabilityTests : TestSuite<NotifyDatabaseAvailabilityTests.Context>
+    internal class NotifyDatabaseAvailabilityTests : TestSuite<NotifyDatabaseAvailabilityTests.Context>
     {
         internal class Context : IContext
         {
 
-#pragma warning disable CS8618, CS0649
+#pragma warning disable CS8618, CS0649, IDE0040, IDE0044
 
             [Substitute] IAmazonSimpleNotificationService SnsClient;
             public NotifyDatabaseAvailabilityHandler StartDatabaseHandler;
 
-#pragma warning restore CS8618, CS0649
+#pragma warning restore CS8618, CS0649, IDE0040, IDE0044
 
             public Task Setup()
             {
@@ -46,7 +46,7 @@ namespace Mutedac.NotifyDatabaseAvailability
         {
             var (snsClient, handler) = await GetContext();
 
-            await handler.Handle(new SQSEvent
+            _ = await handler.Handle(new SQSEvent
             {
                 Records = new List<SQSEvent.SQSMessage>
                 {
@@ -60,7 +60,7 @@ namespace Mutedac.NotifyDatabaseAvailability
                 }
             });
 
-            await snsClient.Received().PublishAsync(
+            _ = await snsClient.Received().PublishAsync(
                 Arg.Is<PublishRequest>(req =>
                     req.Message == "available" &&
                     req.MessageAttributes["TaskToken"].StringValue == "token1" &&

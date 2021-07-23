@@ -1,12 +1,11 @@
 ﻿using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 using Amazon.EventBridge;
 using Amazon.EventBridge.Model;
 using Amazon.Lambda;
-using Amazon.Lambda.Core;
 using Amazon.Lambda.Model;
-using Amazon.Lambda.Serialization.SystemTextJson;
 using Amazon.RDS;
 using Amazon.RDS.Model;
 
@@ -15,11 +14,9 @@ using Lambdajection.Attributes;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-[assembly: LambdaSerializer(typeof(DefaultLambdaJsonSerializer))]
-
 namespace Mutedac.WaitForDatabaseAvailability
 {
-    [Lambda(Startup = typeof(Startup))]
+    [Lambda(typeof(Startup))]
     public partial class WaitForDatabaseAvailabilityHandler
     {
         private readonly IAmazonRDS rdsClient;
@@ -43,7 +40,7 @@ namespace Mutedac.WaitForDatabaseAvailability
             this.configuration = configuration.Value;
         }
 
-        public async Task<WaitForDatabaseAvailabilityResponse> Handle(WaitForDatabaseAvailabilityRequest request, ILambdaContext context = default!)
+        public async Task<WaitForDatabaseAvailabilityResponse> Handle(WaitForDatabaseAvailabilityRequest request, CancellationToken cancellationToken = default)
         {
             var status = await GetDBClusterStatus(request.DatabaseName);
 
@@ -52,16 +49,16 @@ namespace Mutedac.WaitForDatabaseAvailability
                 return new WaitForDatabaseAvailabilityResponse { Message = "Database not available yet." };
             }
 
-            await eventsClient.DisableRuleAsync(new DisableRuleRequest
+            _ = await eventsClient.DisableRuleAsync(new DisableRuleRequest
             {
                 Name = configuration.WaitForDatabaseAvailabilityRuleName
-            });
+            }, cancellationToken);
 
-            await lambdaClient.UpdateEventSourceMappingAsync(new UpdateEventSourceMappingRequest
+            _ = await lambdaClient.UpdateEventSourceMappingAsync(new UpdateEventSourceMappingRequest
             {
                 UUID = configuration.DequeueEventSourceUUID,
                 Enabled = true
-            });
+            }, cancellationToken);
 
             return await Task.FromResult(new WaitForDatabaseAvailabilityResponse { });
         }

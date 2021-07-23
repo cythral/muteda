@@ -7,7 +7,7 @@ using NSubstitute;
 
 namespace Mutedac
 {
-    abstract class TestSuite<TContext> where TContext : IContext, new()
+    internal abstract class TestSuite<TContext> where TContext : IContext, new()
     {
         public static async Task<TContext> GetContext()
         {

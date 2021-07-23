@@ -13,17 +13,17 @@ using static System.Text.Json.JsonSerializer;
 
 namespace Mutedac.StartDatabaseTaskCompleter
 {
-    class StartDatabaseTaskCompleterTests : TestSuite<StartDatabaseTaskCompleterTests.Context>
+    internal class StartDatabaseTaskCompleterTests : TestSuite<StartDatabaseTaskCompleterTests.Context>
     {
         internal class Context : IContext
         {
 
-#pragma warning disable CS8618, CS0649
+#pragma warning disable CS8618, CS0649, IDE0040, IDE0044
 
             [Substitute] IAmazonStepFunctions StepFunctionsClient;
             StartDatabaseTaskCompleterHandler StartDatabaseTaskCompleterHandler;
 
-#pragma warning restore CS8618, CS0649
+#pragma warning restore CS8618, CS0649, IDE0040, IDE0044
 
             public Task Setup()
             {
@@ -47,7 +47,7 @@ namespace Mutedac.StartDatabaseTaskCompleter
             var (stepFunctionsClient, handler) = await GetContext();
             var token = "token";
 
-            await handler.Handle(new SNSEvent
+            _ = await handler.Handle(new SNSEvent
             {
                 Records = new List<SNSEvent.SNSRecord>
                 {
@@ -66,7 +66,7 @@ namespace Mutedac.StartDatabaseTaskCompleter
             });
 
             var output = Serialize(new { Status = "available" });
-            await stepFunctionsClient.Received().SendTaskSuccessAsync(Arg.Is<SendTaskSuccessRequest>(req => req.Output == output && req.TaskToken == token));
+            _ = await stepFunctionsClient.Received().SendTaskSuccessAsync(Arg.Is<SendTaskSuccessRequest>(req => req.Output == output && req.TaskToken == token));
         }
 
         [Test]
@@ -75,7 +75,7 @@ namespace Mutedac.StartDatabaseTaskCompleter
             var (stepFunctionsClient, handler) = await GetContext();
             var token = "token";
 
-            await handler.Handle(new SNSEvent
+            _ = await handler.Handle(new SNSEvent
             {
                 Records = new List<SNSEvent.SNSRecord>
                 {
@@ -93,7 +93,7 @@ namespace Mutedac.StartDatabaseTaskCompleter
                 }
             });
 
-            await stepFunctionsClient.Received().SendTaskFailureAsync(Arg.Is<SendTaskFailureRequest>(req => req.Cause == "failed" && req.TaskToken == token));
+            _ = await stepFunctionsClient.Received().SendTaskFailureAsync(Arg.Is<SendTaskFailureRequest>(req => req.Cause == "failed" && req.TaskToken == token));
         }
     }
 }
