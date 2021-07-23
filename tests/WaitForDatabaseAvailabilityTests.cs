@@ -17,7 +17,7 @@ using NUnit.Framework;
 
 namespace Mutedac.WaitForDatabaseAvailability
 {
-    class WaitForDatabaseAvailabilityTests : TestSuite<WaitForDatabaseAvailabilityTests.Context>
+    internal class WaitForDatabaseAvailabilityTests : TestSuite<WaitForDatabaseAvailabilityTests.Context>
     {
         private const string waitForDatabaseAvailabilityRuleName = "waitForDatabaseAvailabilityRuleName";
         private const string dequeueEventSourceUuid = "dequeueUuid";
@@ -25,14 +25,14 @@ namespace Mutedac.WaitForDatabaseAvailability
         internal class Context : IContext
         {
 
-#pragma warning disable CS8618, CS0649
+#pragma warning disable CS8618, CS0649, IDE0040, IDE0044
 
             [Substitute] IAmazonRDS RdsClient;
             [Substitute] IAmazonLambda LambdaClient;
             [Substitute] IAmazonEventBridge EventBridgeClient;
             public WaitForDatabaseAvailabilityHandler StartDatabaseHandler;
 
-#pragma warning restore CS8618, CS0649
+#pragma warning restore CS8618, CS0649, IDE0040, IDE0044
 
             public Task Setup()
             {
@@ -140,7 +140,7 @@ namespace Mutedac.WaitForDatabaseAvailability
 
             await lambdaClient.Received().UpdateEventSourceMappingAsync(Arg.Is<UpdateEventSourceMappingRequest>(req =>
                req.UUID == dequeueEventSourceUuid &&
-               req.Enabled == true
+               req.Enabled
             ));
 
             await rdsClient.Received().DescribeDBClustersAsync(Arg.Is<DescribeDBClustersRequest>(req =>

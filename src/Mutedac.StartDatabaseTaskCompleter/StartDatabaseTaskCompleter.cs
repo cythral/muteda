@@ -1,8 +1,7 @@
 ﻿using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
-using Amazon.Lambda.Core;
-using Amazon.Lambda.Serialization.SystemTextJson;
 using Amazon.Lambda.SNSEvents;
 using Amazon.StepFunctions;
 using Amazon.StepFunctions.Model;
@@ -11,11 +10,9 @@ using Lambdajection.Attributes;
 
 using static System.Text.Json.JsonSerializer;
 
-[assembly: LambdaSerializer(typeof(DefaultLambdaJsonSerializer))]
-
 namespace Mutedac.StartDatabaseTaskCompleter
 {
-    [Lambda(Startup = typeof(Startup))]
+    [Lambda(typeof(Startup))]
     public partial class StartDatabaseTaskCompleterHandler
     {
         private readonly IAmazonStepFunctions stepFunctionsClient;
@@ -27,9 +24,9 @@ namespace Mutedac.StartDatabaseTaskCompleter
             this.stepFunctionsClient = stepFunctionsClient;
         }
 
-        public async Task<StartDatabaseTaskCompleterResponse> Handle(SNSEvent request, ILambdaContext context = default!)
+        public async Task<StartDatabaseTaskCompleterResponse> Handle(SNSEvent request, CancellationToken cancellationToken = default)
         {
-            var tasks = request.Records.Select(record => CompleteTask(record.Sns));
+            var tasks = request.Records.Select(record => CompleteTask(record.Sns, cancellationToken));
             await Task.WhenAll(tasks);
 
             return new StartDatabaseTaskCompleterResponse
@@ -38,24 +35,24 @@ namespace Mutedac.StartDatabaseTaskCompleter
             };
         }
 
-        public async Task CompleteTask(SNSEvent.SNSMessage message)
+        public async Task CompleteTask(SNSEvent.SNSMessage message, CancellationToken cancellationToken)
         {
             if (message.Message == "available")
             {
-                await stepFunctionsClient.SendTaskSuccessAsync(new SendTaskSuccessRequest
+                _ = await stepFunctionsClient.SendTaskSuccessAsync(new SendTaskSuccessRequest
                 {
                     Output = Serialize(new { Status = message.Message }),
                     TaskToken = message.MessageAttributes["TaskToken"].Value
-                });
+                }, cancellationToken);
 
                 return;
             }
 
-            await stepFunctionsClient.SendTaskFailureAsync(new SendTaskFailureRequest
+            _ = await stepFunctionsClient.SendTaskFailureAsync(new SendTaskFailureRequest
             {
                 Cause = message.Message,
                 TaskToken = message.MessageAttributes["TaskToken"].Value
-            });
+            }, cancellationToken);
         }
     }
 }

@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 using Amazon.EventBridge;
 using Amazon.EventBridge.Model;
 using Amazon.Lambda;
-using Amazon.Lambda.Core;
 using Amazon.Lambda.Model;
-using Amazon.Lambda.Serialization.SystemTextJson;
 using Amazon.RDS;
 using Amazon.RDS.Model;
 using Amazon.SimpleNotificationService;
@@ -25,11 +24,9 @@ using static System.Text.Json.JsonSerializer;
 
 using SNSMessageAttributeValue = Amazon.SimpleNotificationService.Model.MessageAttributeValue;
 
-[assembly: LambdaSerializer(typeof(DefaultLambdaJsonSerializer))]
-
 namespace Mutedac.StartDatabase
 {
-    [Lambda(Startup = typeof(Startup))]
+    [Lambda(typeof(Startup))]
     public partial class StartDatabaseHandler
     {
         private const string StartedStatus = "available";
@@ -62,7 +59,7 @@ namespace Mutedac.StartDatabase
             this.configuration = configuration.Value;
         }
 
-        public async Task<StartDatabaseResponse> Handle(StartDatabaseRequest request, ILambdaContext context = default!)
+        public async Task<StartDatabaseResponse> Handle(StartDatabaseRequest request, CancellationToken cancellationToken = default)
         {
             logger.LogInformation("Recieved request: ", request);
             var status = await GetDBClusterStatus(request.DatabaseName);
@@ -78,26 +75,31 @@ namespace Mutedac.StartDatabase
             {
                 if (status == StoppedStatus)
                 {
-                    await rdsClient.StartDBClusterAsync(new StartDBClusterRequest
+                    var startDbClusterRequest = new StartDBClusterRequest
                     {
                         DBClusterIdentifier = request.DatabaseName
-                    });
+                    };
+
+                    _ = await rdsClient.StartDBClusterAsync(startDbClusterRequest, cancellationToken);
                 }
 
                 if (request.NotificationTopic != null)
                 {
                     await DisableNotifyDatabaseAvailabilityEventSourceMapping();
 
-                    await sqsClient.SendMessageAsync(new SendMessageRequest
+                    var sendMessageRequest = new SendMessageRequest
                     {
                         QueueUrl = configuration.NotificationQueueUrl,
                         MessageBody = Serialize(new QueueMessage { NotificationTopic = request.NotificationTopic, TaskToken = request.TaskToken! })
-                    });
+                    };
 
-                    await eventsClient.EnableRuleAsync(new EnableRuleRequest
+                    var enableRuleRequest = new EnableRuleRequest
                     {
                         Name = configuration.WaitForDatabaseAvailabilityRuleName
-                    });
+                    };
+
+                    _ = await sqsClient.SendMessageAsync(sendMessageRequest, cancellationToken);
+                    _ = await eventsClient.EnableRuleAsync(enableRuleRequest, cancellationToken);
                 }
 
                 return new StartDatabaseResponse { Message = $"Starting database cluster {request.DatabaseName}" };
@@ -130,7 +132,7 @@ namespace Mutedac.StartDatabase
         {
             if (notificationTopic != null)
             {
-                await snsClient.PublishAsync(new PublishRequest
+                _ = await snsClient.PublishAsync(new PublishRequest
                 {
                     TopicArn = notificationTopic,
                     Message = status,
@@ -148,7 +150,7 @@ namespace Mutedac.StartDatabase
 
         private async Task DisableNotifyDatabaseAvailabilityEventSourceMapping()
         {
-            await lambdaClient.UpdateEventSourceMappingAsync(new UpdateEventSourceMappingRequest
+            _ = await lambdaClient.UpdateEventSourceMappingAsync(new UpdateEventSourceMappingRequest
             {
                 UUID = configuration.DequeueEventSourceUUID,
                 Enabled = false,
