@@ -77,8 +77,8 @@
       },
       "Amazon.Lambda.Core": {
         "type": "Transitive",
-        "resolved": "1.1.0",
-        "contentHash": "ueGId8b4DEHoVWkHDs3iAJH8IUSAUGu5AqkoI/Syl4RuByzik7lz9IjoImiGAlGhtsQV02MHNeTo04IFjS37gQ=="
+        "resolved": "1.2.0",
+        "contentHash": "goaq1LaH1UJB18BNG/Apxmn0P7dAlLWFbxU2nKxK+M4lH2KJaZDbtlP2gFEAJ+aENOMBHthaLPEtk3944J2OOg=="
       },
       "Amazon.Lambda.Serialization.SystemTextJson": {
         "type": "Transitive",
@@ -1154,7 +1154,7 @@
         "dependencies": {
           "AWSSDK.Lambda": "3.7.2.1",
           "AWSSDK.SimpleNotificationService": "3.7.2.15",
-          "Amazon.Lambda.Core": "1.1.0",
+          "Amazon.Lambda.Core": "1.2.0",
           "Amazon.Lambda.SQSEvents": "1.1.0",
           "Amazon.Lambda.Serialization.SystemTextJson": "2.0.1",
           "Lambdajection": "0.3.0-beta1"
