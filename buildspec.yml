@@ -3,10 +3,10 @@ phases:
   install:
     runtime-versions:
       docker: 18
-      dotnet: 3.1
 
   pre_build:
     commands:
+      - dotnet-install.sh --jsonfile global.json
       - $(aws ecr get-login --no-include-email)
       - pip3 install cfn-lint
 
