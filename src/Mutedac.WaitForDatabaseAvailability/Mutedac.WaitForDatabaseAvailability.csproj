@@ -6,9 +6,9 @@
 
   <ItemGroup>
     <PackageReference Include="Amazon.Lambda.Serialization.SystemTextJson" Version="2.1.0" />
-    <PackageReference Include="AWSSDK.EventBridge" Version="3.7.4.6" />
-    <PackageReference Include="AWSSDK.Lambda" Version="3.7.3.10" />
-    <PackageReference Include="AWSSDK.RDS" Version="3.7.4.13" />
+    <PackageReference Include="AWSSDK.EventBridge" Version="3.7.4.7" />
+    <PackageReference Include="AWSSDK.Lambda" Version="3.7.3.11" />
+    <PackageReference Include="AWSSDK.RDS" Version="3.7.4.14" />
     <PackageReference Include="Lambdajection" Version="0.8.4" />
   </ItemGroup>
 
