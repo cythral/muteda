@@ -188,6 +188,27 @@ Resources:
       EventSourceArn: !GetAtt StartDatabaseNotificationQueue.Arn
       BatchSize: 10
 
+  ServiceRegistryName:
+    Type: AWS::ServiceDiscovery::Service
+    Properties:
+      Description: Service Registry Record for Brighid Discord Adapter
+      DnsConfig:
+        RoutingPolicy: MULTIVALUE
+        DnsRecords:
+          - TTL: 60
+            Type: CNAME
+      HealthCheckCustomConfig:
+        FailureThreshold: 1
+      NamespaceId: !ImportValue brighid-infrastructure:ServiceRegistry
+      Name: db
+
+  ServiceRegistryValue:
+    Type: AWS::ServiceDiscovery::Instance
+    Properties:
+      ServiceId: !GetAtt ServiceRegistryName.Id
+      InstanceAttributes:
+        AWS_INSTANCE_CNAME: !GetAtt Cluster.Endpoint.Address
+
 Outputs:
   ClusterName:
     Value: !Ref Cluster
