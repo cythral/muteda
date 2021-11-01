@@ -193,7 +193,7 @@ Resources:
     Properties:
       Description: Service Registry Record for Brighid Discord Adapter
       DnsConfig:
-        RoutingPolicy: MULTIVALUE
+        RoutingPolicy: WEIGHTED
         DnsRecords:
           - TTL: 60
             Type: CNAME
