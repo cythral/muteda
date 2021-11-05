@@ -19,11 +19,11 @@
       },
       "AWSSDK.StepFunctions": {
         "type": "Direct",
-        "requested": "[3.7.0.92, )",
-        "resolved": "3.7.0.92",
-        "contentHash": "JuPamTE+kkBJ25wrqSrEheY/JvE7Fpg2FvxBkQZzdx+44OeLPDD3JsfhSh+cXaDOpT4do0veb3aP9yO7SDiZuQ==",
+        "requested": "[3.7.0.93, )",
+        "resolved": "3.7.0.93",
+        "contentHash": "gViGm/E5RaSioVkRKB9dMZVucKDyrpz6SYx3X84e7W6SMYjVHSAXsC3RC2XNIjHCvyCBJyzuEeZGP71wx3fCQw==",
         "dependencies": {
-          "AWSSDK.Core": "[3.7.3.32, 4.0.0)"
+          "AWSSDK.Core": "[3.7.3.33, 4.0.0)"
         }
       },
       "Lambdajection": {
@@ -56,8 +56,8 @@
       },
       "AWSSDK.Core": {
         "type": "Transitive",
-        "resolved": "3.7.3.32",
-        "contentHash": "ZSHXhzS2o+jPfOcDMiUuefowPFpzHF4dK5IJ2Li6KTaqQx+CIN1pUJVp1dJBwW/88oKKhrbu+EOqvR16vPhwDA=="
+        "resolved": "3.7.3.33",
+        "contentHash": "Y1hrkmaePfqXNyprok0vcoK8EOOLIqMFuztAsIaX5+8EWq4XHW6h1i4fkcZcxAq46s7seI+2jq06/SXp7S0fAw=="
       },
       "Humanizer.Core": {
         "type": "Transitive",
