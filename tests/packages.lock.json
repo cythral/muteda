@@ -82,55 +82,55 @@
       },
       "AWSSDK.Core": {
         "type": "Transitive",
-        "resolved": "3.7.3.32",
-        "contentHash": "ZSHXhzS2o+jPfOcDMiUuefowPFpzHF4dK5IJ2Li6KTaqQx+CIN1pUJVp1dJBwW/88oKKhrbu+EOqvR16vPhwDA=="
+        "resolved": "3.7.3.33",
+        "contentHash": "Y1hrkmaePfqXNyprok0vcoK8EOOLIqMFuztAsIaX5+8EWq4XHW6h1i4fkcZcxAq46s7seI+2jq06/SXp7S0fAw=="
       },
       "AWSSDK.EventBridge": {
         "type": "Transitive",
-        "resolved": "3.7.4.37",
-        "contentHash": "Wn4eA6n7Ej4LAQfnfPT6F+uErOMTJ+jv8NgeHTpqykEVx7SIQazk4kgsJdfnQ8ujTxo0T2lyqiW+W5SttkwsGg==",
+        "resolved": "3.7.4.38",
+        "contentHash": "eguLe4rk9gG77c29/YcZQfUqa32sjQ/5+rGC4mPvvOAEszJuJAlgCYYxY5es1dI/32gywWuicwKN4ENuoHEHWA==",
         "dependencies": {
-          "AWSSDK.Core": "[3.7.3.32, 4.0.0)"
+          "AWSSDK.Core": "[3.7.3.33, 4.0.0)"
         }
       },
       "AWSSDK.Lambda": {
         "type": "Transitive",
-        "resolved": "3.7.4.19",
-        "contentHash": "5SAb4MMCorp/FDP+6steM42gyEVW+mtH2B0l1pWK9P70hZsf3xt/ghfy2p7NpwFPG/XSPNAF7bYnl+ONpfbL5Q==",
+        "resolved": "3.7.4.20",
+        "contentHash": "umuj/t8q7ek3GQxMAWI8k+hT9/0Mj4OsC0Ji4+N+tvgOVj7+sSudv3tuOC6qEFg+x74w6iPBgICxgH5zEMIehw==",
         "dependencies": {
-          "AWSSDK.Core": "[3.7.3.32, 4.0.0)"
+          "AWSSDK.Core": "[3.7.3.33, 4.0.0)"
         }
       },
       "AWSSDK.RDS": {
         "type": "Transitive",
-        "resolved": "3.7.6.7",
-        "contentHash": "ccDC8BsJVnX2UVxjVUJn7koD+yksK0KiUmWasAWwLYG+kFiUDyuXnG/HxTYQ81feoaPurz0QGdHfRk11icDYXQ==",
+        "resolved": "3.7.6.8",
+        "contentHash": "iYCYY1mR+5U4xFb+0Vm35Nqq2PA4CI9QAW7abdAOxZ6x8ts+vOGLE2X/2Zbjqx4mZ801gWCy+BrqBLKb/En+iw==",
         "dependencies": {
-          "AWSSDK.Core": "[3.7.3.32, 4.0.0)"
+          "AWSSDK.Core": "[3.7.3.33, 4.0.0)"
         }
       },
       "AWSSDK.SimpleNotificationService": {
         "type": "Transitive",
-        "resolved": "3.7.2.63",
-        "contentHash": "T1kd0gj2gg72KdIaMcxdp66ADH6szyGJUhNoAwvsXHMwDHfWG3h+8QYaeVO9FOzdiAS917tcGi91/eSkUL5xlw==",
+        "resolved": "3.7.2.64",
+        "contentHash": "z27G+KCO6YEHdmrNc0LkJGH2w3oT7s7gZ8/M4DLqebyxSzuDs/y2lthVdE+6H12iNnmp2TIp4Upd/QthStEbUQ==",
         "dependencies": {
-          "AWSSDK.Core": "[3.7.3.32, 4.0.0)"
+          "AWSSDK.Core": "[3.7.3.33, 4.0.0)"
         }
       },
       "AWSSDK.SQS": {
         "type": "Transitive",
-        "resolved": "3.7.1.35",
-        "contentHash": "lmWdt54WDSbciRB3L9MHxaBT7M3r0n//lryCQ2FSZpA8scZ1qoxSjr6mJ5QlzCAbB2mV19bF9ygbofXHuMfM/Q==",
+        "resolved": "3.7.1.36",
+        "contentHash": "fIfV4t5VJQCQX6Tx68DrswSYf258yFYio1SJkVD+qWiFNWeIiraMefRbZPj8hZ5/RFSccGQl8/oCy74IZKA5sw==",
         "dependencies": {
-          "AWSSDK.Core": "[3.7.3.32, 4.0.0)"
+          "AWSSDK.Core": "[3.7.3.33, 4.0.0)"
         }
       },
       "AWSSDK.StepFunctions": {
         "type": "Transitive",
-        "resolved": "3.7.0.92",
-        "contentHash": "JuPamTE+kkBJ25wrqSrEheY/JvE7Fpg2FvxBkQZzdx+44OeLPDD3JsfhSh+cXaDOpT4do0veb3aP9yO7SDiZuQ==",
+        "resolved": "3.7.0.93",
+        "contentHash": "gViGm/E5RaSioVkRKB9dMZVucKDyrpz6SYx3X84e7W6SMYjVHSAXsC3RC2XNIjHCvyCBJyzuEeZGP71wx3fCQw==",
         "dependencies": {
-          "AWSSDK.Core": "[3.7.3.32, 4.0.0)"
+          "AWSSDK.Core": "[3.7.3.33, 4.0.0)"
         }
       },
       "Castle.Core": {
@@ -1501,8 +1501,8 @@
       "mutedac.notifydatabaseavailability": {
         "type": "Project",
         "dependencies": {
-          "AWSSDK.Lambda": "3.7.4.19",
-          "AWSSDK.SimpleNotificationService": "3.7.2.63",
+          "AWSSDK.Lambda": "3.7.4.20",
+          "AWSSDK.SimpleNotificationService": "3.7.2.64",
           "Amazon.Lambda.Core": "2.0.0",
           "Amazon.Lambda.SQSEvents": "2.0.0",
           "Amazon.Lambda.Serialization.SystemTextJson": "2.1.0",
@@ -1512,11 +1512,11 @@
       "mutedac.startdatabase": {
         "type": "Project",
         "dependencies": {
-          "AWSSDK.EventBridge": "3.7.4.37",
-          "AWSSDK.Lambda": "3.7.4.19",
-          "AWSSDK.RDS": "3.7.6.7",
-          "AWSSDK.SQS": "3.7.1.35",
-          "AWSSDK.SimpleNotificationService": "3.7.2.63",
+          "AWSSDK.EventBridge": "3.7.4.38",
+          "AWSSDK.Lambda": "3.7.4.20",
+          "AWSSDK.RDS": "3.7.6.8",
+          "AWSSDK.SQS": "3.7.1.36",
+          "AWSSDK.SimpleNotificationService": "3.7.2.64",
           "Amazon.Lambda.Serialization.SystemTextJson": "2.1.0",
           "Lambdajection": "0.8.4",
           "Microsoft.Extensions.Options": "5.0.0"
@@ -1525,7 +1525,7 @@
       "mutedac.startdatabasetaskcompleter": {
         "type": "Project",
         "dependencies": {
-          "AWSSDK.StepFunctions": "3.7.0.92",
+          "AWSSDK.StepFunctions": "3.7.0.93",
           "Amazon.Lambda.SNSEvents": "2.0.0",
           "Amazon.Lambda.Serialization.SystemTextJson": "2.1.0",
           "Lambdajection": "0.8.4",
@@ -1535,9 +1535,9 @@
       "mutedac.waitfordatabaseavailability": {
         "type": "Project",
         "dependencies": {
-          "AWSSDK.EventBridge": "3.7.4.37",
-          "AWSSDK.Lambda": "3.7.4.19",
-          "AWSSDK.RDS": "3.7.6.7",
+          "AWSSDK.EventBridge": "3.7.4.38",
+          "AWSSDK.Lambda": "3.7.4.20",
+          "AWSSDK.RDS": "3.7.6.8",
           "Amazon.Lambda.Serialization.SystemTextJson": "2.1.0",
           "Lambdajection": "0.8.4"
         }
