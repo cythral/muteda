@@ -25,20 +25,20 @@
       },
       "AWSSDK.Lambda": {
         "type": "Direct",
-        "requested": "[3.7.4.27, )",
-        "resolved": "3.7.4.27",
-        "contentHash": "dAxksY4pjB4WofIiyZLY4em/fT8sYeJ7eKMV3FmBYRkNFpvm/Z8AcCMtayaWvurjVlQV1n5meBMBmtRto8kgGg==",
+        "requested": "[3.7.5, )",
+        "resolved": "3.7.5",
+        "contentHash": "pEX64/CIxyC0G6Bx4coov0qO21eRJuxU1+uXQ1bwu2vkVSZcW/jr86SbBrg/CTcGU1lMBu9cgwTPjAzL5RLB8w==",
         "dependencies": {
-          "AWSSDK.Core": "[3.7.4.5, 4.0.0)"
+          "AWSSDK.Core": "[3.7.4.6, 4.0.0)"
         }
       },
       "AWSSDK.SimpleNotificationService": {
         "type": "Direct",
-        "requested": "[3.7.3, )",
-        "resolved": "3.7.3",
-        "contentHash": "1P/wr+Imm13rwPRiQWsQS2CWvXswpcN9rooMnWEq2qUvBJzQTXruot1idGiNXHxEr6ISgH/NzKHzTsogItH4DQ==",
+        "requested": "[3.7.3.1, )",
+        "resolved": "3.7.3.1",
+        "contentHash": "qMNW8wnukF8HPjyepgP4MNhez3KTJ8xUSfDwEQ3R5GKjEW90R6Dg6jk4qXYa5IxZ9p3ajMtgO4r2DNrPJLR44w==",
         "dependencies": {
-          "AWSSDK.Core": "[3.7.4.5, 4.0.0)"
+          "AWSSDK.Core": "[3.7.4.6, 4.0.0)"
         }
       },
       "Lambdajection": {
@@ -56,8 +56,8 @@
       },
       "AWSSDK.Core": {
         "type": "Transitive",
-        "resolved": "3.7.4.5",
-        "contentHash": "Dvp90acd3FMdCZnfpYl+lY0POuRttIJUs1z1JdH9dC0ZS7XD8oo4XTLqTyCcP81Mjp6Zuwt0Tafzk9DV4V5vYw=="
+        "resolved": "3.7.4.6",
+        "contentHash": "dwoKapTi5Tu029EvqNTj+suTYLciYgnGb7kYZ/D1SSnUgnSsFpx85QQBu5jCcPvteyznXZpblk3B+wjIORAYKg=="
       },
       "Humanizer.Core": {
         "type": "Transitive",
