@@ -95,8 +95,8 @@
       },
       "AWSSDK.Lambda": {
         "type": "Transitive",
-        "resolved": "3.7.5.1",
-        "contentHash": "jdGZYVr55ddYga3rQEl9oa7K8rGGdGH5Fu5vv/Pw57DsZAG4t2L8hEr9D/3fqitbAYrTi2dGeIbelSyksxEJig==",
+        "resolved": "3.7.6",
+        "contentHash": "ixi00v5cr0shyxLCqCJP94GAg9fqBIWYLvHM5y342MHpLjkTF/1psfaiTYFcDWPGREVTgO5oZqQlfivpQLwvjQ==",
         "dependencies": {
           "AWSSDK.Core": "[3.7.5, 4.0.0)"
         }
@@ -1504,7 +1504,7 @@
       "mutedac.notifydatabaseavailability": {
         "type": "Project",
         "dependencies": {
-          "AWSSDK.Lambda": "3.7.5.1",
+          "AWSSDK.Lambda": "3.7.6",
           "AWSSDK.SimpleNotificationService": "3.7.3.2",
           "Amazon.Lambda.Core": "2.1.0",
           "Amazon.Lambda.SQSEvents": "2.0.0",
@@ -1516,7 +1516,7 @@
         "type": "Project",
         "dependencies": {
           "AWSSDK.EventBridge": "3.7.4.47",
-          "AWSSDK.Lambda": "3.7.5.1",
+          "AWSSDK.Lambda": "3.7.6",
           "AWSSDK.RDS": "3.7.6.17",
           "AWSSDK.SQS": "3.7.1.45",
           "AWSSDK.SimpleNotificationService": "3.7.3.2",
@@ -1539,7 +1539,7 @@
         "type": "Project",
         "dependencies": {
           "AWSSDK.EventBridge": "3.7.4.47",
-          "AWSSDK.Lambda": "3.7.5.1",
+          "AWSSDK.Lambda": "3.7.6",
           "AWSSDK.RDS": "3.7.6.17",
           "Amazon.Lambda.Serialization.SystemTextJson": "2.2.0",
           "Lambdajection": "0.8.4"
