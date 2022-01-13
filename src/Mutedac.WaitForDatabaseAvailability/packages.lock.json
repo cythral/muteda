@@ -13,29 +13,29 @@
       },
       "AWSSDK.EventBridge": {
         "type": "Direct",
-        "requested": "[3.7.4.59, )",
-        "resolved": "3.7.4.59",
-        "contentHash": "1H++yGgFsnXzYuf6uHebAlxAKLFL97FpbZVPtMpKkrNm3lrwVNCazWnpo+8GYuA1AVKk+mhl+JpjmUOeTaUyTQ==",
+        "requested": "[3.7.4.60, )",
+        "resolved": "3.7.4.60",
+        "contentHash": "FlLKA0HsLzKOFAFKxeOE6HBShinF10YuaouA4xei8SR6SxDgNztrwG9THrfRzTjClwa4HtX7nM6iqWFu1tlyIw==",
         "dependencies": {
-          "AWSSDK.Core": "[3.7.5.13, 4.0.0)"
+          "AWSSDK.Core": "[3.7.5.14, 4.0.0)"
         }
       },
       "AWSSDK.Lambda": {
         "type": "Direct",
-        "requested": "[3.7.8.12, )",
-        "resolved": "3.7.8.12",
-        "contentHash": "hQzwPRDRuAPedhGhc3YQEfPC5IJycb/X/qsL40elmPdvnLBNOUUC7bjtg3eXybZAHN+Iivu9TpkQ2e4Ab9Mu0A==",
+        "requested": "[3.7.8.13, )",
+        "resolved": "3.7.8.13",
+        "contentHash": "ExfPnhodQYmZkcLiH+jwqoXkkkqWyU6WbD/bY+g5IUyzRRXib5IXeIZMwS/Ez39o0oJX/SFVCKyz1Hgo4qglnw==",
         "dependencies": {
-          "AWSSDK.Core": "[3.7.5.13, 4.0.0)"
+          "AWSSDK.Core": "[3.7.5.14, 4.0.0)"
         }
       },
       "AWSSDK.RDS": {
         "type": "Direct",
-        "requested": "[3.7.9, )",
-        "resolved": "3.7.9",
-        "contentHash": "2dDi6uXPshfUrtXZdWWlKx+91vcUIkTAMDI7ypBEE6/WgkWpDSNOMzRyP9IROBaq0xe8QOGQP4toePIuwbdNpw==",
+        "requested": "[3.7.9.1, )",
+        "resolved": "3.7.9.1",
+        "contentHash": "P5sJrZ7kWYL4u7WPdPWOaDsPebVkv9hP1QA651TVkWrIaDTSt5Bd+tss7v8rgvYvbAKFY6NCDKrCl9TnF7rQoQ==",
         "dependencies": {
-          "AWSSDK.Core": "[3.7.5.13, 4.0.0)"
+          "AWSSDK.Core": "[3.7.5.14, 4.0.0)"
         }
       },
       "Lambdajection": {
@@ -58,8 +58,8 @@
       },
       "AWSSDK.Core": {
         "type": "Transitive",
-        "resolved": "3.7.5.13",
-        "contentHash": "1n1mDWG+2BIx4Tr75w3Lf0DK9fibmVVWxSI6kFTagXhOy3Y6gVJ1KtLfM0ykzZ9JwjsZYo0lBLMOAfOS4vsFng=="
+        "resolved": "3.7.5.14",
+        "contentHash": "q9x+37skQrA7KVzmN1TtGv7/olijT6OzR5xQ1UeK8csCPf9GEusia2uZ/TzqWHpjQegeBMBVWfCtFWTigzs4VA=="
       },
       "Humanizer.Core": {
         "type": "Transitive",
