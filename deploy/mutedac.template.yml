@@ -53,6 +53,18 @@ Resources:
       PubliclyAccessible: false
       DBSubnetGroupName: !ImportValue cfn-utilities:DBSubnetGroupName
 
+  AccessPolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      Roles:
+        - Federated
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action: rds-db:connect
+            Resource: "*"
+
   StartDatabaseFunctionPolicy:
     Type: AWS::IAM::ManagedPolicy
     Properties:
