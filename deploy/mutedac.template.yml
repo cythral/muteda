@@ -29,8 +29,8 @@ Resources:
     Type: AWS::RDS::DBCluster
     Properties:
       Engine: aurora-mysql
-      EngineVersion: 5.7.mysql_aurora.2.10.1
-      DBClusterParameterGroupName: default.aurora-mysql5.7
+      EngineVersion: 8.0.mysql_aurora.3.01.0
+      DBClusterParameterGroupName: default.aurora-mysql5.8
       MasterUsername: !Ref MasterUsername
       MasterUserPassword: !GetAtt DecryptedMasterPassword.Plaintext
       BackupRetentionPeriod: 10
