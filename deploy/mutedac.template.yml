@@ -30,7 +30,7 @@ Resources:
     Properties:
       Engine: aurora-mysql
       EngineVersion: 8.0.mysql_aurora.3.01.0
-      DBClusterParameterGroupName: default.aurora-mysql5.8
+      DBClusterParameterGroupName: default.aurora-mysql8.0
       MasterUsername: !Ref MasterUsername
       MasterUserPassword: !GetAtt DecryptedMasterPassword.Plaintext
       BackupRetentionPeriod: 10
