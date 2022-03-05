@@ -47,7 +47,7 @@ Resources:
     Type: AWS::RDS::DBInstance
     Properties:
       Engine: aurora-mysql
-      DBInstanceClass: db.t3.small
+      DBInstanceClass: db.t3.medium
       DBClusterIdentifier: !Ref Cluster
       PubliclyAccessible: false
       DBSubnetGroupName: !ImportValue cfn-utilities:DBSubnetGroupName
