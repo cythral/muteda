@@ -22,9 +22,9 @@
       },
       "AWSSDK.Lambda": {
         "type": "Direct",
-        "requested": "[3.7.9.7, )",
-        "resolved": "3.7.9.7",
-        "contentHash": "uxTbB+5BUc3X1VsuOkgyreQgkeArQX4U/5vWT43cE+IEU53f+2NvTBV0FbJ7XdOD/VLI/+/kIC1vCVAlk3aJ0g==",
+        "requested": "[3.7.10, )",
+        "resolved": "3.7.10",
+        "contentHash": "ZFDVwNeiasqgkLHb6vcftHEmJJhjiCb01IP1yA5xehdd6niJW3pBm4ifwvJKRrh6yVkZRAJnMfVeWamz/boe+g==",
         "dependencies": {
           "AWSSDK.Core": "[3.7.8.9, 4.0.0)"
         }
