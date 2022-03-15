@@ -103,8 +103,8 @@
       },
       "AWSSDK.RDS": {
         "type": "Transitive",
-        "resolved": "3.7.10.13",
-        "contentHash": "JDnoFyXcC0QyrA8fQFWOcwc8VJcTlegc/1aKzjZcyI30a4S3qH642Xlh5p2FAgXwcV1ObUhP4ZJZdp8opncM3Q==",
+        "resolved": "3.7.10.14",
+        "contentHash": "tisQ9vXhbU+ruwqHGNc3LBvxrxTzHBduMyB5Llh7gBPmfbJOY7w1RTN+CR8u0uTPju5Z/2udjW+HAwTZS2TfUg==",
         "dependencies": {
           "AWSSDK.Core": "[3.7.8.10, 4.0.0)"
         }
@@ -1517,7 +1517,7 @@
         "dependencies": {
           "AWSSDK.EventBridge": "3.7.4.82",
           "AWSSDK.Lambda": "3.7.10.1",
-          "AWSSDK.RDS": "3.7.10.13",
+          "AWSSDK.RDS": "3.7.10.14",
           "AWSSDK.SQS": "3.7.2.33",
           "AWSSDK.SimpleNotificationService": "3.7.3.36",
           "Amazon.Lambda.Serialization.SystemTextJson": "2.2.0",
@@ -1540,7 +1540,7 @@
         "dependencies": {
           "AWSSDK.EventBridge": "3.7.4.82",
           "AWSSDK.Lambda": "3.7.10.1",
-          "AWSSDK.RDS": "3.7.10.13",
+          "AWSSDK.RDS": "3.7.10.14",
           "Amazon.Lambda.Serialization.SystemTextJson": "2.2.0",
           "Lambdajection": "0.8.4"
         }
