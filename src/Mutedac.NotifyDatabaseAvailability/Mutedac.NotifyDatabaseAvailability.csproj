@@ -8,8 +8,8 @@
     <PackageReference Include="Amazon.Lambda.Core" Version="2.1.0" />
     <PackageReference Include="Amazon.Lambda.Serialization.SystemTextJson" Version="2.2.0" />
     <PackageReference Include="Amazon.Lambda.SQSEvents" Version="2.1.0" />
-    <PackageReference Include="AWSSDK.Lambda" Version="3.7.10.1" />
-    <PackageReference Include="AWSSDK.SimpleNotificationService" Version="3.7.3.36" />
+    <PackageReference Include="AWSSDK.Lambda" Version="3.7.10.2" />
+    <PackageReference Include="AWSSDK.SimpleNotificationService" Version="3.7.3.37" />
     <PackageReference Include="Lambdajection" Version="0.8.4" />
   </ItemGroup>
 
