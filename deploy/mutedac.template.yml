@@ -26,7 +26,7 @@ Resources:
       Ciphertext: !Ref MasterPassword
 
   ParameterGroup:
-    Type: AWS::RDS::DBParameterGroup
+    Type: AWS::RDS::DBClusterParameterGroup
     Properties:
       Description: Parameter Group for Mutedac (Aurora MySQL)
       Family: aurora-mysql8.0
