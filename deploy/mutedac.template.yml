@@ -25,12 +25,20 @@ Resources:
         - MasterAccountId: !ImportValue cfn-utilities:MasterAccountId
       Ciphertext: !Ref MasterPassword
 
+  ParameterGroup:
+    Type: AWS::RDS::DBParameterGroup
+    Properties:
+      Description: Parameter Group for Mutedac (Aurora MySQL)
+      Family: aurora-mysql8.0
+      Parameters:
+        aurora_parallel_query: '1'
+
   Cluster:
     Type: AWS::RDS::DBCluster
     Properties:
       Engine: aurora-mysql
       EngineVersion: 8.0.mysql_aurora.3.01.0
-      DBClusterParameterGroupName: default.aurora-mysql8.0
+      DBClusterParameterGroupName: !Ref ParameterGroup
       MasterUsername: !Ref MasterUsername
       MasterUserPassword: !GetAtt DecryptedMasterPassword.Plaintext
       BackupRetentionPeriod: 10
