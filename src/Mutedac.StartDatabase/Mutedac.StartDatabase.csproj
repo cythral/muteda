@@ -6,11 +6,11 @@
 
   <ItemGroup>
     <PackageReference Include="Amazon.Lambda.Serialization.SystemTextJson" Version="2.3.0" />
-    <PackageReference Include="AWSSDK.EventBridge" Version="3.7.5" />
-    <PackageReference Include="AWSSDK.Lambda" Version="3.7.12.1" />
-    <PackageReference Include="AWSSDK.RDS" Version="3.7.10.23" />
-    <PackageReference Include="AWSSDK.SimpleNotificationService" Version="3.7.3.45" />
-    <PackageReference Include="AWSSDK.SQS" Version="3.7.2.42" />
+    <PackageReference Include="AWSSDK.EventBridge" Version="3.7.5.1" />
+    <PackageReference Include="AWSSDK.Lambda" Version="3.7.12.2" />
+    <PackageReference Include="AWSSDK.RDS" Version="3.7.10.24" />
+    <PackageReference Include="AWSSDK.SimpleNotificationService" Version="3.7.3.46" />
+    <PackageReference Include="AWSSDK.SQS" Version="3.7.2.43" />
     <PackageReference Include="Lambdajection" Version="0.8.4" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="6.0.0" />
   </ItemGroup>
