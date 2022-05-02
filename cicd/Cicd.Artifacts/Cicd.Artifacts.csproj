@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <RootNamespace>Mutedac.Artifacts</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Amazon.CDK.Lib" Version="2.22.0" />
+        <PackageReference Include="Constructs" Version="10.0.130" />
+    </ItemGroup>
+</Project>

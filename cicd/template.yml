@@ -1,0 +1,108 @@
+Description: Mutedac (Multi-Tenant Database Cluster)
+Transform: AWS::Serverless-2016-10-31
+Parameters:
+  MasterUsername:
+    Type: String
+    Description: Master username for the database cluster
+
+  MasterPassword:
+    Type: String
+    Description: Master password for the database cluster
+
+  EnableDatabaseStopping:
+    Type: String
+    Description: Whether or not to allow the database to be stopped when it is inactive
+    AllowedValues:
+      - "true"
+      - "false"
+
+Resources:
+  DecryptedMasterPassword:
+    Type: Custom::Secret
+    Properties:
+      ServiceToken: !Sub
+        - arn:aws:lambda:${AWS::Region}:${MasterAccountId}:function:Secret
+        - MasterAccountId: !ImportValue cfn-utilities:MasterAccountId
+      Ciphertext: !Ref MasterPassword
+
+  ParameterGroup:
+    Type: AWS::RDS::DBClusterParameterGroup
+    Properties:
+      Description: Parameter Group for Mutedac (Aurora MySQL)
+      Family: aurora-mysql8.0
+      Parameters:
+        aurora_parallel_query: '1'
+
+  Cluster:
+    Type: AWS::RDS::DBCluster
+    Properties:
+      Engine: aurora-mysql
+      EngineVersion: 8.0.mysql_aurora.3.01.0
+      DBClusterParameterGroupName: !Ref ParameterGroup
+      MasterUsername: !Ref MasterUsername
+      MasterUserPassword: !GetAtt DecryptedMasterPassword.Plaintext
+      BackupRetentionPeriod: 10
+      EnableIAMDatabaseAuthentication: true
+      DBSubnetGroupName: !ImportValue cfn-utilities:DBSubnetGroupName
+      VpcSecurityGroupIds:
+        - !ImportValue cfn-utilities:DatabaseSecurityGroupId
+      Tags:
+        - Key: ENABLE_DATABASE_STOPPING
+          Value: !Ref EnableDatabaseStopping
+    DeletionPolicy: Snapshot
+    UpdateReplacePolicy: Snapshot
+
+  Instance:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      Engine: aurora-mysql
+      DBInstanceClass: db.t3.medium
+      DBClusterIdentifier: !Ref Cluster
+      PubliclyAccessible: false
+      DBSubnetGroupName: !ImportValue cfn-utilities:DBSubnetGroupName
+
+  AccessPolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      Roles:
+        - Federated
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action: rds-db:connect
+            Resource: "*"
+
+  ServiceRegistryName:
+    Type: AWS::ServiceDiscovery::Service
+    Properties:
+      Description: Service Registry Record for Brighid Discord Adapter
+      DnsConfig:
+        RoutingPolicy: WEIGHTED
+        DnsRecords:
+          - TTL: 60
+            Type: CNAME
+      HealthCheckCustomConfig:
+        FailureThreshold: 1
+      NamespaceId: !ImportValue brighid-infrastructure:ServiceRegistry
+      Name: db
+
+  ServiceRegistryValue:
+    Type: AWS::ServiceDiscovery::Instance
+    Properties:
+      ServiceId: !GetAtt ServiceRegistryName.Id
+      InstanceAttributes:
+        AWS_INSTANCE_CNAME: !GetAtt Cluster.Endpoint.Address
+
+Outputs:
+  ClusterName:
+    Value: !Ref Cluster
+    Description: Name of the database cluster
+    Export:
+      Name: !Sub ${AWS::StackName}:ClusterName
+
+  ClusterAddress:
+    Value: !GetAtt Cluster.Endpoint.Address
+    Description: Hostname for the multi-tenant database cluster
+    Export:
+      Name: !Sub ${AWS::StackName}:ClusterAddress

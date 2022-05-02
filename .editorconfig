@@ -15,5 +15,6 @@ dotnet_diagnostic.CS1591.severity = error
 dotnet_diagnostic.CS1591.severity = none
 dotnet_diagnostic.IDE0008.severity = none
 dotnet_diagnostic.IDE0058.severity = none
+dotnet_diagnostic.IDE0130.severity = none # Namespace match folder structure
 
 dotnet_analyzer_diagnostic.category-Style.severity = error
