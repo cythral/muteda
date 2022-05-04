@@ -6,13 +6,13 @@ Tags:
 
 Parameters:
   MasterUsername:
-    Dev: cythral
-    Prod: cythral
+    Development: cythral
+    Production: cythral
   
   MasterPassword:
-    Dev: AQICAHh4uPV0nEVcHa3p2SypoTWL5pD0GFaoWYwOD6EQxbjUgAG1h4jNlgc9WZTnxzxY8VaZAAAAcjBwBgkqhkiG9w0BBwagYzBhAgEAMFwGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMiXvRK8sH4o8nouaPAgEQgC9GHTp4N48iOTZ3kXE73V/vZJ0KrjJMG3biWRlpXjtw5mxnSYek04sq2DzQAJfJGw==
-    Prod: AQICAHg8qW+D5mdBsqfSIPEWS/dkUEL0XX9SCaLC/GQkJO8hBgHbdwMHjkHXVeU36yTTJf7PAAAAcjBwBgkqhkiG9w0BBwagYzBhAgEAMFwGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMc3WCAyr2Tbgkoy+bAgEQgC8I2HD3bo3HVpquywvuSe2VdQjBNVaallPt+s+l0MImn/dTtgDnSLgrCG89SYKpVA==
+    Development: AQICAHh4uPV0nEVcHa3p2SypoTWL5pD0GFaoWYwOD6EQxbjUgAG1h4jNlgc9WZTnxzxY8VaZAAAAcjBwBgkqhkiG9w0BBwagYzBhAgEAMFwGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMiXvRK8sH4o8nouaPAgEQgC9GHTp4N48iOTZ3kXE73V/vZJ0KrjJMG3biWRlpXjtw5mxnSYek04sq2DzQAJfJGw==
+    Production: AQICAHg8qW+D5mdBsqfSIPEWS/dkUEL0XX9SCaLC/GQkJO8hBgHbdwMHjkHXVeU36yTTJf7PAAAAcjBwBgkqhkiG9w0BBwagYzBhAgEAMFwGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMc3WCAyr2Tbgkoy+bAgEQgC8I2HD3bo3HVpquywvuSe2VdQjBNVaallPt+s+l0MImn/dTtgDnSLgrCG89SYKpVA==
 
   EnableDatabaseStopping:
-    Dev: "true"
-    Prod: "false"
+    Development: "true"
+    Production: "false"
