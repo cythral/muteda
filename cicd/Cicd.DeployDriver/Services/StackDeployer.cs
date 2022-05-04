@@ -25,12 +25,17 @@ namespace Mutedac.Cicd.DeployDriver
         public async Task Deploy(DeployContext context, CancellationToken cancellationToken)
         {
             var stackId = await CreateChangeSet(context, cancellationToken);
+            if (stackId == null)
+            {
+                return;
+            }
+
             await WaitForChangeSetCreate(stackId, context, cancellationToken);
             await ExecuteChangeSet(stackId, context, cancellationToken);
             await WaitForChangeSetExecute(stackId, context, cancellationToken);
         }
 
-        private async Task<string> CreateChangeSet(DeployContext context, CancellationToken cancellationToken)
+        private async Task<string?> CreateChangeSet(DeployContext context, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
 
@@ -53,8 +58,12 @@ namespace Mutedac.Cicd.DeployDriver
                 Tags = tags,
             };
 
-            var response = await cloudformation.CreateChangeSetAsync(request, cancellationToken);
-            return response.StackId;
+            try
+            {
+                var response = await cloudformation.CreateChangeSetAsync(request, cancellationToken);
+                return response.StackId;
+            }
+            catch (Exception) { return null; }
         }
 
         private async Task WaitForChangeSetCreate(string stackId, DeployContext context, CancellationToken cancellationToken)
