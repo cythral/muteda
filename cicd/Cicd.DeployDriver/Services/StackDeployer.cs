@@ -88,6 +88,8 @@ namespace Mutedac.Cicd.DeployDriver
                 status = response.Status;
                 reason = response.StatusReason;
             }
+
+            return true;
         }
 
         private async Task<ChangeSetType> GetChangeSetType(DeployContext context, CancellationToken cancellationToken)
