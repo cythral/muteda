@@ -69,7 +69,6 @@ namespace Mutedac.Cicd.DeployDriver
             Console.WriteLine("Waiting for changeset creation to complete...");
             var status = ChangeSetStatus.CREATE_PENDING;
             var reason = string.Empty;
-            var hasChanges = true;
 
             while (status != ChangeSetStatus.CREATE_COMPLETE)
             {
@@ -77,19 +76,18 @@ namespace Mutedac.Cicd.DeployDriver
 
                 if (status == ChangeSetStatus.FAILED)
                 {
-                    throw new Exception($"Change set {context.ChangeSetName} failed: {reason}");
+                    return reason == "No updates are to be performed."
+                        ? false
+                        : throw new Exception($"Change set {context.ChangeSetName} failed: {reason}");
                 }
 
                 await Task.Delay(1000, cancellationToken);
                 var request = new DescribeChangeSetRequest { ChangeSetName = context.ChangeSetName, StackName = stackId };
                 var response = await cloudformation.DescribeChangeSetAsync(request, cancellationToken);
 
-                hasChanges = response.Changes.Any();
                 status = response.Status;
                 reason = response.StatusReason;
             }
-
-            return hasChanges;
         }
 
         private async Task<ChangeSetType> GetChangeSetType(DeployContext context, CancellationToken cancellationToken)
