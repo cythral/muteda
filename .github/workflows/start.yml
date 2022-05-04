@@ -1,4 +1,4 @@
-name: Deploy
+name: Start Database
 on:
   workflow_call:
     secrets:
@@ -23,7 +23,7 @@ env:
   DOTNET_SYSTEM_GLOBALIZATION_PREDEFINED_CULTURES_ONLY: "false"
 
 jobs:
-  deploy:
+  start:
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
     concurrency: ${{ inputs.environment }}
@@ -44,12 +44,12 @@ jobs:
       - name: Display .NET Info
         run: dotnet --info
 
-      - name: Deploy
+      - name: Start Database
         run: |
           dotnet run \
             --project cicd/Cicd.StartDatabase/Cicd.StartDatabase.csproj
 
-      - name: Notify Deployment Failure
+      - name: Notify Start Failure
         uses: Ilshidur/action-discord@master
         if: failure()
         env:
@@ -57,7 +57,7 @@ jobs:
           DISCORD_EMBEDS: |
             [
               {
-                "title": "[${{ github.repository }}] ${{ inputs.environment }} Deployment Failure",
+                "title": "[${{ github.repository }}] ${{ inputs.environment }} Database Start Failure",
                 "url": "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}",
                 "description": "Failed to start the ${{ inputs.environment }} database.",
                 "color": 12720135
