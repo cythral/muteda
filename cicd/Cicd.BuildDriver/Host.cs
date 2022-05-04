@@ -178,7 +178,7 @@ namespace Mutedac.Cicd.BuildDriver
 
             using var outputsFileStream = File.OpenRead(OutputsFile);
             var contents = await JsonSerializer.DeserializeAsync<Dictionary<string, JsonElement>>(outputsFileStream, cancellationToken: cancellationToken);
-            var outputsText = contents!["mutedac"].GetRawText();
+            var outputsText = contents!["mutedac-cicd"].GetRawText();
 
             return JsonSerializer.Deserialize<Outputs>(outputsText)!;
         }
