@@ -24,18 +24,19 @@ namespace Mutedac.Cicd.DeployDriver
         /// <returns>The resulting task.</returns>
         public async Task Deploy(DeployContext context, CancellationToken cancellationToken)
         {
+
             var stackId = await CreateChangeSet(context, cancellationToken);
-            if (stackId == null)
+            var hasChanges = await WaitForChangeSetCreate(stackId, context, cancellationToken);
+            if (!hasChanges)
             {
                 return;
             }
 
-            await WaitForChangeSetCreate(stackId, context, cancellationToken);
             await ExecuteChangeSet(stackId, context, cancellationToken);
             await WaitForChangeSetExecute(stackId, context, cancellationToken);
         }
 
-        private async Task<string?> CreateChangeSet(DeployContext context, CancellationToken cancellationToken)
+        private async Task<string> CreateChangeSet(DeployContext context, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
 
@@ -58,20 +59,17 @@ namespace Mutedac.Cicd.DeployDriver
                 Tags = tags,
             };
 
-            try
-            {
-                var response = await cloudformation.CreateChangeSetAsync(request, cancellationToken);
-                return response.StackId;
-            }
-            catch (Exception) { return null; }
+            var response = await cloudformation.CreateChangeSetAsync(request, cancellationToken);
+            return response.StackId;
         }
 
-        private async Task WaitForChangeSetCreate(string stackId, DeployContext context, CancellationToken cancellationToken)
+        private async Task<bool> WaitForChangeSetCreate(string stackId, DeployContext context, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
             Console.WriteLine("Waiting for changeset creation to complete...");
             var status = ChangeSetStatus.CREATE_PENDING;
             var reason = string.Empty;
+            var hasChanges = true;
 
             while (status != ChangeSetStatus.CREATE_COMPLETE)
             {
@@ -85,9 +83,13 @@ namespace Mutedac.Cicd.DeployDriver
                 await Task.Delay(1000, cancellationToken);
                 var request = new DescribeChangeSetRequest { ChangeSetName = context.ChangeSetName, StackName = stackId };
                 var response = await cloudformation.DescribeChangeSetAsync(request, cancellationToken);
+
+                hasChanges = response.Changes.Any();
                 status = response.Status;
                 reason = response.StatusReason;
             }
+
+            return hasChanges;
         }
 
         private async Task<ChangeSetType> GetChangeSetType(DeployContext context, CancellationToken cancellationToken)
