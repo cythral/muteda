@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cicd.DeployDriver", "cicd\C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cicd.Utils", "cicd\Cicd.Utils\Cicd.Utils.csproj", "{167304D7-32BA-4AF2-9AD0-12B4CFAA7E83}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cicd.DeployDriver", "cicd\Cicd.StartDatabase\Cicd.DeployDriver.csproj", "{682866CF-1C52-460F-AC1A-82E8733A2CC9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cicd.StartDatabase", "cicd\Cicd.StartDatabase\Cicd.StartDatabase.csproj", "{682866CF-1C52-460F-AC1A-82E8733A2CC9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

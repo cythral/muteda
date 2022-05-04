@@ -53,9 +53,6 @@ jobs:
       - name: Expose GitHub Runtime
         uses: crazy-max/ghaction-github-runtime@v1
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-
       - name: Build
         id: build
         run: |
@@ -63,12 +60,6 @@ jobs:
             --verbosity minimal \
             --project cicd/Cicd.BuildDriver/Cicd.BuildDriver.csproj -- \
             --version ${{ github.run_number }}
-
-      - name: Test
-        run: |
-          dotnet test \
-            --logger trx \
-            --no-build
 
   start-dev:
     uses: cythral/mutedac/.github/workflows/start.yml@master
