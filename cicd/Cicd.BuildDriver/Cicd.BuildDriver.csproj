@@ -8,10 +8,6 @@
         <AssemblyAttribute Include="ProjectRootDirectory">
             <_Parameter1>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)../../'))</_Parameter1>
         </AssemblyAttribute>
-
-        <AssemblyAttribute Include="DotnetSdkVersion">
-            <_Parameter1>$(NETCoreSdkVersion)</_Parameter1>
-        </AssemblyAttribute>
     </ItemGroup>
 
     <Target Name="GetLambdajectionVersion" BeforeTargets="BeforeBuild" DependsOnTargets="ResolveReferences;RunResolvePackageDependencies">
