@@ -32,6 +32,10 @@ Resources:
       Family: aurora-mysql8.0
       Parameters:
         aurora_parallel_query: '1'
+        general_log: '1'
+        slow_query_log: '1'
+        server_audit_logging: '1'
+        server_audit_events: 'CONNECT,QUERY'
 
   Cluster:
     Type: AWS::RDS::DBCluster
@@ -44,6 +48,11 @@ Resources:
       BackupRetentionPeriod: 10
       EnableIAMDatabaseAuthentication: true
       DBSubnetGroupName: !ImportValue cfn-utilities:DBSubnetGroupName
+      EnableCloudwatchLogsExports:
+        - audit
+        - error
+        - general
+        - slowquery
       VpcSecurityGroupIds:
         - !ImportValue cfn-utilities:DatabaseSecurityGroupId
       Tags:
