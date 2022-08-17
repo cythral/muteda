@@ -13,9 +13,9 @@
       },
       "AWSSDK.RDS": {
         "type": "Direct",
-        "requested": "[3.7.15.10, )",
-        "resolved": "3.7.15.10",
-        "contentHash": "Uf63ztbkAQF+liBlcUJNSUwMftwWO67h3ia7B5ieXWhZdZ35YpPt30LafIJ60AU/Ki1dL493VRNVaHqFaUpVQA==",
+        "requested": "[3.7.16, )",
+        "resolved": "3.7.16",
+        "contentHash": "nXxjFuVVUhzdt+G0/idlRUgDffHpok/KQdF82qA/r91zxZE3fXyzrrY42E7uwDLxXiGk9pC0sa2FmHgSvILwNg==",
         "dependencies": {
           "AWSSDK.Core": "[3.7.12.22, 4.0.0)"
         }
