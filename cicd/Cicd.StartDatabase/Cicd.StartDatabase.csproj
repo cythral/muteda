@@ -4,8 +4,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="AWSSDK.CloudFormation" Version="3.7.11.19" />
-        <PackageReference Include="AWSSDK.RDS" Version="3.7.17.2" />
+        <PackageReference Include="AWSSDK.CloudFormation" Version="3.7.11.20" />
+        <PackageReference Include="AWSSDK.RDS" Version="3.7.17.3" />
         <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
     </ItemGroup>
 </Project>
